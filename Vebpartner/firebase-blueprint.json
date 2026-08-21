@@ -1,0 +1,181 @@
+{
+  "entities": {
+    "ToolListing": {
+      "title": "ToolListing",
+      "description": "An open source software tool listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 120 },
+        "slug": { "type": "string", "maxLength": 120 },
+        "tagline": { "type": "string", "maxLength": 400 },
+        "description": { "type": "string", "maxLength": 4000 },
+        "replaces": { "type": "array", "description": "Proprietary software it replaces" },
+        "category": { "type": "string", "maxLength": 100 },
+        "categoriesList": { "type": "array" },
+        "tags": { "type": "array" },
+        "techStack": { "type": "array" },
+        "license": { "type": "string", "maxLength": 80 },
+        "githubUrl": { "type": "string", "maxLength": 400 },
+        "stars": { "type": "number" },
+        "starsChange30d": { "type": "string", "maxLength": 50 },
+        "forks": { "type": "number" },
+        "websiteUrl": { "type": "string", "maxLength": 400 },
+        "docsUrl": { "type": "string", "maxLength": 400 },
+        "demoUrl": { "type": "string", "maxLength": 400 },
+        "dockerCommand": { "type": "string", "maxLength": 1000 },
+        "pricingModel": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 800 },
+        "screenshotUrl": { "type": "string", "maxLength": 800 },
+        "featured": { "type": "boolean" },
+        "verified": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["published", "draft"] },
+        "isAiNative": { "type": "boolean" },
+        "isSponsored": { "type": "boolean" },
+        "adCtaText": { "type": "string", "maxLength": 100 },
+        "adCtaUrl": { "type": "string", "maxLength": 800 },
+        "lastCommit": { "type": "string", "maxLength": 100 },
+        "repoAge": { "type": "string", "maxLength": 100 },
+        "version": { "type": "string", "maxLength": 50 },
+        "selfHosted": { "type": "string", "maxLength": 50 },
+        "upvotes": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 60 },
+        "updatedAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["name", "slug", "tagline", "category", "githubUrl"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Software directory category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "icon": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "count": { "type": "number" },
+        "badgeColor": { "type": "string", "maxLength": 50 },
+        "featured": { "type": "boolean" }
+      },
+      "required": ["name", "icon", "description"]
+    },
+    "Advertisement": {
+      "title": "Advertisement",
+      "description": "Sponsor banner placement",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 150 },
+        "sponsorName": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 800 },
+        "badgeText": { "type": "string", "maxLength": 50 },
+        "description": { "type": "string", "maxLength": 400 },
+        "ctaText": { "type": "string", "maxLength": 60 },
+        "ctaUrl": { "type": "string", "maxLength": 800 },
+        "placement": { "type": "string", "maxLength": 50 },
+        "active": { "type": "boolean" },
+        "impressions": { "type": "number" },
+        "clicks": { "type": "number" },
+        "bgGradient": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["title", "sponsorName", "ctaText", "ctaUrl", "placement", "active"]
+    },
+    "CustomPage": {
+      "title": "CustomPage",
+      "description": "Static markdown page",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "title": { "type": "string", "maxLength": 150 },
+        "subtitle": { "type": "string", "maxLength": 300 },
+        "badge": { "type": "string", "maxLength": 50 },
+        "contentMarkdown": { "type": "string", "maxLength": 20000 },
+        "published": { "type": "boolean" },
+        "showInMenu": { "type": "boolean" },
+        "showInFooter": { "type": "boolean" },
+        "category": { "type": "string", "maxLength": 50 },
+        "lastUpdated": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["slug", "title", "contentMarkdown", "published"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Site global metadata and configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "siteName": { "type": "string", "maxLength": 100 },
+        "tagline": { "type": "string", "maxLength": 300 },
+        "announcementBanner": { "type": "object" },
+        "socials": { "type": "object" },
+        "contactEmail": { "type": "string", "maxLength": 150 },
+        "enableCommunitySubmissions": { "type": "boolean" }
+      },
+      "required": ["siteName", "tagline"]
+    },
+    "UserSubmission": {
+      "title": "UserSubmission",
+      "description": "Community submitted open-source tool",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "toolName": { "type": "string", "maxLength": 120 },
+        "tagline": { "type": "string", "maxLength": 400 },
+        "replaces": { "type": "string", "maxLength": 200 },
+        "githubUrl": { "type": "string", "maxLength": 400 },
+        "websiteUrl": { "type": "string", "maxLength": 400 },
+        "category": { "type": "string", "maxLength": 100 },
+        "license": { "type": "string", "maxLength": 80 },
+        "submittedBy": { "type": "string", "maxLength": 100 },
+        "submittedAt": { "type": "string", "maxLength": 60 },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "notes": { "type": "string", "maxLength": 1000 }
+      },
+      "required": ["toolName", "githubUrl", "category"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin authorization entry",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 150 },
+        "role": { "type": "string", "enum": ["admin", "superadmin"] },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/listings/{listingId}": {
+      "schema": "ToolListing",
+      "description": "Open-source tool listings"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Directory category definitions"
+    },
+    "/advertisements/{adId}": {
+      "schema": "Advertisement",
+      "description": "Promotional advertisements"
+    },
+    "/customPages/{pageId}": {
+      "schema": "CustomPage",
+      "description": "Custom content pages"
+    },
+    "/siteSettings/{settingsId}": {
+      "schema": "SiteSettings",
+      "description": "Global website configuration settings"
+    },
+    "/userSubmissions/{submissionId}": {
+      "schema": "UserSubmission",
+      "description": "User proposed software submissions"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Authorized administrators"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix OpenAlternative Clone \u0026 Admin Hub",
+  "description": "Discover open source alternatives to proprietary software, featuring an integrated admin management portal for adding, editing, and curating listings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
