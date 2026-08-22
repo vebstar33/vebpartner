@@ -1,4 +1,5 @@
 import { Category } from '../types';
+import { BUSINESS_CATEGORIES } from './businessTaxonomy';
 
 export interface CategoryGroupDef {
   id: string;
@@ -10,30 +11,14 @@ export interface CategoryGroupDef {
 }
 
 export const CATEGORY_GROUPS: CategoryGroupDef[] = [
-  {
-    id: 'dev-cloud',
-    name: 'Developer & Cloud',
-    shortName: 'Dev & Cloud',
-    icon: 'Code2',
-    description: 'Developer tools, backend BaaS, databases, auth & automation',
-    categoryIds: ['developer-tools', 'database', 'security', 'automation'],
-  },
-  {
-    id: 'business-growth',
-    name: 'Business & Operations',
-    shortName: 'Business & Ops',
-    icon: 'Briefcase',
-    description: 'CRM, customer messaging, social management & analytics',
-    categoryIds: ['crm-support', 'customer-communication', 'social-media', 'analytics'],
-  },
-  {
-    id: 'productivity-workspace',
-    name: 'Productivity & Workspace',
-    shortName: 'Productivity',
-    icon: 'LayoutGrid',
-    description: 'Wikis, project trackers, scheduling, forms & media',
-    categoryIds: ['productivity', 'project-management', 'scheduling', 'forms-surveys', 'design-media'],
-  },
+  ...BUSINESS_CATEGORIES.filter((category) => category.id !== 'all').map((category) => ({
+    id: category.id,
+    name: category.name,
+    shortName: category.name,
+    icon: category.icon,
+    description: category.description,
+    categoryIds: [category.id],
+  })),
 ];
 
 export interface GroupedCategoryResult {

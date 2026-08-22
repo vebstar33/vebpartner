@@ -168,7 +168,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [formTagline, setFormTagline] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formReplaces, setFormReplaces] = useState('');
-  const [formCategory, setFormCategory] = useState('developer-tools');
+  const [formCategory, setFormCategory] = useState('agencies-services');
   const [formTags, setFormTags] = useState('');
   const [formTechStack, setFormTechStack] = useState('');
   const [formLicense, setFormLicense] = useState('MIT');
@@ -195,7 +195,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setFormTagline('');
     setFormDescription('');
     setFormReplaces('');
-    setFormCategory('developer-tools');
+    setFormCategory('agencies-services');
     setFormTags('');
     setFormTechStack('');
     setFormLicense('MIT');
@@ -220,7 +220,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setFormTagline(listing.tagline);
     setFormDescription(listing.description || '');
     setFormReplaces(Array.isArray(listing.replaces) ? listing.replaces.join(', ') : '');
-    setFormCategory(listing.category || 'developer-tools');
+    setFormCategory(listing.category || 'agencies-services');
     setFormTags(Array.isArray(listing.tags) ? listing.tags.join(', ') : '');
     setFormTechStack(Array.isArray(listing.techStack) ? listing.techStack.join(', ') : '');
     setFormLicense(listing.license || 'MIT');
@@ -1008,7 +1008,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   className="px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  <option value="all">All Categories ({listings.length})</option>
+                  <option value="all">All Businesses ({listings.length})</option>
                   {categories
                     .filter((c) => c.id !== 'all')
                     .map((c) => (

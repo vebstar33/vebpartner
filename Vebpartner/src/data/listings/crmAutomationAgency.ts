@@ -1,0 +1,180 @@
+import { BusinessListing } from './listing.schema';
+
+export const crmAutomationAgency: BusinessListing = {
+  id: 'crm-automation-agency',
+  name: 'CRM & Automation Agency',
+  slug: 'crm-automation-agency',
+  tagline: 'Sell CRM and marketing automation to small businesses',
+  shortDescription:
+    'Build a recurring-revenue business helping small businesses capture leads, manage customers, automate follow-ups, book appointments and generate reviews using HighLevel as the underlying platform.',
+  category: 'agencies-services',
+  categoriesList: ['Business Blueprint', 'CRM & Marketing Automation'],
+  tags: [
+    'business-blueprint',
+    'highlevel',
+    'crm',
+    'marketing-automation',
+    'recurring-revenue',
+    'agency',
+    'small-business',
+    'b2b',
+    'white-label',
+  ],
+  listingType: 'opportunity',
+  partnerModels: ['white-label', 'agency-partner'],
+  partnerModel: 'White Label · Agency Partner',
+  youSell:
+    'CRM, marketing automation, booking, follow-up, reputation management and related recurring services to your own business clients.',
+  providerHandles:
+    'Core CRM/SaaS platform, hosting/infrastructure, product updates and the underlying software functionality.',
+  youEarnThrough:
+    'Your own setup fees, monthly service packages, SaaS subscriptions and recurring client retainers.',
+  startCost: '$97/mo',
+  revenueModel: 'Recurring',
+  difficulty: 'Easy–Medium',
+  businessIcon: 'Workflow',
+  provider: {
+    name: 'HighLevel',
+    logo: '/providers/highlevel.webp',
+    website: 'https://www.gohighlevel.com',
+    affiliateUrl: 'HIGHLEVEL_AFFILIATE_URL',
+  },
+  overview: {
+    businessType: 'B2B',
+    inventoryRequired: 'No',
+    codingRequired: 'No',
+    recurringRevenue: 'Yes',
+    whiteLabel: 'Yes',
+  },
+  whatYouSell: {
+    description: 'Create a packaged CRM and marketing automation service for small businesses.',
+    items: [
+      'CRM',
+      'Lead capture',
+      'Sales pipelines',
+      'Automated email follow-up',
+      'Automated SMS follow-up',
+      'Appointment booking',
+      'Review requests',
+      'Website chat',
+      'Funnels',
+      'Landing pages',
+      'Customer communication',
+      'Marketing workflows',
+    ],
+    note: 'Do not present every feature as mandatory. The business owner chooses which services to package.',
+  },
+  targetCustomers: [
+    'Dentists',
+    'Salons',
+    'Gyms',
+    'Real-estate businesses',
+    'Contractors',
+    'Home-service businesses',
+    'Consultants',
+    'Local service businesses',
+    'Agencies',
+    'Other appointment-based businesses',
+  ],
+  howItWorks: [
+    {
+      stepNumber: 1,
+      title: 'Choose a niche',
+      description: 'Select one type of business to target.',
+      example: 'Dentists',
+    },
+    {
+      stepNumber: 2,
+      title: 'Create an offer',
+      description: 'Package the CRM and automation functionality into one simple monthly service.',
+      example: 'CRM + booking + automated follow-up + review system',
+    },
+    {
+      stepNumber: 3,
+      title: 'Configure the platform',
+      description: 'Use HighLevel to create the CRM, workflows, booking system and other functionality included in the offer.',
+    },
+    {
+      stepNumber: 4,
+      title: 'Find customers',
+      description: 'Sell the packaged service to businesses in the selected niche.',
+    },
+    {
+      stepNumber: 5,
+      title: 'Create the customer account',
+      description: "Configure the customer's account and required automations.",
+    },
+    {
+      stepNumber: 6,
+      title: 'Charge recurring revenue',
+      description: 'Charge the customer monthly for continued access to the service.',
+    },
+  ],
+  exampleBusinessModel: {
+    customerPrice: '$199/month',
+    scenarios: [
+      '10 customers x $199/month = $1,990/month gross revenue',
+      '25 customers x $199/month = $4,975/month gross revenue',
+    ],
+    disclaimer: 'These figures are illustrative examples only. Pricing, expenses, customer acquisition and actual results vary.',
+  },
+  platformCosts: [
+    {
+      planName: 'Starter',
+      price: '$97/month',
+      description: 'Suitable for testing the business model or operating with a small number of sub-accounts.',
+      details: 'Includes up to 3 sub-accounts.',
+    },
+    {
+      planName: 'Unlimited',
+      price: '$297/month',
+      description: 'Designed for growing agencies.',
+      details: 'Includes unlimited sub-accounts.',
+    },
+    {
+      planName: 'Agency Pro',
+      price: '$497/month',
+      description: 'Designed for agencies wanting to operate a more automated SaaS-style business.',
+      details: 'Includes SaaS Mode and automated sub-account creation.',
+    },
+  ],
+  whyProvider: [
+    {
+      title: 'All-in-one platform',
+      description:
+        'HighLevel combines functionality such as CRM, pipelines, booking, websites, funnels, workflows and customer communication within one platform.',
+    },
+    {
+      title: 'Built for agencies',
+      description: 'Higher plans support multiple client sub-accounts, with Unlimited supporting unlimited sub-accounts.',
+    },
+    {
+      title: 'White-label potential',
+      description: 'Agency-oriented plans provide branding and white-label capabilities.',
+    },
+    {
+      title: 'SaaS potential',
+      description: 'Agency Pro includes SaaS Mode, which can automate parts of account creation and recurring SaaS delivery.',
+    },
+  ],
+  requirements: [
+    { label: 'Platform', value: 'HighLevel' },
+    { label: 'Minimum platform cost', value: '$97/month' },
+    { label: 'Inventory', value: 'None' },
+    { label: 'Coding', value: 'Not required' },
+    { label: 'Customer type', value: 'Businesses' },
+    { label: 'Revenue model', value: 'Monthly recurring revenue' },
+    { label: 'Can scale to multiple customers', value: 'Yes' },
+    { label: 'White-label potential', value: 'Yes' },
+  ],
+  monetization: {
+    type: 'Affiliate',
+    commissionType: 'Recurring referral commission',
+    commissionValue: 'See provider affiliate terms',
+    secondTierCommission: 'See provider affiliate terms',
+  },
+  status: 'published',
+  featured: true,
+  lastVerified: '2026-08-20T00:00:00Z',
+  upvotes: 428,
+};

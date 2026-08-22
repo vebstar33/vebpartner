@@ -209,9 +209,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <div className="grid grid-cols-3 gap-4 pb-3">
                       {groupedCategories.map((group) => {
                         const GroupIcon =
-                          group.id === 'dev-cloud'
+                          group.id === 'ai-businesses'
                             ? Code2
-                            : group.id === 'business-growth'
+                            : group.id === 'agencies-services'
                             ? Briefcase
                             : LayoutGrid;
 
@@ -265,10 +265,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onClick={() => handleCategoryClick('all')}
                         className="text-emerald-400 dark:text-emerald-400 light:text-emerald-600 hover:underline font-semibold cursor-pointer"
                       >
-                        Browse All {totalListingsCount || ''} Open-Source Tools &rarr;
+                        Browse All {totalListingsCount || ''} Businesses &rarr;
                       </button>
                       <span className="text-zinc-400 dark:text-zinc-400 light:text-zinc-500 text-[11px]">
-                        {categories.length - 1} curated software categories
+                        {categories.length - 1} business categories
                       </span>
                     </div>
                   </div>

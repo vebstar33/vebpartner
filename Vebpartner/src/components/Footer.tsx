@@ -68,19 +68,19 @@ export const Footer: React.FC<FooterProps> = ({
 
   const POPULAR_CATEGORIES = [
     [
-      { name: 'Developer Tools', id: 'dev-tools', count: 48 },
-      { name: 'Databases', id: 'databases', count: 32 },
-      { name: 'Analytics & BI', id: 'analytics', count: 21 },
+      { name: 'Agencies & Services', id: 'agencies-services', count: 16 },
+      { name: 'AI Businesses', id: 'ai-businesses', count: 5 },
+      { name: 'E-commerce', id: 'e-commerce', count: 5 },
     ],
     [
-      { name: 'Productivity & Notes', id: 'productivity', count: 29 },
-      { name: 'AI & Machine Learning', id: 'ai-ml', count: 34 },
-      { name: 'Communication', id: 'communication', count: 19 },
+      { name: 'Creator Businesses', id: 'creator-businesses', count: 7 },
+      { name: 'Reseller Businesses', id: 'reseller-businesses', count: 3 },
+      { name: 'Automation & No-Code', id: 'automation-no-code', count: 7 },
     ],
     [
-      { name: 'Security & Auth', id: 'security', count: 12 },
-      { name: 'Forms & Surveys', id: 'forms-surveys', count: 10 },
-      { name: 'Scheduling & Booking', id: 'scheduling', count: 8 },
+      { name: 'Marketing & Growth', id: 'marketing-growth', count: 9 },
+      { name: 'Content & Media', id: 'content-media', count: 8 },
+      { name: 'All Businesses', id: 'all', count: 36 },
     ],
   ];
 

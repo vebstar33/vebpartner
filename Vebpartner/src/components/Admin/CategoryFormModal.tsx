@@ -139,7 +139,7 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
               required
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
-              placeholder="e.g. AI & Machine Learning, Vector Databases"
+              placeholder="e.g. AI Businesses, Reseller Businesses"
               className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>

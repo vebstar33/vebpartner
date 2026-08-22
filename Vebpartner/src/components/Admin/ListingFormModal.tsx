@@ -42,7 +42,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
   const [description, setDescription] = useState('');
   const [replacesInput, setReplacesInput] = useState('');
   const [replacesList, setReplacesList] = useState<string[]>([]);
-  const [category, setCategory] = useState('developer-tools');
+  const [category, setCategory] = useState('agencies-services');
   const [tagInput, setTagInput] = useState('');
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [techInput, setTechInput] = useState('');
@@ -83,7 +83,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
       setTagline(listingToEdit.tagline || '');
       setDescription(listingToEdit.description || '');
       setReplacesList(listingToEdit.replaces || []);
-      setCategory(listingToEdit.category || 'developer-tools');
+      setCategory(listingToEdit.category || 'agencies-services');
       setTagsList(listingToEdit.tags || []);
       setTechList(listingToEdit.techStack || []);
       setLicense(listingToEdit.license || 'MIT');
@@ -110,7 +110,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
       setTagline('');
       setDescription('');
       setReplacesList([]);
-      setCategory('developer-tools');
+      setCategory('agencies-services');
       setTagsList([]);
       setTechList([]);
       setLicense('MIT');

@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  SITE_URL = "https://vebpartner.com"
+  VITE_SITE_URL = "https://vebpartner.com"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

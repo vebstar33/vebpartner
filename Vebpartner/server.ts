@@ -11,6 +11,14 @@ import {
   INITIAL_SITE_SETTINGS,
 } from './src/data/seedListings.ts';
 import {
+  BUSINESS_FILTER_TAGS,
+  getBusinessFilterTags,
+  getListingBusinessCategoryNames,
+  getListingPrimaryBusinessCategoryId,
+  listingMatchesBusinessCategory,
+} from './src/lib/businessTaxonomy.ts';
+import { PROTOTYPE_LISTING_TYPES, PROTOTYPE_OPPORTUNITY_DETAILS } from './src/lib/listingTypePresentation.ts';
+import {
   ToolListing,
   UserSubmission,
   Category,
@@ -81,38 +89,114 @@ function saveData<T>(file: string, data: T) {
   }
 }
 
-let listings: ToolListing[] = deduplicateById(loadData<ToolListing[]>(LISTINGS_FILE, INITIAL_LISTINGS));
-let submissions: UserSubmission[] = loadData<UserSubmission[]>(SUBMISSIONS_FILE, [
-  {
-    id: 'sub-1',
-    toolName: 'AFFiNE',
-    tagline: 'Next-gen all-in-one workspace with shape & block editor, replacing Notion and Miro',
-    replaces: 'Notion, Miro, Monday.com',
-    githubUrl: 'https://github.com/toeverything/AFFiNE',
-    websiteUrl: 'https://affine.pro',
-    category: 'productivity',
-    license: 'MIT',
-    submittedBy: 'community_member',
-    submittedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    status: 'pending',
-    notes: 'Outstanding hybrid canvas + doc editor, very popular with 42k stars.',
-  },
-  {
-    id: 'sub-2',
-    toolName: 'Umami',
-    tagline: 'Simple, fast, privacy-focused alternative to Google Analytics',
-    replaces: 'Google Analytics',
-    githubUrl: 'https://github.com/umami-software/umami',
-    websiteUrl: 'https://umami.is',
-    category: 'analytics',
-    license: 'MIT',
-    submittedBy: 'alex_dev',
-    submittedAt: new Date(Date.now() - 86400000).toISOString(),
-    status: 'pending',
-    notes: 'Easy to self-host with Vercel and Supabase Postgres.',
-  },
-]);
-let categories: Category[] = loadData<Category[]>(CATEGORIES_FILE, INITIAL_CATEGORIES);
+const PROVIDER_LOGO_PATHS: Record<string, string> = {
+  apollo: '/providers/apollo.png',
+  birdeye: '/providers/birdeye.png',
+  brightlocal: '/providers/brightlocal.png',
+  cloudways: '/providers/cloudways.png',
+  crisp: '/providers/crisp.png',
+  duda: '/providers/duda.png',
+  elevenlabs: '/providers/elevenlabs.png',
+  freshworks: '/providers/freshworks.png',
+  getresponse: '/providers/getresponse.png',
+  godaddy: '/providers/godaddy.png',
+  heygen: '/providers/heygen.png',
+  highlevel: '/providers/highlevel.webp',
+  hostinger: '/providers/hostinger.png',
+  instantly: '/providers/instantly.png',
+  jotform: '/providers/jotform.png',
+  kit: '/providers/kit.png',
+  make: '/providers/make.png',
+  podia: '/providers/podia.png',
+  printful: '/providers/printful.png',
+  riverside: '/providers/riverside.png',
+  sellfy: '/providers/sellfy.png',
+  simplybookme: '/providers/simplybookme.png',
+  'simplybook.me': '/providers/simplybookme.png',
+  semrush: '/providers/semrush.png',
+  shopify: '/providers/shopify.png',
+  socialbee: '/providers/socialbee.png',
+  softr: '/providers/softr.png',
+  spocket: '/providers/spocket.png',
+  synthesia: '/providers/synthesia.png',
+  'systeme.io': '/providers/systemeio.png',
+  thinkific: '/providers/thinkific.png',
+  tidio: '/providers/tidio.png',
+  webflow: '/providers/webflow.png',
+  writesonic: '/providers/writesonic.png',
+  yesim: '/providers/yesim.webp',
+  beehiiv: '/providers/beehiiv.png',
+  circle: '/providers/circle.png',
+};
+
+const getSiteUrl = () => (process.env.SITE_URL || process.env.VITE_SITE_URL || process.env.APP_URL || 'https://vebpartner.com').replace(/\/+$/, '');
+
+const escapeXml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+
+function getListingPath(listing: ToolListing) {
+  return `/business/${encodeURIComponent(listing.slug || listing.id)}`;
+}
+
+function buildSitemapXml() {
+  const siteUrl = getSiteUrl();
+  type SitemapUrl = { loc: string; priority: string; lastmod?: string };
+  const listingUrls: SitemapUrl[] = listings
+    .filter((listing) => listing.status !== 'draft')
+    .map((listing) => ({
+      loc: `${siteUrl}${getListingPath(listing)}`,
+      lastmod: listing.updatedAt || listing.createdAt,
+      priority: '0.8',
+    }));
+  const pageUrls: SitemapUrl[] = pages
+    .filter((page) => page.published !== false && page.slug)
+    .map((page) => ({
+      loc: `${siteUrl}/${encodeURIComponent(page.slug)}`,
+      priority: page.slug === 'about' ? '0.7' : '0.6',
+    }));
+  const urls: SitemapUrl[] = [{ loc: `${siteUrl}/`, priority: '1.0' }, ...listingUrls, ...pageUrls];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((url) => `  <url>
+    <loc>${escapeXml(url.loc)}</loc>${url.lastmod ? `\n    <lastmod>${escapeXml(url.lastmod)}</lastmod>` : ''}
+    <priority>${url.priority}</priority>
+  </url>`).join('\n')}
+</urlset>
+`;
+}
+
+function normalizeBusinessListing(listing: ToolListing): ToolListing {
+  const category = getListingPrimaryBusinessCategoryId(listing.id, listing.name);
+  const categoriesList = getListingBusinessCategoryNames(listing.id, listing.name);
+  const tags = Array.from(new Set([...getBusinessFilterTags(listing), ...(listing.tags || [])]));
+  const prototypeType = PROTOTYPE_LISTING_TYPES[listing.id];
+  const prototypeOpportunityDetails = PROTOTYPE_OPPORTUNITY_DETAILS[listing.id];
+  const providerName = listing.providerName || listing.blueprintDetails?.providerName || '';
+  const mappedProviderLogoUrl = PROVIDER_LOGO_PATHS[providerName.toLowerCase()];
+  return {
+    ...listing,
+    category,
+    categoriesList,
+    tags,
+    listingType: listing.listingType || prototypeType?.listingType,
+    partnerModels: listing.partnerModels || prototypeType?.partnerModels,
+    providerLogoUrl: mappedProviderLogoUrl || listing.providerLogoUrl,
+    partnerModel: listing.partnerModel || prototypeOpportunityDetails?.partnerModel,
+    youSell: listing.youSell || prototypeOpportunityDetails?.youSell,
+    providerHandles: listing.providerHandles || prototypeOpportunityDetails?.providerHandles,
+    youEarnThrough: listing.youEarnThrough || prototypeOpportunityDetails?.youEarnThrough,
+  };
+}
+
+let listings: ToolListing[] = deduplicateById(loadData<ToolListing[]>(LISTINGS_FILE, INITIAL_LISTINGS)).map(normalizeBusinessListing);
+let submissions: UserSubmission[] = loadData<UserSubmission[]>(SUBMISSIONS_FILE, []);
+let categories: Category[] = INITIAL_CATEGORIES;
 let ads: Advertisement[] = loadData<Advertisement[]>(ADS_FILE, INITIAL_ADS);
 let pages: CustomPage[] = loadData<CustomPage[]>(PAGES_FILE, INITIAL_PAGES);
 let siteSettings: SiteSettings = loadData<SiteSettings>(SETTINGS_FILE, INITIAL_SITE_SETTINGS);
@@ -145,6 +229,19 @@ app.get('/api/health', (req, res) => {
     adsCount: ads.length,
     pagesCount: pages.length,
   });
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml').send(buildSitemapXml());
+});
+
+app.get('/robots.txt', (req, res) => {
+  const siteUrl = getSiteUrl();
+  res.type('text/plain').send(`User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`);
 });
 
 // Analytics Overview
@@ -217,7 +314,7 @@ app.post('/api/listings', (req, res) => {
       tagline: data.tagline,
       description: data.description || '',
       replaces: Array.isArray(data.replaces) ? data.replaces : (data.replaces ? data.replaces.split(',').map((s: string) => s.trim()) : []),
-      category: data.category || 'developer-tools',
+      category: data.category || 'agencies-services',
       tags: Array.isArray(data.tags) ? data.tags : (data.tags ? data.tags.split(',').map((s: string) => s.trim()) : []),
       techStack: Array.isArray(data.techStack) ? data.techStack : (data.techStack ? data.techStack.split(',').map((s: string) => s.trim()) : []),
       license: data.license || 'MIT',
@@ -235,6 +332,12 @@ app.post('/api/listings', (req, res) => {
       verified: data.verified !== undefined ? Boolean(data.verified) : true,
       isAiNative: Boolean(data.isAiNative),
       isSponsored: Boolean(data.isSponsored),
+      listingType: data.listingType,
+      partnerModels: Array.isArray(data.partnerModels) ? data.partnerModels : undefined,
+      partnerModel: data.partnerModel,
+      youSell: data.youSell,
+      providerHandles: data.providerHandles,
+      youEarnThrough: data.youEarnThrough,
       adCtaText: data.adCtaText || '',
       adCtaUrl: data.adCtaUrl || '',
       upvotes: Number(data.upvotes) || 1,
@@ -368,9 +471,7 @@ app.get('/api/categories', (req, res) => {
     if (cat.id === 'all') {
       return { ...cat, count: listings.length };
     }
-    const count = listings.filter(
-      (l) => l.category === cat.id || (Array.isArray(l.categoriesList) && l.categoriesList.includes(cat.name))
-    ).length;
+    const count = listings.filter((listing) => listingMatchesBusinessCategory(listing, cat.id)).length;
     return { ...cat, count };
   });
   res.json(categoriesWithCounts);
@@ -662,17 +763,14 @@ app.put('/api/settings', (req, res) => {
 app.get('/api/tags', (req, res) => {
   const counts: Record<string, number> = {};
   listings.forEach((l) => {
-    if (Array.isArray(l.tags)) {
-      l.tags.forEach((t) => {
-        const clean = t.trim();
-        if (clean) counts[clean] = (counts[clean] || 0) + 1;
-      });
-    }
+    getBusinessFilterTags(l).forEach((tag) => {
+      counts[tag] = (counts[tag] || 0) + 1;
+    });
   });
-  const tagList: TagItem[] = Object.entries(counts).map(([name, count]) => ({
+  const tagList: TagItem[] = BUSINESS_FILTER_TAGS.filter((tag) => counts[tag] > 0).map((name) => ({
     id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     name,
-    count,
+    count: counts[name],
   }));
   res.json(tagList);
 });
@@ -697,7 +795,7 @@ app.post('/api/submissions', (req, res) => {
       replaces: data.replaces || '',
       githubUrl: data.githubUrl || '',
       websiteUrl: data.websiteUrl || '',
-      category: data.category || 'developer-tools',
+      category: data.category || 'agencies-services',
       license: data.license || 'MIT',
       submittedBy: data.submittedBy || 'Anonymous Contributor',
       submittedAt: new Date().toISOString(),
@@ -733,7 +831,7 @@ app.post('/api/submissions/:id/approve', (req, res) => {
       tagline: sub.tagline || `Open source alternative to ${sub.replaces || 'proprietary tools'}`,
       description: `${sub.toolName} is an open-source tool submitted by the community. It provides a transparent, customizable alternative to ${sub.replaces || 'proprietary software'}.`,
       replaces: sub.replaces ? sub.replaces.split(',').map((r) => r.trim()).filter(Boolean) : ['Proprietary SaaS'],
-      category: sub.category || 'developer-tools',
+      category: sub.category || 'agencies-services',
       tags: ['Open Source', 'Community Pick', sub.category],
       techStack: ['TypeScript', 'JavaScript'],
       license: sub.license || 'MIT',
@@ -798,7 +896,7 @@ Include:
 - tagline: A punchy 1-sentence description (e.g. "The open source Firebase alternative with Postgres database")
 - description: 2-3 detailed sentences explaining key capabilities and architectural strengths.
 - replaces: Array of famous proprietary closed-source SaaS applications it replaces (e.g. ["Notion", "Airtable"] or ["Google Analytics"] or ["Calendly"])
-- category: One of ["analytics", "database", "productivity", "developer-tools", "project-management", "design-media", "crm-support", "forms-surveys", "scheduling", "documents", "marketing-cms", "ecommerce", "automation", "security", "customer-communication", "social-media"]
+- category: One of ["agencies-services", "ai-businesses", "e-commerce", "creator-businesses", "reseller-businesses", "automation-no-code", "marketing-growth", "content-media"]
 - tags: Array of 4-6 keyword tags
 - techStack: Array of primary technologies/languages (e.g. ["TypeScript", "Rust", "PostgreSQL", "Next.js"])
 - license: License string (e.g. "MIT", "AGPL-3.0", "Apache-2.0")
@@ -865,8 +963,8 @@ Include:
     tagline: `Modern open source alternative software built with high performance and data privacy`,
     description: `${capitalized} is a community-driven open source platform designed as a transparent, self-hostable replacement for proprietary cloud services.`,
     replaces: ['Proprietary SaaS', 'Cloud Vendor'],
-    category: 'developer-tools',
-    tags: ['Open Source', 'Self-Hosted', 'Developer Tools', 'Privacy'],
+    category: 'agencies-services',
+    tags: ['Agency', 'B2B', 'Recurring Revenue'],
     techStack: ['TypeScript', 'Node.js', 'PostgreSQL', 'Docker'],
     license: 'MIT',
     estimatedStars: 15000,

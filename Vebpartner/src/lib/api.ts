@@ -7,27 +7,58 @@ import {
   SiteSettings,
   TagItem,
 } from '../types';
+import {
+  INITIAL_ADS,
+  INITIAL_CATEGORIES,
+  INITIAL_LISTINGS,
+  INITIAL_PAGES,
+  INITIAL_SITE_SETTINGS,
+} from '../data/seedListings';
+import { BUSINESS_FILTER_TAGS, getBusinessFilterTags, listingMatchesBusinessCategory } from './businessTaxonomy';
 import * as firestoreService from './firestoreService';
 
 const API_BASE = '/api';
 
+const getPublishedListings = () => INITIAL_LISTINGS.filter((listing) => listing.status !== 'draft');
+
+const getStaticCategoriesWithCounts = () => {
+  const publishedListings = getPublishedListings();
+
+  return INITIAL_CATEGORIES.map((category) => ({
+    ...category,
+    count:
+      category.id === 'all'
+        ? publishedListings.length
+        : publishedListings.filter((listing) => listingMatchesBusinessCategory(listing, category.id)).length,
+  }));
+};
+
+const getStaticTags = (): TagItem[] => {
+  const counts: Record<string, number> = {};
+
+  getPublishedListings().forEach((listing) => {
+    getBusinessFilterTags(listing).forEach((tag) => {
+      counts[tag] = (counts[tag] || 0) + 1;
+    });
+  });
+
+  return BUSINESS_FILTER_TAGS.filter((tag) => counts[tag] > 0).map((name) => ({
+    id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    name,
+    count: counts[name],
+  }));
+};
+
 export const api = {
   // Listings
   async getListings(): Promise<ToolListing[]> {
-    try {
-      // Direct fetch or use express fallback
-      const res = await fetch(`${API_BASE}/listings`);
-      if (res.ok) return await res.json();
-    } catch {
-      // fallback
-    }
-    return [];
+    return getPublishedListings();
   },
 
   async getListing(id: string): Promise<ToolListing> {
-    const res = await fetch(`${API_BASE}/listings/${id}`);
-    if (!res.ok) throw new Error('Listing not found');
-    return await res.json();
+    const listing = getPublishedListings().find((item) => item.id === id || item.slug === id);
+    if (!listing) throw new Error('Listing not found');
+    return listing;
   },
 
   async createListing(listing: Partial<ToolListing>): Promise<ToolListing> {
@@ -123,9 +154,7 @@ export const api = {
 
   // Submissions
   async getSubmissions(): Promise<UserSubmission[]> {
-    const res = await fetch(`${API_BASE}/submissions`);
-    if (!res.ok) return [];
-    return await res.json();
+    return [];
   },
 
   async submitTool(submission: Partial<UserSubmission>): Promise<UserSubmission> {
@@ -170,9 +199,7 @@ export const api = {
 
   // Categories
   async getCategories(): Promise<Category[]> {
-    const res = await fetch(`${API_BASE}/categories`);
-    if (!res.ok) return [];
-    return await res.json();
+    return getStaticCategoriesWithCounts();
   },
 
   async createCategory(category: Partial<Category>): Promise<Category> {
@@ -200,9 +227,7 @@ export const api = {
 
   // Advertisements
   async getAds(): Promise<Advertisement[]> {
-    const res = await fetch(`${API_BASE}/ads`);
-    if (!res.ok) return [];
-    return await res.json();
+    return INITIAL_ADS;
   },
 
   async createAd(ad: Partial<Advertisement>): Promise<Advertisement> {
@@ -239,15 +264,13 @@ export const api = {
 
   // Custom Pages
   async getPages(): Promise<CustomPage[]> {
-    const res = await fetch(`${API_BASE}/pages`);
-    if (!res.ok) return [];
-    return await res.json();
+    return INITIAL_PAGES.filter((page) => page.published);
   },
 
   async getPage(slug: string): Promise<CustomPage> {
-    const res = await fetch(`${API_BASE}/pages/${slug}`);
-    if (!res.ok) throw new Error('Page not found');
-    return await res.json();
+    const page = INITIAL_PAGES.find((item) => item.published && (item.slug === slug || item.id === slug));
+    if (!page) throw new Error('Page not found');
+    return page;
   },
 
   async createPage(page: Partial<CustomPage>): Promise<CustomPage> {
@@ -268,9 +291,7 @@ export const api = {
 
   // Site Settings
   async getSettings(): Promise<SiteSettings> {
-    const res = await fetch(`${API_BASE}/settings`);
-    if (!res.ok) throw new Error('Failed to fetch site settings');
-    return await res.json();
+    return INITIAL_SITE_SETTINGS;
   },
 
   async updateSettings(settings: Partial<SiteSettings>): Promise<SiteSettings> {
@@ -285,9 +306,7 @@ export const api = {
   },
 
   async getTags(): Promise<TagItem[]> {
-    const res = await fetch(`${API_BASE}/tags`);
-    if (!res.ok) return [];
-    return await res.json();
+    return getStaticTags();
   },
 
   // AI Auto-enrichment

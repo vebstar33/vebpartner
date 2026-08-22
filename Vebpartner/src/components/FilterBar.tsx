@@ -16,7 +16,7 @@ import {
   FolderTree,
   Check,
 } from 'lucide-react';
-import { Category, ViewMode, SortOption } from '../types';
+import { Category, ViewMode, SortOption, ListingType } from '../types';
 import {
   CATEGORY_GROUPS,
   getGroupedCategories,
@@ -24,6 +24,7 @@ import {
 } from '../lib/categoryGroups';
 import { useSearchHistory } from '../hooks/useSearchHistory';
 import { SearchHistoryDropdown } from './SearchHistoryDropdown';
+import { LISTING_TYPE_FILTERS } from '../lib/listingTypePresentation';
 
 interface FilterBarProps {
   searchQuery: string;
@@ -31,6 +32,8 @@ interface FilterBarProps {
   categories: Category[];
   selectedCategory: string;
   onSelectCategory: (catId: string) => void;
+  selectedListingType: 'all' | ListingType;
+  onSelectListingType: (listingType: 'all' | ListingType) => void;
   selectedProprietary?: string;
   onClearProprietary?: () => void;
   selectedPricing: string;
@@ -52,6 +55,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   categories,
   selectedCategory,
   onSelectCategory,
+  selectedListingType,
+  onSelectListingType,
   selectedProprietary,
   onClearProprietary,
   selectedPricing,
@@ -114,6 +119,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
   const activeFiltersCount =
     (selectedCategory !== 'all' ? 1 : 0) +
+    (selectedListingType !== 'all' ? 1 : 0) +
     (selectedProprietary ? 1 : 0) +
     (selectedPricing !== 'all' ? 1 : 0) +
     (selectedLicense !== 'all' ? 1 : 0);
@@ -121,6 +127,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const handleResetAll = () => {
     onSearchChange('');
     onSelectCategory('all');
+    onSelectListingType('all');
     setActiveGroup('all');
     onClearProprietary?.();
     onSelectPricing('all');
@@ -141,9 +148,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     return grp.items.reduce((acc, cat) => acc + (categoryCounts[cat.id] ?? cat.count ?? 0), 0);
   };
 
-  const totalAllCount = categories
-    .filter((c) => c.id !== 'all')
-    .reduce((acc, cat) => acc + (categoryCounts[cat.id] ?? cat.count ?? 0), 0);
+  const totalAllCount =
+    categoryCounts['all'] ?? categories.find((category) => category.id === 'all')?.count ?? totalMatches;
 
   // Search Input Keydown (handling history list and submission)
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -204,7 +210,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             }`}
           >
             <LayoutGrid className="w-3.5 h-3.5" />
-            <span>All Categories</span>
+            <span>All Businesses</span>
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
                 activeGroup === 'all' && selectedCategory === 'all'
@@ -220,9 +226,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {groupedCategories.map((group) => {
             const isGroupActive = activeGroup === group.id;
             const GroupIcon =
-              group.id === 'dev-cloud'
+              group.id === 'ai-businesses'
                 ? Code2
-                : group.id === 'business-growth'
+                : group.id === 'agencies-services'
                 ? Briefcase
                 : LayoutGrid;
             const groupCount = getGroupTotalCount(group.id);
@@ -232,12 +238,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 key={group.id}
                 onClick={() => {
                   setActiveGroup(group.id);
-                  if (
-                    selectedCategory !== 'all' &&
-                    !group.items.some((c) => c.id === selectedCategory)
-                  ) {
-                    onSelectCategory(group.items[0]?.id || 'all');
-                  }
+                  onSelectCategory(group.items[0]?.id || 'all');
                 }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer ${
                   isGroupActive
@@ -393,6 +394,26 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         })}
       </div>
 
+      {/* Prototype Listing Type Filter */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none no-scrollbar py-0.5">
+        {LISTING_TYPE_FILTERS.map((filter) => {
+          const isSelected = selectedListingType === filter.id;
+          return (
+            <button
+              key={filter.id}
+              onClick={() => onSelectListingType(filter.id)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-150 border shrink-0 active:scale-95 ${
+                isSelected
+                  ? 'bg-zinc-100 dark:bg-zinc-100 light:bg-zinc-900 text-zinc-950 dark:text-zinc-950 light:text-white border-zinc-100 dark:border-zinc-100 light:border-zinc-900 font-bold shadow-sm'
+                  : 'bg-[#111111] dark:bg-[#111111] light:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-100 text-zinc-400 dark:text-zinc-400 light:text-zinc-600 hover:text-zinc-200 dark:hover:text-zinc-200 light:hover:text-zinc-900 border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200'
+              }`}
+            >
+              {filter.label}
+            </button>
+          );
+        })}
+      </div>
+
       {/* 3. Main Search, Filter Toggle, Order By, View Mode Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-1">
         {/* Search Input Box with Search History Dropdown */}
@@ -407,7 +428,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             aria-expanded={isSearchHistoryOpen}
             aria-autocomplete="list"
             aria-controls="search-history-menu"
-            placeholder="Search open-source tools, licenses, tech stack... (⌘K)"
+            placeholder="Search businesses, providers, categories... (⌘K)"
             value={searchQuery}
             onFocus={() => setIsSearchHistoryOpen(true)}
             onChange={(e) => {
@@ -576,6 +597,15 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 dark:text-emerald-300 light:text-emerald-700 font-medium">
               Category: {categories.find((c) => c.id === selectedCategory)?.name || selectedCategory}
               <button onClick={() => onSelectCategory('all')} className="hover:text-rose-400 ml-1 cursor-pointer">
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {selectedListingType !== 'all' && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-850 dark:bg-zinc-850 light:bg-zinc-100 border border-zinc-700 dark:border-zinc-700 light:border-zinc-300 text-zinc-200 dark:text-zinc-200 light:text-zinc-800 font-medium">
+              Type: {LISTING_TYPE_FILTERS.find((filter) => filter.id === selectedListingType)?.label || selectedListingType}
+              <button onClick={() => onSelectListingType('all')} className="hover:text-rose-400 ml-1 cursor-pointer">
                 <X className="w-3 h-3" />
               </button>
             </span>

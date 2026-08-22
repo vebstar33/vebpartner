@@ -149,9 +149,9 @@ export const PageView: React.FC<PageViewProps> = ({
       const trimmed = line.trim();
       if (trimmed.startsWith('# ')) {
         return (
-          <h1 key={idx} className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-4 tracking-tight">
+          <h2 key={idx} className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-4 tracking-tight">
             {trimmed.replace('# ', '')}
-          </h1>
+          </h2>
         );
       }
       if (trimmed.startsWith('### ')) {

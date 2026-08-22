@@ -2,6 +2,8 @@ export interface BlueprintDetails {
   provider?: string;
   providerName?: string;
   providerUrl?: string;
+  providerProgramUrl?: string;
+  providerLogoUrl?: string;
   affiliateUrl?: string;
   startCost?: string;
   revenueModel?: string;
@@ -58,6 +60,17 @@ export interface BlueprintDetails {
   };
 }
 
+export type ListingType = 'opportunity' | 'platform' | 'tool';
+
+export type PartnerModel =
+  | 'reseller'
+  | 'white-label'
+  | 'agency-partner'
+  | 'solution-partner'
+  | 'partner'
+  | 'distributor'
+  | 'referral-partner';
+
 export interface ToolListing {
   id: string;
   name: string;
@@ -80,12 +93,20 @@ export interface ToolListing {
   dockerCommand?: string;
   pricingModel?: string;
   logoUrl?: string;
+  businessIcon?: string;
+  providerLogoUrl?: string;
   screenshotUrl?: string;
   featured: boolean;
   verified: boolean;
   status?: 'published' | 'draft';
   isAiNative?: boolean;
   isSponsored?: boolean;
+  listingType?: ListingType;
+  partnerModels?: PartnerModel[];
+  partnerModel?: string;
+  youSell?: string;
+  providerHandles?: string;
+  youEarnThrough?: string;
   adCtaText?: string;
   adCtaUrl?: string;
   lastCommit?: string;
@@ -112,6 +133,7 @@ export interface ToolListing {
   difficulty?: string;
   providerName?: string;
   providerUrl?: string;
+  providerProgramUrl?: string;
   affiliateUrl?: string;
   blueprintDetails?: BlueprintDetails;
 }

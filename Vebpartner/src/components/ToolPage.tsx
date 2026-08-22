@@ -18,8 +18,37 @@ import {
   Layers,
   ChevronLeft,
   DollarSign,
+  Mail,
+  Smartphone,
+  Globe,
+  MessageCircle,
+  Mic,
+  Video,
+  UserRound,
+  FileText,
+  LayoutGrid,
+  ShoppingCart,
+  Monitor,
+  Headphones,
+  MessageSquare,
+  Shirt,
+  Package,
+  Download,
+  Gauge,
+  Search,
+  MapPin,
+  Send,
+  Users,
+  Share2,
+  Workflow,
 } from 'lucide-react';
 import { ToolListing } from '../types';
+import {
+  getListingTypeCardClasses,
+  getListingTypeLabel,
+  getPartnerModelLabel,
+} from '../lib/listingTypePresentation';
+import { ProviderLogoPlate } from './ProviderLogoPlate';
 import {
   VerifiedBadge,
   NovuLogo,
@@ -49,6 +78,39 @@ interface ToolPageProps {
   onReport?: () => void;
 }
 
+const businessIconMap = {
+  Calendar,
+  Download,
+  FileText,
+  Gauge,
+  Globe,
+  Headphones,
+  LayoutGrid,
+  Mail,
+  MapPin,
+  MessageCircle,
+  MessageSquare,
+  Mic,
+  Monitor,
+  Package,
+  Search,
+  Send,
+  Server,
+  Share2,
+  Shirt,
+  ShoppingCart,
+  Smartphone,
+  Users,
+  UserRound,
+  Video,
+  Workflow,
+};
+
+const BusinessIcon: React.FC<{ name?: string; className?: string }> = ({ name, className }) => {
+  const Icon = businessIconMap[name as keyof typeof businessIconMap] || Workflow;
+  return <Icon className={className} aria-hidden="true" />;
+};
+
 export const ToolPage: React.FC<ToolPageProps> = ({
   listing,
   allListings = [],
@@ -63,6 +125,14 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
+  const listingTypeLabel = getListingTypeLabel(listing.listingType);
+  const listingTypeClasses = getListingTypeCardClasses(listing.listingType);
+  const opportunityStructureRows = [
+    { label: 'Partner model', value: listing.partnerModel },
+    { label: 'You sell', value: listing.youSell },
+    { label: 'Provider handles', value: listing.providerHandles },
+    { label: 'You earn through', value: listing.youEarnThrough },
+  ].filter((row): row is { label: string; value: string } => Boolean(row.value));
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -134,7 +204,11 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 {/* Brand Logo */}
-                {listing.id === 'novu' ? (
+                {listing.businessIcon ? (
+                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200 shadow-sm shrink-0">
+                    <BusinessIcon name={listing.businessIcon} className="w-6 h-6" />
+                  </div>
+                ) : listing.id === 'novu' ? (
                   <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 shadow-sm shrink-0">
                     <NovuLogo className="w-full h-full" />
                   </div>
@@ -153,13 +227,31 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   </div>
                 )}
 
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                    {listing.name}
-                  </h1>
-                  {listing.verified && (
-                    <VerifiedBadge className="w-5 h-5 text-blue-500 shrink-0" />
+                <div className="space-y-2 min-w-0">
+                  {listingTypeLabel && (
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className={`inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border ${listingTypeClasses.badge}`}>
+                        {listingTypeLabel}
+                      </span>
+                      {listing.listingType === 'opportunity' &&
+                        listing.partnerModels?.map((partnerModel) => (
+                          <span
+                            key={partnerModel}
+                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 text-zinc-300"
+                          >
+                            {getPartnerModelLabel(partnerModel)}
+                          </span>
+                        ))}
+                    </div>
                   )}
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                      {listing.name}
+                    </h1>
+                    {listing.verified && (
+                      <VerifiedBadge className="w-5 h-5 text-blue-500 shrink-0" />
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -208,8 +300,12 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-semibold text-white">
-                    <Layers className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                    <span>{listing.providerName || 'HighLevel'}</span>
+                    {!listing.providerLogoUrl && <Layers className="w-3.5 h-3.5 text-zinc-400 shrink-0" />}
+                    <ProviderLogoPlate
+                      src={listing.providerLogoUrl}
+                      name={listing.providerName || 'HighLevel'}
+                      variant="detail"
+                    />
                   </span>
                 </div>
               </div>
@@ -277,6 +373,29 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   {listing.blueprintDetails?.leadParagraph ||
                     'Build a recurring-revenue business helping small businesses capture leads, manage customers, automate follow-ups, book appointments and generate reviews using HighLevel as the underlying platform.'}
                 </p>
+
+                {opportunityStructureRows.length > 0 && (
+                  <div className="rounded-2xl border border-zinc-800 bg-[#111111] p-5 sm:p-6 space-y-4 shadow-sm">
+                    <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                      Partner Structure
+                    </h3>
+                    <div className="divide-y divide-zinc-800/80">
+                      {opportunityStructureRows.map((row) => (
+                        <div
+                          key={row.label}
+                          className="grid grid-cols-1 sm:grid-cols-[150px_1fr] gap-1.5 sm:gap-4 py-3 first:pt-0 last:pb-0"
+                        >
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+                            {row.label}
+                          </span>
+                          <span className="text-xs sm:text-sm text-zinc-200 leading-relaxed">
+                            {row.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Business Overview Card */}
                 <div className="rounded-2xl border border-zinc-800 bg-[#111111] p-6 space-y-4 shadow-sm">
@@ -507,9 +626,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   </div>
                 </div>
 
-                {/* Why HighLevel */}
+                {/* Why Provider */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">Why HighLevel</h2>
+                  <h2 className="text-xl font-bold text-white tracking-tight">Why {listing.providerName || 'HighLevel'}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {(listing.blueprintDetails?.whyProviderReasons || [
                       {
@@ -568,13 +687,13 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-base">HighLevel</span>
+                        <span className="font-bold text-white text-base">{listing.providerName || 'HighLevel'}</span>
                         <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-                          From $97/month
+                          From {listing.blueprintDetails?.startCost || '$97/month'}
                         </span>
                       </div>
                       <p className="text-xs text-zinc-400 mt-1">
-                        CRM and marketing automation platform for agencies and businesses.
+                        {listing.blueprintDetails?.ctaData?.supportingText || 'CRM and marketing automation platform for agencies and businesses.'}
                       </p>
                     </div>
                     <a
@@ -978,7 +1097,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       <span>Inventory Req.</span>
                     </span>
                     <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">No</span>
+                    <span className="text-zinc-100 font-mono font-medium">{listing.blueprintDetails?.inventoryRequired || 'No'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -987,7 +1106,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       <span>Coding Req.</span>
                     </span>
                     <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">No</span>
+                    <span className="text-zinc-100 font-mono font-medium">{listing.blueprintDetails?.codingRequired || 'No'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -996,7 +1115,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       <span>White-Label</span>
                     </span>
                     <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-emerald-400 font-mono font-medium">Yes</span>
+                    <span className="text-emerald-400 font-mono font-medium">{listing.blueprintDetails?.whiteLabel || 'Yes'}</span>
                   </div>
                 </div>
               </div>
@@ -1128,7 +1247,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     title={tool.name}
                     className="w-9 h-9 rounded-lg bg-[#181818] border border-zinc-800 hover:border-zinc-600 p-1.5 flex items-center justify-center transition-all hover:scale-105 group"
                   >
-                    {tool.id === 'novu' ? (
+                    {tool.businessIcon ? (
+                      <BusinessIcon name={tool.businessIcon} className="w-4 h-4 text-zinc-300 group-hover:text-white" />
+                    ) : tool.id === 'novu' ? (
                       <NovuLogo className="w-full h-full" />
                     ) : tool.logoUrl ? (
                       <img src={tool.logoUrl} alt={tool.name} className="w-full h-full object-cover rounded" />

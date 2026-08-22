@@ -3,21 +3,20 @@ import {
   Star,
   Clock,
   Scale,
-  ExternalLink,
   Bot,
   Bookmark,
-  ThumbsUp,
   Edit,
   Trash2,
-  GitFork,
   ArrowUpRight,
   DollarSign,
   TrendingUp,
   Layers,
-  Zap,
 } from 'lucide-react';
 import { ToolListing, ViewMode } from '../types';
 import { VerifiedBadge } from './Icons';
+import { getListingTypeCardClasses, getListingTypeLabel } from '../lib/listingTypePresentation';
+import { ProviderLogoPlate } from './ProviderLogoPlate';
+import { getListingPath } from '../lib/seo';
 
 interface ListingCardProps {
   listing: ToolListing;
@@ -50,6 +49,14 @@ export const ListingCard: React.FC<ListingCardProps> = ({
 }) => {
   // Format stars into comma separated number (e.g. 39,531)
   const formattedStars = (listing.stars || 0).toLocaleString();
+  const listingTypeLabel = getListingTypeLabel(listing.listingType);
+  const listingTypeClasses = getListingTypeCardClasses(listing.listingType);
+  const listingPath = getListingPath(listing);
+  const openListingLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onSelect(listing);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     // If Enter or Space is pressed while focused on card
@@ -142,29 +149,22 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         id={`listing-card-${listing.id}`}
         onClick={() => onSelect(listing)}
         onKeyDown={handleKeyDown}
-        className="group relative rounded-xl bg-[#111111] dark:bg-[#111111] light:bg-white border border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200 hover:border-zinc-700 light:hover:border-zinc-300 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all duration-150 cursor-pointer shadow-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400"
+        className={`group relative rounded-xl ${listingTypeClasses.surface} border ${listingTypeClasses.border} p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all duration-150 cursor-pointer shadow-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400`}
       >
-        <div className="flex items-center gap-3 min-w-0">
-          {listing.logoUrl ? (
-            <img
-              src={listing.logoUrl}
-              alt={listing.name}
-              className="w-8 h-8 rounded-lg object-cover bg-zinc-900 dark:bg-zinc-900 light:bg-zinc-100 border border-zinc-800 dark:border-zinc-800 light:border-zinc-200 shrink-0"
-              onError={(e) => {
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
-            />
-          ) : (
-            <div className="w-8 h-8 rounded-lg bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 text-white dark:text-white light:text-zinc-800 font-bold text-xs flex items-center justify-center shrink-0">
-              {listing.name.slice(0, 2)}
-            </div>
-          )}
-
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-white dark:text-white light:text-zinc-900 text-sm truncate group-hover:text-zinc-200 transition-colors">
-                {listing.name}
+        <div className="min-w-0">
+            {listingTypeLabel && (
+              <span className={`mb-1 inline-flex px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider border whitespace-nowrap text-center min-w-[7.25rem] ${listingTypeClasses.badge}`}>
+                {listingTypeLabel}
               </span>
+            )}
+            <div className="flex items-center gap-1.5">
+              <a
+                href={listingPath}
+                onClick={openListingLink}
+                className="font-semibold text-white dark:text-white light:text-zinc-900 text-sm truncate group-hover:text-zinc-200 transition-colors"
+              >
+                {listing.name}
+              </a>
               {listing.verified && <VerifiedBadge className="w-3.5 h-3.5 shrink-0" />}
               {listing.isAiNative && (
                 <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 border border-zinc-700 dark:border-zinc-700 light:border-zinc-300">
@@ -173,7 +173,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               )}
             </div>
             <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 truncate max-w-md">{listing.tagline}</p>
-          </div>
         </div>
 
         {listing.startCost || listing.isBlueprint ? (
@@ -222,35 +221,25 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       id={`listing-card-${listing.id}`}
       onClick={() => onSelect(listing)}
       onKeyDown={handleKeyDown}
-      className="group relative rounded-2xl bg-[#111111] dark:bg-[#111111] light:bg-white border border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200 hover:border-zinc-700 light:hover:border-zinc-300 p-5 flex flex-col justify-between transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400"
+      className={`group relative rounded-2xl ${listingTypeClasses.surface} border ${listingTypeClasses.border} p-5 flex flex-col justify-between transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400`}
     >
       <div>
-        {/* Top Header: Logo + Name + AI Badge */}
+        {/* Top Header: Type badge + name + actions */}
         <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-3">
-            {listing.logoUrl ? (
-              <img
-                src={listing.logoUrl}
-                alt={listing.name}
-                className="w-10 h-10 rounded-xl object-cover bg-zinc-900 dark:bg-zinc-900 light:bg-zinc-100 border border-zinc-800/80 dark:border-zinc-800/80 light:border-zinc-200"
-                onError={(e) => {
-                  (e.currentTarget as HTMLElement).style.display = 'none';
-                }}
-              />
-            ) : (
-              <div className="w-10 h-10 rounded-xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 border border-zinc-700/80 dark:border-zinc-700/80 light:border-zinc-200 flex items-center justify-center text-white dark:text-white light:text-zinc-800 font-bold text-sm">
-                {listing.name.slice(0, 2).toUpperCase()}
-              </div>
-            )}
-
-            <div>
+          <div className="min-w-0">
+              {listingTypeLabel && (
+                <span className={`mb-1 inline-flex px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider border whitespace-nowrap text-center min-w-[7.25rem] ${listingTypeClasses.badge}`}>
+                  {listingTypeLabel}
+                </span>
+              )}
               <div className="flex items-center gap-1.5">
-                <h3 className="font-semibold text-white dark:text-white light:text-zinc-900 text-sm sm:text-base tracking-tight group-hover:text-emerald-400 dark:group-hover:text-zinc-100 transition-colors">
+                <h3 className="font-semibold text-white dark:text-white light:text-zinc-900 text-sm sm:text-base tracking-tight group-hover:text-zinc-200 dark:group-hover:text-zinc-100 transition-colors">
+                  <a href={listingPath} onClick={openListingLink}>
                   {listing.name}
+                  </a>
                 </h3>
                 {listing.verified && <VerifiedBadge className="w-3.5 h-3.5 text-blue-500 shrink-0" />}
               </div>
-            </div>
           </div>
 
           <div className="flex items-center gap-1">
@@ -260,7 +249,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
                 <span>AI</span>
               </span>
             )}
-
             {/* Quick Bookmark button on card */}
             <button
               type="button"
@@ -357,7 +345,9 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       {listing.providerName && (
         <div className="pt-2.5 mt-2.5 border-t border-zinc-800/80 dark:border-zinc-800/80 light:border-zinc-200 flex items-center justify-between text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600">
           <span className="text-[11px]">Powered by:</span>
-          <span className="font-semibold text-white dark:text-white light:text-zinc-900 font-mono text-[11px]">{listing.providerName}</span>
+          <span className="font-semibold text-white dark:text-white light:text-zinc-900 font-mono text-[11px] inline-flex items-center gap-1.5">
+            <ProviderLogoPlate src={listing.providerLogoUrl} name={listing.providerName} variant="card" />
+          </span>
         </div>
       )}
 

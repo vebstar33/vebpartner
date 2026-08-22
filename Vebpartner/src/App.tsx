@@ -16,8 +16,24 @@ import {
   TagItem,
   ViewMode,
   SortOption,
+  ListingType,
 } from './types';
 import { api } from './lib/api';
+import { listingMatchesBusinessCategory } from './lib/businessTaxonomy';
+import {
+  getHomeDescription,
+  getHomeSocialDescription,
+  getHomeTitle,
+  getListingDescription,
+  getListingPath,
+  getListingTitle,
+  getListingUrl,
+  getPageUrl,
+  getRouteFromLocation,
+  setDocumentTitleAndMeta,
+  setJsonLd,
+  SITE_URL,
+} from './lib/seo';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FilterBar } from './components/FilterBar';
@@ -45,14 +61,14 @@ export function App() {
   const [pages, setPages] = useState<CustomPage[]>([]);
   const [tags, setTags] = useState<TagItem[]>([]);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>({
-    siteName: 'Vebstar',
-    siteUrl: 'https://vebstar.com',
-    tagline: 'Discover the best open-source alternatives to proprietary software',
+    siteName: 'Vebpartner',
+    siteUrl: 'https://vebpartner.com',
+    tagline: 'Discover business opportunities, reseller programs, white-label platforms and business tools you can actually start.',
     heroTitle: 'Businesses You Can Actually Start',
-    heroSubtitle: 'Over 1 million developers and teams replaced expensive proprietary tools with transparent open-source alternatives.',
-    contactEmail: 'hello@vebstar.com',
-    twitterUrl: 'https://x.com/vebstar',
-    githubUrl: 'https://github.com/vebstar',
+    heroSubtitle: 'Discover practical business models, partner programs, platforms and tools you can use to build a real online business.',
+    contactEmail: 'hello@vebpartner.com',
+    twitterUrl: 'https://x.com/vebpartner',
+    githubUrl: 'https://github.com/vebpartner',
     announcementEnabled: false,
     announcementText: '',
     announcementUrl: '',
@@ -70,40 +86,52 @@ export function App() {
         proprietary: '',
         pricing: 'all',
         license: 'all',
+        listingType: 'all' as 'all' | ListingType,
         sort: 'stars' as SortOption,
         view: 'grid' as ViewMode,
         page: null as string | null,
         tool: null as string | null,
+        legacyTool: null as string | null,
       };
     }
 
     const params = new URLSearchParams(window.location.search);
+    const route = getRouteFromLocation(window.location);
     const q = params.get('q') || params.get('search') || '';
     const category = params.get('category') || params.get('cat') || 'all';
     const proprietary = params.get('replaces') || params.get('proprietary') || '';
     const pricing = params.get('pricing') || 'all';
     const license = params.get('license') || 'all';
+    const listingTypeParam = params.get('listingType') || params.get('type') || 'all';
+    const listingType: 'all' | ListingType =
+      listingTypeParam === 'opportunity' || listingTypeParam === 'platform' || listingTypeParam === 'tool'
+        ? listingTypeParam
+        : 'all';
     const sortParam = params.get('sort');
     const sort: SortOption = (sortParam === 'newest' || sortParam === 'upvotes' || sortParam === 'name' || sortParam === 'stars')
       ? sortParam
       : 'stars';
     const viewParam = params.get('view');
     const view: ViewMode = (viewParam === 'compact' || viewParam === 'list') ? 'compact' : 'grid';
-    const page = params.get('page') || null;
-    const tool = params.get('tool') || params.get('id') || null;
+    const page = route.pageSlug || null;
+    const tool = route.listingSlug;
+    const legacyTool = route.legacyListingParam;
 
-    return { q, category, proprietary, pricing, license, sort, view, page, tool };
+    return { q, category, proprietary, pricing, license, listingType, sort, view, page, tool, legacyTool };
   };
 
   const initialParams = useMemo(() => getInitialUrlParams(), []);
 
   // Routing & Filter States
   const [activePageSlug, setActivePageSlug] = useState<string | null>(initialParams.page);
+  const [requestedListingSlug, setRequestedListingSlug] = useState<string | null>(initialParams.tool);
+  const [routeNotFound, setRouteNotFound] = useState(false);
   const [searchQuery, setSearchQuery] = useState(initialParams.q);
   const [selectedCategory, setSelectedCategory] = useState(initialParams.category);
   const [selectedProprietary, setSelectedProprietary] = useState(initialParams.proprietary);
   const [selectedPricing, setSelectedPricing] = useState(initialParams.pricing);
   const [selectedLicense, setSelectedLicense] = useState(initialParams.license);
+  const [selectedListingType, setSelectedListingType] = useState<'all' | ListingType>(initialParams.listingType);
   const [sortBy, setSortBy] = useState<SortOption>(initialParams.sort);
   const [viewMode, setViewMode] = useState<ViewMode>(initialParams.view);
 
@@ -149,6 +177,18 @@ export function App() {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const openListingDetail = useCallback((listing: ToolListing) => {
+    setRouteNotFound(false);
+    setActivePageSlug(null);
+    setRequestedListingSlug(listing.slug || listing.id);
+    setSelectedListingDetail(listing);
+  }, []);
+
+  const closeListingDetail = useCallback(() => {
+    setRequestedListingSlug(null);
+    setSelectedListingDetail(null);
+  }, []);
+
   // Keyboard shortcut listener (⌘K or / to focus search)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -163,7 +203,7 @@ export function App() {
         setIsAdminMode(false);
         searchInputRef.current?.focus();
       } else if (e.key === 'Escape') {
-        if (selectedListingDetail) setSelectedListingDetail(null);
+        if (selectedListingDetail) closeListingDetail();
         if (isSubmitModalOpen) setIsSubmitModalOpen(false);
         if (isBookmarksOpen) setIsBookmarksOpen(false);
         if (isListingFormOpen) setIsListingFormOpen(false);
@@ -171,7 +211,7 @@ export function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedListingDetail, isSubmitModalOpen, isBookmarksOpen, isListingFormOpen]);
+  }, [closeListingDetail, selectedListingDetail, isSubmitModalOpen, isBookmarksOpen, isListingFormOpen]);
 
   // Initial Data Fetch
   const fetchData = async () => {
@@ -207,10 +247,20 @@ export function App() {
       // If initial URL had tool deep link, open it
       if (initialParams.tool && listingsData.length > 0) {
         const found = listingsData.find(
-          (l) => l.id.toLowerCase() === initialParams.tool?.toLowerCase() || l.name.toLowerCase() === initialParams.tool?.toLowerCase()
+          (l) =>
+            l.id.toLowerCase() === initialParams.tool?.toLowerCase() ||
+            l.slug?.toLowerCase() === initialParams.tool?.toLowerCase() ||
+            l.name.toLowerCase() === initialParams.tool?.toLowerCase()
         );
         if (found) {
           setSelectedListingDetail(found);
+          setRequestedListingSlug(found.slug || found.id);
+          setRouteNotFound(false);
+          if (initialParams.legacyTool && typeof window !== 'undefined') {
+            window.history.replaceState(null, '', getListingPath(found));
+          }
+        } else {
+          setRouteNotFound(true);
         }
       }
     } catch (err: any) {
@@ -228,6 +278,7 @@ export function App() {
   // Sync state to URL Search Parameters (Deep-linking)
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (routeNotFound || (requestedListingSlug && !selectedListingDetail)) return;
 
     const params = new URLSearchParams();
 
@@ -246,23 +297,28 @@ export function App() {
     if (selectedLicense && selectedLicense !== 'all') {
       params.set('license', selectedLicense);
     }
+    if (selectedListingType && selectedListingType !== 'all') {
+      params.set('listingType', selectedListingType);
+    }
     if (sortBy && sortBy !== 'stars') {
       params.set('sort', sortBy);
     }
     if (viewMode === 'compact') {
       params.set('view', 'compact');
     }
-    if (activePageSlug) {
-      params.set('page', activePageSlug);
-    }
-    if (selectedListingDetail) {
-      params.set('tool', selectedListingDetail.id);
-    }
-
     const newQueryString = params.toString();
-    const newRelativePath = newQueryString ? `${window.location.pathname}?${newQueryString}` : window.location.pathname;
+    const pathname = selectedListingDetail
+      ? getListingPath(selectedListingDetail)
+      : activePageSlug
+        ? `/${activePageSlug}`
+        : '/';
+    const newRelativePath = selectedListingDetail || activePageSlug
+      ? pathname
+      : newQueryString
+        ? `${pathname}?${newQueryString}`
+        : pathname;
 
-    if (window.location.search !== (newQueryString ? `?${newQueryString}` : '')) {
+    if (`${window.location.pathname}${window.location.search}` !== newRelativePath) {
       window.history.replaceState(null, '', newRelativePath);
     }
   }, [
@@ -271,9 +327,12 @@ export function App() {
     selectedProprietary,
     selectedPricing,
     selectedLicense,
+    selectedListingType,
     sortBy,
     viewMode,
     activePageSlug,
+    requestedListingSlug,
+    routeNotFound,
     selectedListingDetail,
   ]);
 
@@ -281,11 +340,18 @@ export function App() {
   useEffect(() => {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
+      const route = getRouteFromLocation(window.location);
       setSearchQuery(params.get('q') || params.get('search') || '');
       setSelectedCategory(params.get('category') || params.get('cat') || 'all');
       setSelectedProprietary(params.get('replaces') || params.get('proprietary') || '');
       setSelectedPricing(params.get('pricing') || 'all');
       setSelectedLicense(params.get('license') || 'all');
+      const listingTypeParam = params.get('listingType') || params.get('type') || 'all';
+      setSelectedListingType(
+        listingTypeParam === 'opportunity' || listingTypeParam === 'platform' || listingTypeParam === 'tool'
+          ? listingTypeParam
+          : 'all'
+      );
       const sortParam = params.get('sort');
       if (sortParam === 'newest' || sortParam === 'upvotes' || sortParam === 'name' || sortParam === 'stars') {
         setSortBy(sortParam);
@@ -294,14 +360,28 @@ export function App() {
       }
       const viewParam = params.get('view');
       setViewMode((viewParam === 'compact' || viewParam === 'list') ? 'compact' : 'grid');
-      setActivePageSlug(params.get('page') || null);
+      setActivePageSlug(route.pageSlug || null);
 
-      const toolParam = params.get('tool') || params.get('id');
+      const toolParam = route.listingSlug;
       if (toolParam && listings.length > 0) {
-        const found = listings.find((l) => l.id === toolParam || l.name.toLowerCase() === toolParam.toLowerCase());
-        if (found) setSelectedListingDetail(found);
+        const found = listings.find(
+          (l) =>
+            l.id === toolParam ||
+            l.slug === toolParam ||
+            l.name.toLowerCase() === toolParam.toLowerCase()
+        );
+        setRequestedListingSlug(toolParam);
+        if (found) {
+          setSelectedListingDetail(found);
+          setRouteNotFound(false);
+        } else {
+          setSelectedListingDetail(null);
+          setRouteNotFound(true);
+        }
       } else if (!toolParam) {
+        setRequestedListingSlug(null);
         setSelectedListingDetail(null);
+        setRouteNotFound(false);
       }
     };
 
@@ -545,12 +625,19 @@ export function App() {
 
         // 2. Category Filter
         if (selectedCategory && selectedCategory !== 'all') {
-          if (listing.category !== selectedCategory) {
+          if (!listingMatchesBusinessCategory(listing, selectedCategory)) {
             return false;
           }
         }
 
         // 3. Proprietary Alternative Filter
+        if (selectedListingType && selectedListingType !== 'all') {
+          if (listing.listingType !== selectedListingType) {
+            return false;
+          }
+        }
+
+        // 4. Proprietary Alternative Filter
         if (selectedProprietary) {
           const matchAlt = listing.replaces?.some(
             (r) => r.toLowerCase() === selectedProprietary.toLowerCase()
@@ -558,14 +645,14 @@ export function App() {
           if (!matchAlt) return false;
         }
 
-        // 4. Pricing Filter
+        // 5. Pricing Filter
         if (selectedPricing && selectedPricing !== 'all') {
           if (listing.pricingModel !== selectedPricing) {
             return false;
           }
         }
 
-        // 5. License Filter
+        // 6. License Filter
         if (selectedLicense && selectedLicense !== 'all') {
           if (listing.license !== selectedLicense) {
             return false;
@@ -593,6 +680,7 @@ export function App() {
     listings,
     searchQuery,
     selectedCategory,
+    selectedListingType,
     selectedProprietary,
     selectedPricing,
     selectedLicense,
@@ -602,13 +690,14 @@ export function App() {
   // Dynamic category tool counts
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: listings.length };
-    listings.forEach((l) => {
-      if (l.category) {
-        counts[l.category] = (counts[l.category] || 0) + 1;
-      }
+    categories.forEach((category) => {
+      if (category.id === 'all') return;
+      counts[category.id] = listings.filter((listing) =>
+        listingMatchesBusinessCategory(listing, category.id)
+      ).length;
     });
     return counts;
-  }, [listings]);
+  }, [listings, categories]);
 
   // Bookmarked listings full objects
   const bookmarkedListings = useMemo(() => {
@@ -635,6 +724,137 @@ export function App() {
       ) || null
     );
   }, [activePageSlug, pages]);
+
+  useEffect(() => {
+    if (loading) return;
+
+    if (requestedListingSlug && !selectedListingDetail) {
+      setRouteNotFound(true);
+      return;
+    }
+
+    if (activePageSlug && !activeCustomPage) {
+      setRouteNotFound(true);
+      return;
+    }
+
+    setRouteNotFound(false);
+  }, [activeCustomPage, activePageSlug, loading, requestedListingSlug, selectedListingDetail]);
+
+  useEffect(() => {
+    if (routeNotFound) {
+      const canonicalUrl = `${SITE_URL}${typeof window !== 'undefined' ? window.location.pathname : '/'}`;
+      setDocumentTitleAndMeta({
+        title: 'Page Not Found | Vebpartner',
+        description: 'The requested Vebpartner page could not be found.',
+        canonicalUrl,
+      });
+      setJsonLd([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Vebpartner',
+          url: SITE_URL,
+        },
+      ]);
+      return;
+    }
+
+    if (selectedListingDetail) {
+      const title = getListingTitle(selectedListingDetail);
+      const description = getListingDescription(selectedListingDetail);
+      const canonicalUrl = getListingUrl(selectedListingDetail);
+      setDocumentTitleAndMeta({
+        title,
+        description,
+        canonicalUrl,
+        ogType: 'article',
+      });
+      setJsonLd([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${SITE_URL}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: selectedListingDetail.name,
+              item: canonicalUrl,
+            },
+          ],
+        },
+      ]);
+      return;
+    }
+
+    if (activeCustomPage) {
+      const title = `${activeCustomPage.title} | Vebpartner`;
+      const description = activeCustomPage.subtitle || getHomeDescription();
+      const canonicalUrl = getPageUrl(activeCustomPage);
+      setDocumentTitleAndMeta({ title, description, canonicalUrl, ogType: 'article' });
+      setJsonLd([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${SITE_URL}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: activeCustomPage.title,
+              item: canonicalUrl,
+            },
+          ],
+        },
+      ]);
+      return;
+    }
+
+    const publishedListings = listings.filter((listing) => listing.status !== 'draft');
+    setDocumentTitleAndMeta({
+      title: getHomeTitle(),
+      description: getHomeDescription(),
+      canonicalUrl: `${SITE_URL}/`,
+      socialDescription: getHomeSocialDescription(),
+    });
+    setJsonLd([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Vebpartner',
+        url: SITE_URL,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Vebpartner',
+        url: `${SITE_URL}/`,
+        description: getHomeDescription(),
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Vebpartner business directory listings',
+        itemListElement: publishedListings.map((listing, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: listing.name,
+          url: getListingUrl(listing),
+        })),
+      },
+    ]);
+  }, [activeCustomPage, listings, routeNotFound, selectedListingDetail]);
 
   // Keyboard Navigation across Directory Listing Grid (Arrow keys, Home, End, Enter)
   const handleCardKeyDown = useCallback(
@@ -778,7 +998,32 @@ export function App() {
       />
 
       {/* Conditional View: Custom Content Page vs. Directory Home */}
-      {activePageSlug && activeCustomPage ? (
+      {routeNotFound && !loading ? (
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="max-w-2xl mx-auto rounded-3xl border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-white p-8 text-center shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">404</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white dark:text-white light:text-zinc-900 tracking-tight">
+              Page not found
+            </h1>
+            <p className="text-sm text-zinc-400 dark:text-zinc-400 light:text-zinc-600 mt-3">
+              This Vebpartner page does not exist or is no longer published.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setRouteNotFound(false);
+                setRequestedListingSlug(null);
+                setActivePageSlug(null);
+                closeListingDetail();
+                window.history.replaceState(null, '', '/');
+              }}
+              className="mt-6 px-4 py-2 rounded-xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 hover:bg-zinc-700 dark:hover:bg-zinc-700 light:hover:bg-zinc-200 text-white dark:text-white light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
+            >
+              Back to directory
+            </button>
+          </div>
+        </main>
+      ) : activePageSlug && activeCustomPage ? (
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <PageView
             page={activeCustomPage}
@@ -820,6 +1065,8 @@ export function App() {
             onSelectCategory={(catId) => {
               setSelectedCategory(catId);
             }}
+            selectedListingType={selectedListingType}
+            onSelectListingType={setSelectedListingType}
             selectedProprietary={selectedProprietary}
             onClearProprietary={() => setSelectedProprietary('')}
             selectedPricing={selectedPricing}
@@ -890,7 +1137,7 @@ export function App() {
                     viewMode={viewMode}
                     cardIndex={index}
                     onCardKeyDown={handleCardKeyDown}
-                    onSelect={(selected) => setSelectedListingDetail(selected)}
+                    onSelect={openListingDetail}
                     isBookmarked={bookmarkedIds.includes(listing.id)}
                     onToggleBookmark={handleToggleBookmark}
                     onUpvote={handleUpvote}
@@ -940,13 +1187,14 @@ export function App() {
       {selectedListingDetail && (
         <ToolDetailModal
           listing={selectedListingDetail}
-          onClose={() => setSelectedListingDetail(null)}
+          onClose={closeListingDetail}
           onUpvote={handleUpvote}
           hasUpvoted={upvotedIds.includes(selectedListingDetail.id)}
           isBookmarked={bookmarkedIds.includes(selectedListingDetail.id)}
           onToggleBookmark={handleToggleBookmark}
           allListings={listings}
-          onSelectRelated={(tool) => setSelectedListingDetail(tool)}
+          isAdminMode={isAdminMode}
+          onSelectListing={openListingDetail}
         />
       )}
 
@@ -968,7 +1216,7 @@ export function App() {
           bookmarkedListings={bookmarkedListings}
           onSelectListing={(l) => {
             setIsBookmarksOpen(false);
-            setSelectedListingDetail(l);
+            openListingDetail(l);
           }}
           onRemoveBookmark={(id) => handleToggleBookmark(id)}
           onClearAllBookmarks={() => {
