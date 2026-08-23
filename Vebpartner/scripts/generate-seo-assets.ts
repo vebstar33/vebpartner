@@ -6,7 +6,7 @@ import { INITIAL_LISTINGS, INITIAL_PAGES } from '../src/data/seedListings';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
-const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://vebpartner.com').replace(/\/+$/, '');
+const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || process.env.URL || 'https://vebpartner.com').replace(/\/+$/, '');
 type SitemapUrl = { loc: string; priority: string; lastmod?: string };
 
 const escapeXml = (value: string) =>

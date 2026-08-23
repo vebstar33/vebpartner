@@ -192,7 +192,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             className="flex items-center gap-1 hover:text-white transition-colors group"
           >
             <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back to all alternatives</span>
+            <span>Back to all businesses</span>
           </button>
         </div>
 
@@ -292,7 +292,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               {listing.tagline || listing.description}
             </p>
 
-            {/* "Powered by:" or "Open Source Alternative to:" Section */}
+            {/* "Powered by:" or related provider section */}
             {listing.isBlueprint || listing.providerName ? (
               <div className="space-y-2">
                 <h3 className="text-xs font-normal text-zinc-400">
@@ -312,7 +312,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             ) : listing.replaces && listing.replaces.length > 0 ? (
               <div className="space-y-2">
                 <h3 className="text-xs font-normal text-zinc-400">
-                  Open Source Alternative to:
+                  Related provider:
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {listing.replaces.map((prop) => (
@@ -792,7 +792,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       </div>
                       <h3 className="text-lg font-bold text-white">{listing.name} Interface</h3>
                       <p className="text-xs text-zinc-400 max-w-md mx-auto">
-                        Full open-source platform with native self-hosting capabilities and modern UI.
+                        Practical platform details, provider information and business-use context.
                       </p>
                     </div>
                   )}
@@ -805,7 +805,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       <p key={idx}>
                         {idx === 0 ? (
                           <>
-                            <strong>{listing.name}</strong> gives developers a single platform to{' '}
+                            <strong>{listing.name}</strong> gives operators a single platform to{' '}
                             <strong>handle notifications across every channel</strong>: in-app inbox, email, push, SMS, and chat. Instead of wiring together separate providers for each channel, you get one API and a visual workflow editor that covers the full delivery pipeline.
                           </>
                         ) : idx === 1 ? (
@@ -818,7 +818,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                           </>
                         ) : idx === 3 ? (
                           <>
-                            Workflows can start in the UI and graduate to code when you need runtime logic, local data access, or tighter control over branching. If you've looked at <strong>alternatives like Knock</strong> or <strong>Courier</strong>, {listing.name} covers similar ground but with a self-hostable option. Integrations include Twilio, Resend, Clerk, and Stripe.
+                            Workflows can start in the UI and expand when you need runtime logic, local data access, or tighter control over branching. If you are comparing providers such as <strong>Knock</strong> or <strong>Courier</strong>, {listing.name} covers similar ground with flexible deployment options. Integrations include Twilio, Resend, Clerk, and Stripe.
                           </>
                         ) : (
                           <>
@@ -830,10 +830,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   ) : (
                     <>
                       <p>
-                        <strong>{listing.name}</strong> gives developers a comprehensive open-source solution to avoid proprietary SaaS vendor lock-in.
+                        <strong>{listing.name}</strong> gives operators a practical business resource for building a real online offer.
                       </p>
                       <p>
-                        With zero telemetry tracking, full self-hosting Docker scripts, and active community maintenance, you can deploy {listing.name} on your own infrastructure or cloud VPC.
+                        With clear provider information, practical implementation notes, and active ecosystem signals, you can evaluate whether {listing.name} fits the business model you want to build.
                       </p>
                       <p>
                         The project has over {(listing.stars || 1000).toLocaleString()} GitHub stars and dozens of active open-source contributors.
@@ -904,7 +904,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               <div className="flex items-center gap-2 text-zinc-400">
                 <span className="text-zinc-500 mr-1">Share:</span>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=Check out ${listing.name} on OpenAlternative&url=${encodeURIComponent(window.location.href)}`}
+                  href={`https://twitter.com/intent/tweet?text=Check out ${listing.name} on Vebpartner&url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
@@ -978,18 +978,18 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               </div>
             </div>
 
-            {/* Similar Open Source Projects Section (Screenshot 1: Dittofeed card) */}
+            {/* Similar listings section */}
             <div className="space-y-4 pt-6 border-t border-zinc-800/80">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-bold text-white">Similar open source projects</h3>
+                  <h3 className="text-sm font-bold text-white">Similar business listings</h3>
                   <div className="h-px w-16 sm:w-32 bg-zinc-800" />
                 </div>
                 <button
                   onClick={onBackToDirectory}
                   className="px-3 py-1 rounded-lg border border-zinc-800 bg-[#141414] hover:bg-zinc-800 text-xs text-zinc-300 hover:text-white flex items-center gap-1 transition-colors"
                 >
-                  <span>Check {listing.name} alternatives</span>
+                  <span>View more Vebpartner listings</span>
                   <ArrowRight className="w-3 h-3 text-zinc-400" />
                 </button>
               </div>
@@ -1267,7 +1267,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-3">
               <h4 className="text-sm font-bold text-white">Subscribe to our newsletter</h4>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Every Sunday we deconstruct one proprietary app and pick the best open source alternatives worth switching to.
+                Every Sunday we break down practical business models, provider programs and tools worth understanding.
               </p>
               <form
                 onSubmit={(e) => {

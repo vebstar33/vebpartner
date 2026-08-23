@@ -20,7 +20,7 @@ export const SearchHistoryDropdown: React.FC<SearchHistoryDropdownProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const popularSearches = ['Docker', 'Supabase', 'Analytics', 'Notion alternative', 'CRM', 'PostgreSQL'];
+  const popularSearches = ['CRM', 'Reseller', 'Automation', 'E-commerce', 'Marketing', 'Creator'];
 
   return (
     <div

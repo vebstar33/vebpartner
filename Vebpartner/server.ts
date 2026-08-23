@@ -223,7 +223,7 @@ function getGemini(): GoogleGenAI | null {
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    brand: 'Vebstar',
+    brand: 'Vebpartner',
     listingsCount: listings.length,
     categoriesCount: categories.length,
     adsCount: ads.length,
@@ -325,7 +325,7 @@ app.post('/api/listings', (req, res) => {
       docsUrl: data.docsUrl || '',
       demoUrl: data.demoUrl || '',
       dockerCommand: data.dockerCommand || '',
-      pricingModel: data.pricingModel || '100% Free Open Source',
+      pricingModel: data.pricingModel || 'Partner Program / Tool',
       logoUrl: data.logoUrl || '',
       screenshotUrl: data.screenshotUrl || '',
       featured: Boolean(data.featured),
@@ -487,7 +487,7 @@ app.post('/api/categories', (req, res) => {
       id: catId,
       name,
       icon: icon || 'Sparkles',
-      description: description || `Browse open source alternatives in ${name}`,
+      description: description || `Browse business opportunities and tools in ${name}`,
       badgeColor: badgeColor || 'emerald',
       featured: Boolean(featured),
     };
@@ -828,23 +828,23 @@ app.post('/api/submissions/:id/approve', (req, res) => {
       id: listingId || `tool-${Date.now()}`,
       name: sub.toolName,
       slug: listingId,
-      tagline: sub.tagline || `Open source alternative to ${sub.replaces || 'proprietary tools'}`,
-      description: `${sub.toolName} is an open-source tool submitted by the community. It provides a transparent, customizable alternative to ${sub.replaces || 'proprietary software'}.`,
-      replaces: sub.replaces ? sub.replaces.split(',').map((r) => r.trim()).filter(Boolean) : ['Proprietary SaaS'],
+      tagline: sub.tagline || `Business resource related to ${sub.replaces || 'online business tools'}`,
+      description: `${sub.toolName} is a submitted business tool or provider listing queued for Vebpartner review.`,
+      replaces: sub.replaces ? sub.replaces.split(',').map((r) => r.trim()).filter(Boolean) : ['Business Tool'],
       category: sub.category || 'agencies-services',
-      tags: ['Open Source', 'Community Pick', sub.category],
+      tags: ['Business Resource', 'Community Pick', sub.category],
       techStack: ['TypeScript', 'JavaScript'],
       license: sub.license || 'MIT',
       githubUrl: sub.githubUrl || '',
       stars: 1200,
       websiteUrl: sub.websiteUrl || '',
-      pricingModel: '100% Free Open Source',
+      pricingModel: 'Partner Program / Tool',
       featured: false,
       verified: true,
       upvotes: 1,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      pros: ['Community driven & open source', 'Direct replacement for proprietary software'],
+      pros: ['Submitted by the community', 'Reviewed before public publication'],
       cons: ['Check documentation for complete deployment prerequisites'],
     };
 
@@ -889,22 +889,22 @@ app.post('/api/ai/enrich', async (req, res) => {
 
   if (ai) {
     try {
-      const prompt = `Analyze this open-source software project: "${input}". 
-Extract and generate structured metadata for a Vebstar open-source directory listing in JSON format.
+      const prompt = `Analyze this business tool, platform, or provider program: "${input}". 
+Extract and generate structured metadata for a Vebpartner business directory listing in JSON format.
 Include:
 - name: Official project name
-- tagline: A punchy 1-sentence description (e.g. "The open source Firebase alternative with Postgres database")
+- tagline: A punchy 1-sentence description (e.g. "A CRM and automation platform for agency service packages")
 - description: 2-3 detailed sentences explaining key capabilities and architectural strengths.
-- replaces: Array of famous proprietary closed-source SaaS applications it replaces (e.g. ["Notion", "Airtable"] or ["Google Analytics"] or ["Calendly"])
+- replaces: Array of related providers, products, or business models (e.g. ["CRM", "Email marketing", "Booking automation"])
 - category: One of ["agencies-services", "ai-businesses", "e-commerce", "creator-businesses", "reseller-businesses", "automation-no-code", "marketing-growth", "content-media"]
 - tags: Array of 4-6 keyword tags
 - techStack: Array of primary technologies/languages (e.g. ["TypeScript", "Rust", "PostgreSQL", "Next.js"])
 - license: License string (e.g. "MIT", "AGPL-3.0", "Apache-2.0")
 - estimatedStars: Estimated GitHub star count as integer (e.g. 25000)
-- pricingModel: One of "100% Free Open Source" | "Open Core / Freemium Cloud" | "Self-Hosted Free"
+- pricingModel: One of "Free Trial" | "Paid SaaS" | "Partner Program" | "Marketplace Fees"
 - dockerCommand: A typical quickstart docker command or "docker run -p 8080:8080 ..."
 - comparisonPoints: Array of 3 objects { feature: string, openSourceTool: string, proprietaryTool: string }
-- pros: Array of 3 key advantages vs proprietary software
+- pros: Array of 3 key advantages for the target business use case
 - cons: Array of 1-2 honest limitations or requirements`;
 
       const response = await ai.models.generateContent({
@@ -960,22 +960,22 @@ Include:
   const capitalized = nameClean.charAt(0).toUpperCase() + nameClean.slice(1);
   return res.json({
     name: capitalized,
-    tagline: `Modern open source alternative software built with high performance and data privacy`,
-    description: `${capitalized} is a community-driven open source platform designed as a transparent, self-hostable replacement for proprietary cloud services.`,
-    replaces: ['Proprietary SaaS', 'Cloud Vendor'],
+    tagline: `Practical business tool for building online services and recurring revenue`,
+    description: `${capitalized} is a submitted business resource that can support a service, platform, or creator-led online business model.`,
+    replaces: ['Business Tool', 'Cloud Provider'],
     category: 'agencies-services',
     tags: ['Agency', 'B2B', 'Recurring Revenue'],
     techStack: ['TypeScript', 'Node.js', 'PostgreSQL', 'Docker'],
     license: 'MIT',
     estimatedStars: 15000,
-    pricingModel: 'Open Core / Freemium Cloud',
+    pricingModel: 'Paid SaaS',
     dockerCommand: `docker run -p 3000:3000 ${nameClean.toLowerCase()}/${nameClean.toLowerCase()}:latest`,
     comparisonPoints: [
       { feature: 'Data Sovereignty', openSourceTool: 'Full control on your private servers', proprietaryTool: 'Vendor cloud lock-in' },
-      { feature: 'License & Cost', openSourceTool: 'Free open source core', proprietaryTool: 'Recurring user seat subscriptions' },
+      { feature: 'Cost Model', openSourceTool: 'Transparent entry pricing', proprietaryTool: 'Recurring service or platform fees' },
     ],
     pros: ['No vendor lock-in', 'Customizable and self-hostable', 'Active community'],
-    cons: ['Requires basic server infrastructure for self-hosting'],
+    cons: ['Requires basic setup and provider review before launch'],
   });
 });
 
@@ -983,9 +983,9 @@ Include:
 
 app.get('/api/backup/export', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Content-Disposition', 'attachment; filename="vebstar-backup.json"');
+  res.setHeader('Content-Disposition', 'attachment; filename="vebpartner-backup.json"');
   res.json({
-    brand: 'Vebstar',
+    brand: 'Vebpartner',
     timestamp: new Date().toISOString(),
     version: '2.0',
     listings,
@@ -1034,7 +1034,7 @@ app.post('/api/backup/import', (req, res) => {
     }
 
     res.json({
-      message: 'Vebstar data imported successfully',
+      message: 'Vebpartner data imported successfully',
       counts: {
         listings: listings.length,
         categories: categories.length,
@@ -1060,7 +1060,7 @@ app.post('/api/backup/reset', (req, res) => {
   saveData(PAGES_FILE, pages);
   saveData(SETTINGS_FILE, siteSettings);
 
-  res.json({ message: 'Reset to initial curated Vebstar dataset', count: listings.length });
+  res.json({ message: 'Reset to initial curated Vebpartner dataset', count: listings.length });
 });
 
 // ================= VITE MIDDLEWARE =================
@@ -1081,7 +1081,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Vebstar Server running at http://localhost:${PORT}`);
+    console.log(`Vebpartner Server running at http://localhost:${PORT}`);
   });
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const STORAGE_KEY = 'vebstar_search_history';
+const STORAGE_KEY = 'vebpartner_search_history';
 const MAX_HISTORY_ITEMS = 8;
 
 export function useSearchHistory() {

@@ -301,7 +301,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               {isEditing && <span className="text-zinc-300">{listingToEdit?.name}</span>}
             </h3>
             <p className="text-xs text-zinc-400 mt-0.5">
-              Manage core tool specs, proprietary alternatives, GitHub stars, self-hosting commands, and comparison matrices.
+              Manage listing details, related providers, business context, links and comparison notes.
             </p>
           </div>
           <button
@@ -399,7 +399,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="The open source Firebase alternative with Postgres database"
+                placeholder="A practical provider or tool for launching an online business"
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
@@ -410,7 +410,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               <label className="block text-xs font-semibold text-zinc-300 mb-1">Detailed Overview</label>
               <textarea
                 rows={3}
-                placeholder="Explain the architectural advantages, core mission, why developers love it..."
+                placeholder="Explain the business use case, provider fit, and why it belongs on Vebpartner..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 leading-relaxed"
@@ -586,7 +586,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
 
           {/* Section 3: Tech Stack & Tags */}
           <div className="space-y-4 pt-4 border-t border-white/[0.06]">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400">3. Tech Stack & Self-Hosting</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400">3. Tech Stack & Implementation</h4>
 
             {/* Tech stack */}
             <div>
@@ -650,7 +650,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
           <div className="space-y-4 pt-4 border-t border-white/[0.06]">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                4. Feature Comparison Matrix (Open Source vs Proprietary)
+                4. Feature & Provider Comparison Matrix
               </h4>
               <button
                 type="button"

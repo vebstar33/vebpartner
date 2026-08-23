@@ -9,7 +9,7 @@ import {
   C15tLogo,
   DocmostLogo,
   InfluxDataLogo,
-  VebstarLogo,
+  VebpartnerLogo,
 } from './Icons';
 import { Check, ArrowUpRight } from 'lucide-react';
 import { SiteSettings, Advertisement } from '../types';
@@ -55,9 +55,9 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="max-w-4xl mx-auto px-4 space-y-6">
         {/* Top Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 dark:bg-zinc-900/90 light:bg-white border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-300 text-zinc-300 dark:text-zinc-300 light:text-zinc-800 text-xs font-medium shadow-sm hover:border-emerald-500/40 transition-colors">
-          <VebstarLogo className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600" />
+          <VebpartnerLogo className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600" />
           <span className="text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Curated by</span>
-          <span className="font-bold text-white dark:text-white light:text-zinc-950 tracking-tight">{siteSettings.siteName || 'Vebstar'}</span>
+          <span className="font-bold text-white dark:text-white light:text-zinc-950 tracking-tight">{siteSettings.siteName || 'Vebpartner'}</span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
         </div>
 
@@ -70,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Subtitle */}
         <p className="text-zinc-400 dark:text-zinc-400 light:text-zinc-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
           {siteSettings.heroSubtitle ||
-            'Over 1 million developers and teams replaced expensive proprietary tools with transparent open-source alternatives.'}
+            'Discover practical business models, partner programs, platforms and tools you can use to build a real online business.'}
         </p>
 
         {/* Subscribe Email Form */}
@@ -130,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({
               />
             </div>
             <span className="text-[11px] text-zinc-400 dark:text-zinc-400 light:text-zinc-600 font-medium">
-              Joined by <strong className="text-zinc-200 dark:text-zinc-200 light:text-zinc-900 font-semibold">12,400+</strong> engineers
+              Joined by <strong className="text-zinc-200 dark:text-zinc-200 light:text-zinc-900 font-semibold">12,400+</strong> business builders
             </span>
           </div>
         </div>

@@ -97,7 +97,7 @@ export const AdFormModal: React.FC<AdFormModalProps> = ({
               <h2 className="text-base font-bold text-white">
                 {adToEdit ? 'Edit Advertisement / Sponsor' : 'Create New Advertisement / Sponsor'}
               </h2>
-              <p className="text-xs text-zinc-400">Configure promotional spots and sponsorship campaigns on Vebstar.</p>
+              <p className="text-xs text-zinc-400">Configure promotional spots and sponsorship campaigns on Vebpartner.</p>
             </div>
           </div>
           <button
@@ -136,7 +136,7 @@ export const AdFormModal: React.FC<AdFormModalProps> = ({
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. 1-Click Open-Source Cloud Hosting"
+                placeholder="e.g. Launch Faster With Managed Business Infrastructure"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
@@ -175,7 +175,7 @@ export const AdFormModal: React.FC<AdFormModalProps> = ({
               rows={2}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="e.g. Deploy open-source databases and microservices in 60 seconds with free credits."
+              placeholder="e.g. Launch hosted services, automations and business infrastructure faster with free credits."
               className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
@@ -199,7 +199,7 @@ export const AdFormModal: React.FC<AdFormModalProps> = ({
                 required
                 value={ctaUrl}
                 onChange={(e) => setCtaUrl(e.target.value)}
-                placeholder="https://sponsor.com/?ref=vebstar"
+                placeholder="https://sponsor.com/?ref=vebpartner"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>

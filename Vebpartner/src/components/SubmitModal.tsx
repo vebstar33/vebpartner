@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Send, AlertCircle, CheckCircle2, Github, Globe, Layers, ShieldCheck } from 'lucide-react';
+import { X, Send, AlertCircle, CheckCircle2, Globe, Layers } from 'lucide-react';
 import { Category, UserSubmission } from '../types';
 
 interface SubmitModalProps {
@@ -21,7 +21,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
   const [githubUrl, setGithubUrl] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
   const [category, setCategory] = useState(categories[1]?.id || 'agencies-services');
-  const [license, setLicense] = useState('MIT');
+  const [license, setLicense] = useState('Business Opportunity');
   const [submittedBy, setSubmittedBy] = useState('');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,7 +49,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
         websiteUrl: websiteUrl.trim(),
         category,
         license,
-        submittedBy: submittedBy.trim() || 'Anonymous Developer',
+        submittedBy: submittedBy.trim() || 'Anonymous',
         notes: notes.trim(),
       });
       setSuccess(true);
@@ -62,10 +62,11 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
         setReplaces('');
         setGithubUrl('');
         setWebsiteUrl('');
+        setLicense('Business Opportunity');
         setNotes('');
       }, 2000);
     } catch (err: any) {
-      setError(err.message || 'Failed to submit tool');
+      setError(err.message || 'Failed to submit opportunity');
     } finally {
       setIsSubmitting(false);
     }
@@ -87,8 +88,8 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
               <Layers className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base sm:text-lg tracking-tight">Submit Open Source Tool</h3>
-              <p className="text-xs text-zinc-400">Suggest a tool for directory inclusion & review</p>
+              <h3 className="font-bold text-white text-base sm:text-lg tracking-tight">Submit an Opportunity</h3>
+              <p className="text-xs text-zinc-400">Suggest a business opportunity, platform, tool, program or service for review</p>
             </div>
           </div>
           <button
@@ -107,7 +108,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
             </div>
             <h4 className="text-xl font-bold text-white tracking-tight">Thank you for submitting!</h4>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed">
-              Your submission has been queued in the review inbox for admin verification and will be published shortly.
+              Your submission has been queued for Vebpartner review. Publication is not guaranteed.
             </p>
           </div>
         ) : (
@@ -121,7 +122,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                Tool Name <span className="text-emerald-400">*</span>
+                Name <span className="text-emerald-400">*</span>
               </label>
               <input
                 type="text"
@@ -135,11 +136,11 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                What proprietary software does it replace?
+                Provider, program or business model
               </label>
               <input
                 type="text"
-                placeholder="e.g. Notion, DocuSign, Calendly, Firebase"
+                placeholder="e.g. Shopify, HighLevel, Webflow, Printful"
                 value={replaces}
                 onChange={(e) => setReplaces(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors"
@@ -150,7 +151,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
               <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Short Tagline / Pitch</label>
               <input
                 type="text"
-                placeholder="e.g. The open source alternative to Calendly for easy team scheduling"
+                placeholder="e.g. A practical tool or partner program for building an online business"
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors"
@@ -160,8 +161,8 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Github className="w-3.5 h-3.5 text-zinc-400" />
-                  <span>GitHub Repo URL</span>
+                  <Globe className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>Program or Docs URL</span>
                 </label>
                 <input
                   type="url"
@@ -206,27 +207,27 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">License</label>
+                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Program Type</label>
                 <select
                   value={license}
                   onChange={(e) => setLicense(e.target.value)}
                   className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500 transition-colors font-mono"
                 >
-                  <option value="MIT">MIT</option>
-                  <option value="AGPL-3.0">AGPL-3.0</option>
-                  <option value="Apache-2.0">Apache-2.0</option>
-                  <option value="GPL-3.0">GPL-3.0</option>
-                  <option value="MPL-2.0">MPL-2.0</option>
-                  <option value="BSD-3-Clause">BSD-3-Clause</option>
+                  <option value="Business Opportunity">Business Opportunity</option>
+                  <option value="Platform">Platform</option>
+                  <option value="Tool">Tool</option>
+                  <option value="Reseller Program">Reseller Program</option>
+                  <option value="Partner Program">Partner Program</option>
+                  <option value="Service">Service</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Your Name or GitHub Handle</label>
+              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Your Name</label>
               <input
                 type="text"
-                placeholder="e.g. alex_dev"
+                placeholder="e.g. Alex"
                 value={submittedBy}
                 onChange={(e) => setSubmittedBy(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors"
@@ -240,7 +241,7 @@ export const SubmitModal: React.FC<SubmitModalProps> = ({
                 className="w-full py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-zinc-950 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm active:scale-98 cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{isSubmitting ? 'Submitting to Review Queue...' : 'Submit Tool for Review'}</span>
+                <span>{isSubmitting ? 'Submitting to Review Queue...' : 'Submit Opportunity for Review'}</span>
               </button>
             </div>
           </form>

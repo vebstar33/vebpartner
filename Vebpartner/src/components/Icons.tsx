@@ -1,7 +1,7 @@
 import React from 'react';
 
-// Vebstar minimalist pure white logo emblem
-export const VebstarLogo: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
+// Vebpartner minimalist pure white logo emblem
+export const VebpartnerLogo: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg
     viewBox="0 0 32 32"
     fill="none"
@@ -14,11 +14,6 @@ export const VebstarLogo: React.FC<{ className?: string }> = ({ className = 'w-6
     />
     <rect x="13" y="5" width="6" height="3" rx="1.5" fill="#FFFFFF" />
   </svg>
-);
-
-// Backward-compatible alias
-export const OpenAltLogo: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
-  <VebstarLogo className={className} />
 );
 
 // Verified Blue Badge with checkmark

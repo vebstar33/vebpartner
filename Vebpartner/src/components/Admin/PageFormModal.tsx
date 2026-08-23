@@ -131,7 +131,7 @@ export const PageFormModal: React.FC<PageFormModalProps> = ({
                 required
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                placeholder="e.g. About Vebstar, Self-Hosting Guide"
+                placeholder="e.g. About Vebpartner, Business Model Guide"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
@@ -184,8 +184,8 @@ export const PageFormModal: React.FC<PageFormModalProps> = ({
               className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="company">Company (About, Advertise, Contact)</option>
-              <option value="resources">Resources & Help (Manifesto, FAQ, Guides)</option>
-              <option value="editorial">Editorial (Blog, Software Comparisons)</option>
+              <option value="resources">Resources & Help</option>
+              <option value="community">Community & Submissions</option>
               <option value="legal">Legal (Privacy Policy, Terms of Service)</option>
             </select>
           </div>

@@ -7,7 +7,6 @@ import {
   Bookmark,
   Plus,
   ExternalLink,
-  ShieldCheck,
   X,
   Megaphone,
   Menu,
@@ -16,12 +15,11 @@ import {
   Briefcase,
   LayoutGrid,
   Layers,
-  HelpCircle,
   Mail,
   BookOpen,
   Compass,
 } from 'lucide-react';
-import { VebstarLogo } from './Icons';
+import { VebpartnerLogo } from './Icons';
 import { CustomPage, SiteSettings, Advertisement, Category } from '../types';
 import { CATEGORY_GROUPS, getGroupedCategories } from '../lib/categoryGroups';
 import { ThemeToggle } from './ThemeToggle';
@@ -98,12 +96,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   // Filter published pages for navigation
   const publishedPages = pages.filter((p) => p.published);
 
-  // Group pages into editorial categories
+  // Group pages into navigation categories
   const platformPages = publishedPages.filter((p) =>
-    ['about', 'manifesto', 'vision', 'mission'].some((slug) => p.slug.toLowerCase().includes(slug))
+    ['about'].some((slug) => p.slug.toLowerCase().includes(slug))
   );
   const resourcePages = publishedPages.filter((p) =>
-    ['blog', 'faq', 'guide', 'docs', 'help'].some((slug) => p.slug.toLowerCase().includes(slug))
+    ['submit-opportunity'].some((slug) => p.slug.toLowerCase().includes(slug))
   );
   const partnerPages = publishedPages.filter((p) =>
     ['advertise', 'sponsor', 'contact', 'terms', 'privacy'].some((slug) =>
@@ -162,16 +160,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2.5 text-white dark:text-white light:text-zinc-900 hover:opacity-90 transition-opacity group cursor-pointer text-left"
             >
               <div className="text-white dark:text-white light:text-zinc-900 group-hover:scale-105 transition-transform duration-200">
-                <VebstarLogo className="w-6 h-6 text-emerald-400 dark:text-white light:text-emerald-600" />
+                <VebpartnerLogo className="w-6 h-6 text-emerald-400 dark:text-white light:text-emerald-600" />
               </div>
               <span className="font-extrabold text-white dark:text-white light:text-zinc-950 tracking-tight text-[18px] leading-tight">
-                {siteSettings.siteName || 'Vebstar'}
+                {siteSettings.siteName || 'Vebpartner'}
               </span>
             </button>
 
             {/* Desktop Navigation - Grouped Menus */}
             <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-zinc-300 dark:text-zinc-300 light:text-zinc-700">
-              {/* 1. Direct Directory / Alternatives Link */}
+              {/* 1. Direct Directory Link */}
               <button
                 onClick={() => {
                   onSelectCategory?.('all');
@@ -179,7 +177,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }}
                 className="px-3 py-1.5 rounded-lg hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100 transition-colors cursor-pointer font-medium"
               >
-                Alternatives
+                Directory
               </button>
 
               {/* 2. Grouped Categories Mega Menu Dropdown */}
@@ -297,10 +295,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {/* Grouped Explore Dropdown Box */}
                 {activeDropdown === 'explore' && (
                   <div className="absolute left-0 mt-2 w-80 rounded-2xl bg-[#0c0e16] dark:bg-[#0c0e16] light:bg-white border border-white/[0.1] dark:border-white/[0.1] light:border-zinc-200 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150 space-y-3 text-xs">
-                    {/* Section: Platform & Mission */}
+                    {/* Section: Vebpartner */}
                     <div>
                       <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-400 light:text-zinc-500 uppercase tracking-wider px-2.5 pb-1">
-                        Platform & Mission
+                        Vebpartner
                       </div>
                       <div className="space-y-0.5">
                         <button
@@ -309,47 +307,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                         >
                           <BookOpen className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600" />
                           <div>
-                            <div className="font-semibold">About Vebstar</div>
-                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Our open-source catalog</div>
-                          </div>
-                        </button>
-                        <button
-                          onClick={() => handlePageClick('manifesto')}
-                          className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors flex items-center gap-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 cursor-pointer"
-                        >
-                          <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 light:text-cyan-600" />
-                          <div>
-                            <div className="font-semibold">Open-Source Manifesto</div>
-                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Freedom from vendor lock-in</div>
+                            <div className="font-semibold">About Vebpartner</div>
+                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Curated business directory</div>
                           </div>
                         </button>
                       </div>
                     </div>
 
-                    {/* Section: Content & Help */}
+                    {/* Section: Submissions */}
                     <div className="pt-2 border-t border-white/[0.06] dark:border-white/[0.06] light:border-zinc-100">
                       <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-400 light:text-zinc-500 uppercase tracking-wider px-2.5 pb-1">
-                        Resources & Editorial
+                        For Businesses
                       </div>
                       <div className="space-y-0.5">
                         <button
-                          onClick={() => handlePageClick('blog')}
+                          onClick={() => handlePageClick('submit-opportunity')}
                           className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors flex items-center gap-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 cursor-pointer"
                         >
-                          <FileText className="w-3.5 h-3.5 text-purple-400 light:text-purple-600" />
+                          <FileText className="w-3.5 h-3.5 text-cyan-400 light:text-cyan-600" />
                           <div>
-                            <div className="font-semibold">Blog & Comparisons</div>
-                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Migration guides & deep dives</div>
-                          </div>
-                        </button>
-                        <button
-                          onClick={() => handlePageClick('faq')}
-                          className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors flex items-center gap-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 cursor-pointer"
-                        >
-                          <HelpCircle className="w-3.5 h-3.5 text-amber-400 light:text-amber-600" />
-                          <div>
-                            <div className="font-semibold">FAQ & Self-Hosting</div>
-                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Answers to common questions</div>
+                            <div className="font-semibold">Submit an Opportunity</div>
+                            <div className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500">Suggest a listing for review</div>
                           </div>
                         </button>
                       </div>
@@ -553,7 +531,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* Group 2: Explore & Editorial Pages Accordion */}
+          {/* Group 2: Vebpartner Pages Accordion */}
           <div className="rounded-xl border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-zinc-50 overflow-hidden">
             <button
               onClick={() =>
@@ -563,7 +541,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <div className="flex items-center gap-2">
                 <Compass className="w-4 h-4 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
-                <span>Explore & Editorial</span>
+                <span>Vebpartner Pages</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-zinc-400 transition-transform ${
@@ -578,25 +556,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handlePageClick('about')}
                   className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
                 >
-                  About Vebstar
+                  About Vebpartner
                 </button>
                 <button
-                  onClick={() => handlePageClick('manifesto')}
+                  onClick={() => handlePageClick('submit-opportunity')}
                   className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
                 >
-                  Open-Source Manifesto
-                </button>
-                <button
-                  onClick={() => handlePageClick('blog')}
-                  className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
-                >
-                  Blog & Comparisons
-                </button>
-                <button
-                  onClick={() => handlePageClick('faq')}
-                  className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
-                >
-                  FAQ & Self-Hosting
+                  Submit an Opportunity
                 </button>
                 <button
                   onClick={() => handlePageClick('advertise')}
@@ -608,7 +574,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handlePageClick('contact')}
                   className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
                 >
-                  Contact Team
+                  Contact
                 </button>
               </div>
             )}

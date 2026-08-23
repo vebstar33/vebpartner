@@ -45,7 +45,7 @@ import {
   SiteSettings,
   TagItem,
 } from '../../types';
-import { VebstarLogo } from '../Icons';
+import { VebpartnerLogo } from '../Icons';
 import { AdFormModal } from './AdFormModal';
 import { PageFormModal } from './PageFormModal';
 import { CategoryFormModal } from './CategoryFormModal';
@@ -314,7 +314,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     try {
       setIsSavingSettings(true);
       await onUpdateSiteSettings(settingsForm);
-      showNotification('Vebstar Site Settings updated successfully');
+      showNotification('Vebpartner Site Settings updated successfully');
     } catch (err: any) {
       alert('Failed to save settings: ' + err.message);
     } finally {
@@ -474,7 +474,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const handleExportDatabase = () => {
     const databaseSnapshot = {
       exportMeta: {
-        application: siteSettings.siteName || 'Vebstar',
+        application: siteSettings.siteName || 'Vebpartner',
         version: '2.0.0',
         exportedAt: new Date().toISOString(),
         totalCounts: {
@@ -500,7 +500,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `${(siteSettings.siteName || 'vebstar').toLowerCase()}-database-${
+    link.download = `${(siteSettings.siteName || 'vebpartner').toLowerCase()}-database-${
       new Date().toISOString().split('T')[0]
     }.json`;
     document.body.appendChild(link);
@@ -637,9 +637,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </button>
 
             <div className="flex items-center gap-2.5">
-              <VebstarLogo className="w-7 h-7" />
+              <VebpartnerLogo className="w-7 h-7" />
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-white text-base tracking-tight">Vebstar</span>
+                <span className="font-extrabold text-white text-base tracking-tight">Vebpartner</span>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   Mission Control Admin
                 </span>
@@ -830,7 +830,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <div className="p-4 rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-1">
                 <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Total Listings</div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{listings.length}</div>
-                <div className="text-[10px] text-emerald-400 font-medium">Software Alternatives</div>
+                <div className="text-[10px] text-emerald-400 font-medium">Business Directory</div>
               </div>
 
               <div className="p-4 rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-1">
@@ -858,7 +858,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <div className="p-4 rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-1">
                 <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Custom Pages</div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono">{pages.length}</div>
-                <div className="text-[10px] text-zinc-400 font-medium">Editorial Guides</div>
+                <div className="text-[10px] text-zinc-400 font-medium">Site Pages</div>
               </div>
 
               <div className="p-4 rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-1">
@@ -964,7 +964,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   </div>
                   <div className="flex items-center justify-between py-1.5 border-b border-white/[0.04]">
                     <span className="text-zinc-400">Active Brand Name:</span>
-                    <span className="font-mono text-white font-bold">{siteSettings.siteName || 'Vebstar'}</span>
+                    <span className="font-mono text-white font-bold">{siteSettings.siteName || 'Vebpartner'}</span>
                   </div>
                   <div className="flex items-center justify-between py-1.5">
                     <span className="text-zinc-400">Moderator Admin:</span>
@@ -1145,7 +1145,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         </button>
                       </th>
                       <th className="py-3.5 px-4">Tool / Project</th>
-                      <th className="py-3.5 px-4">Replaces SaaS</th>
+                      <th className="py-3.5 px-4">Related Provider</th>
                       <th className="py-3.5 px-4">Category</th>
                       <th className="py-3.5 px-4">Stats & Votes</th>
                       <th className="py-3.5 px-4">Badges</th>
@@ -1560,8 +1560,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-lg text-white">Custom Pages & Editorial Content</h3>
-                <p className="text-xs text-zinc-400">Manage About, Advertise, Manifesto, Blog, FAQ, Contact, and Privacy pages.</p>
+                <h3 className="font-bold text-lg text-white">Custom Pages & Site Content</h3>
+                <p className="text-xs text-zinc-400">Manage Vebpartner About, Advertise, Submit, Contact, Privacy, and Terms pages.</p>
               </div>
               <button
                 onClick={() => {
@@ -1644,14 +1644,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div>
               <h3 className="font-bold text-lg text-white">Community Submission Review Queue</h3>
-              <p className="text-xs text-zinc-400">Review open source software submitted by community members and developers.</p>
+              <p className="text-xs text-zinc-400">Review business resources submitted by community members and operators.</p>
             </div>
 
             {submissions.length === 0 ? (
               <div className="p-12 text-center rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-2">
                 <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
                 <h4 className="font-bold text-white text-base">Inbox Zero!</h4>
-                <p className="text-xs text-zinc-400">All submitted alternatives have been processed.</p>
+                <p className="text-xs text-zinc-400">All submitted opportunities have been processed.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -1664,7 +1664,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       <div className="flex items-center gap-2">
                         <h4 className="font-bold text-white text-base">{sub.toolName}</h4>
                         <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 text-[10px]">
-                          Replaces: {sub.replaces}
+                          Related: {sub.replaces}
                         </span>
                         <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 text-[10px] font-bold">
                           {sub.status}
@@ -1721,7 +1721,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         {activeTab === 'settings' && (
           <div className="space-y-6 animate-fadeIn max-w-3xl">
             <div>
-              <h3 className="font-bold text-lg text-white">Global Vebstar Site Settings</h3>
+              <h3 className="font-bold text-lg text-white">Global Vebpartner Site Settings</h3>
               <p className="text-xs text-zinc-400">Configure branding, announcement bar, contact info, and navigation links.</p>
             </div>
 
@@ -1880,7 +1880,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <div>
                   <Upload className="w-6 h-6 text-cyan-400 mb-2" />
                   <h4 className="font-bold text-white text-sm">Import JSON Backup</h4>
-                  <p className="text-xs text-zinc-400">Upload and restore previously exported Vebstar JSON backups.</p>
+                  <p className="text-xs text-zinc-400">Upload and restore previously exported Vebpartner JSON backups.</p>
                 </div>
                 <label className="w-full py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs text-center transition-colors cursor-pointer block">
                   <span>Upload File</span>
@@ -1911,7 +1911,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <div>
                   <RefreshCw className="w-6 h-6 text-rose-400 mb-2" />
                   <h4 className="font-bold text-white text-sm">Reset to Curated Default</h4>
-                  <p className="text-xs text-zinc-400">Reset database to initial pristine collection of verified open source tools.</p>
+                  <p className="text-xs text-zinc-400">Reset database to the initial verified business directory collection.</p>
                 </div>
                 <button
                   onClick={async () => {
@@ -1943,7 +1943,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   <h2 className="text-base font-bold text-white">
                     {editingListing ? `Edit ${editingListing.name}` : 'Add New Software Listing'}
                   </h2>
-                  <p className="text-xs text-zinc-400">Configure directory card, replaced proprietary tools, and docker command.</p>
+                  <p className="text-xs text-zinc-400">Configure directory card, related providers, and implementation notes.</p>
                 </div>
               </div>
               <button
@@ -1993,7 +1993,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Replaces SaaS (Comma Separated) *</label>
+                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Related Providers or Programs (Comma Separated) *</label>
                   <input
                     type="text"
                     required
@@ -2012,7 +2012,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   required
                   value={formTagline}
                   onChange={(e) => setFormTagline(e.target.value)}
-                  placeholder="The open source Firebase alternative with Postgres database..."
+                  placeholder="A practical provider or tool for launching an online business..."
                   className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
@@ -2023,7 +2023,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   rows={3}
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  placeholder="Full technical overview of this alternative..."
+                  placeholder="Full business overview for this Vebpartner listing..."
                   className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
@@ -2188,7 +2188,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       type="url"
                       value={formAdCtaUrl}
                       onChange={(e) => setFormAdCtaUrl(e.target.value)}
-                      placeholder="https://sponsor.com/?ref=vebstar"
+                  placeholder="https://sponsor.com/?ref=vebpartner"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>

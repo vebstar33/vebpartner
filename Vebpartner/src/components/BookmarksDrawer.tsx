@@ -69,7 +69,7 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
               </div>
               <p className="text-sm font-semibold text-zinc-200">No saved tools yet</p>
               <p className="text-xs text-zinc-500 max-w-xs mx-auto leading-relaxed">
-                Click the bookmark icon on any open source tool card to pin it here for easy reference.
+                Click the bookmark icon on any business listing card to pin it here for easy reference.
               </p>
             </div>
           ) : (

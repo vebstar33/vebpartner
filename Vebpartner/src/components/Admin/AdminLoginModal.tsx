@@ -4,7 +4,6 @@ import { User, signInWithEmailAndPassword, createUserWithEmailAndPassword } from
 import { auth, googleProvider } from '../../lib/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { checkUserIsAdmin, ROOT_ADMIN_EMAIL } from '../../lib/firestoreService';
-import { VebstarLogo } from '../Icons';
 
 interface AdminLoginModalProps {
   isOpen: boolean;

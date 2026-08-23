@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import {
-  VebstarLogo,
+  VebpartnerLogo,
   XTwitterIcon,
-  ThreadsIcon,
-  MastodonIcon,
-  LinkedInIcon,
   RssIcon,
 } from './Icons';
-import { Moon, ArrowUpRight, Check, Mail } from 'lucide-react';
-import { CustomPage, SiteSettings } from '../types';
+import { CustomPage, ListingType, SiteSettings } from '../types';
 
 interface FooterProps {
   onSelectProprietary?: (prop: string) => void;
   onSelectCategory?: (catId: string) => void;
+  onSelectListingType?: (listingType: 'all' | ListingType) => void;
   onOpenSubmit?: () => void;
   onNavigateHome: () => void;
   onNavigatePage: (slug: string) => void;
@@ -23,6 +20,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({
   onSelectProprietary,
   onSelectCategory,
+  onSelectListingType,
   onOpenSubmit,
   onNavigateHome,
   onNavigatePage,
@@ -37,9 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
     if (email) setSubscribed(true);
   };
 
-  const footerPages = pages.filter((p) => p.showInFooter && p.published);
-
-  const POPULAR_PROPRIETARY = [
+  const POPULAR_BUSINESS_MODELS = [
     [
       { name: 'Firebase', count: 18 },
       { name: 'Notion', count: 24 },
@@ -84,6 +80,46 @@ export const Footer: React.FC<FooterProps> = ({
     ],
   ];
 
+  const goToDirectory = (listingType: 'all' | ListingType) => {
+    onSelectCategory?.('all');
+    onSelectListingType?.(listingType);
+    onNavigateHome();
+    window.scrollTo({ top: 500, behavior: 'smooth' });
+  };
+
+  const footerSections = [
+    {
+      title: 'Vebpartner',
+      links: [
+        { label: 'About Vebpartner', onClick: () => onNavigatePage('about') },
+        { label: 'Contact', onClick: () => onNavigatePage('contact') },
+      ],
+    },
+    {
+      title: 'Explore',
+      links: [
+        { label: 'All Businesses', onClick: () => goToDirectory('all') },
+        { label: 'Business Opportunities', onClick: () => goToDirectory('opportunity') },
+        { label: 'Business Platforms', onClick: () => goToDirectory('platform') },
+        { label: 'Business Tools', onClick: () => goToDirectory('tool') },
+      ],
+    },
+    {
+      title: 'For Businesses',
+      links: [
+        { label: 'Advertise / Sponsor', onClick: () => onNavigatePage('advertise'), emphasis: true },
+        { label: 'Submit an Opportunity', onClick: () => onNavigatePage('submit-opportunity') },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [
+        { label: 'Privacy Policy', onClick: () => onNavigatePage('privacy') },
+        { label: 'Terms of Service', onClick: () => onNavigatePage('terms') },
+      ],
+    },
+  ];
+
   return (
     <footer className="w-full bg-[#08090E] dark:bg-[#08090E] light:bg-white border-t border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 mt-20 text-zinc-400 dark:text-zinc-400 light:text-zinc-600 text-xs transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16">
@@ -96,21 +132,21 @@ export const Footer: React.FC<FooterProps> = ({
               className="flex items-center gap-2.5 text-white dark:text-white light:text-zinc-900 hover:opacity-90 transition-opacity text-left cursor-pointer"
             >
               <div className="text-white dark:text-white light:text-zinc-900">
-                <VebstarLogo className="w-6 h-6 text-emerald-400 light:text-emerald-600" />
+                <VebpartnerLogo className="w-6 h-6 text-emerald-400 light:text-emerald-600" />
               </div>
               <span className="font-extrabold text-white dark:text-white light:text-zinc-950 tracking-tight text-lg">
-                {siteSettings.siteName || 'Vebstar'}
+                {siteSettings.siteName || 'Vebpartner'}
               </span>
             </button>
 
             <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 leading-relaxed max-w-sm">
-              {siteSettings.tagline || 'The modern open source software directory and cloud alternative index.'}
+              {siteSettings.tagline || 'Discover business opportunities, reseller programs, white-label platforms and business tools you can actually start.'}
             </p>
 
             <form onSubmit={handleSubscribe} className="flex gap-2 max-w-sm">
               <input
                 type="email"
-                placeholder="Enter your developer email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -145,7 +181,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="p-2 rounded-lg bg-zinc-900 dark:bg-zinc-900 light:bg-zinc-100 border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-200 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors"
                   title="GitHub"
                 >
-                  <VebstarLogo className="w-4 h-4" />
+                  <VebpartnerLogo className="w-4 h-4" />
                 </a>
               )}
               <a
@@ -162,14 +198,14 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Column 2: Popular Proprietary Software Alternatives */}
+          {/* Column 2: Popular business models */}
           <div className="lg:col-span-8 space-y-6">
             <div>
               <h4 className="text-xs font-bold text-white dark:text-white light:text-zinc-900 uppercase tracking-wider mb-3">
-                Popular SaaS Alternatives
+                Popular Business Models
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {POPULAR_PROPRIETARY.flat().map((item) => (
+                {POPULAR_BUSINESS_MODELS.flat().map((item) => (
                   <button
                     key={item.name}
                     onClick={() => onSelectProprietary?.(item.name)}
@@ -211,58 +247,44 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Editorial Pages Navigation */}
+        {/* Footer navigation */}
+        <div className="pt-8 border-t border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {footerSections.map((section) => (
+            <div key={section.title} className="space-y-3">
+              <h4 className="text-xs font-bold text-white dark:text-white light:text-zinc-900 uppercase tracking-wider">
+                {section.title}
+              </h4>
+              <div className="space-y-2.5">
+                {section.links.map((link) => (
+                  <button
+                    key={link.label}
+                    onClick={link.onClick}
+                    className={`block text-left transition-colors cursor-pointer ${
+                      link.emphasis
+                        ? 'text-emerald-400 dark:text-emerald-400 light:text-emerald-600 font-semibold hover:text-emerald-300 light:hover:text-emerald-700'
+                        : 'text-zinc-400 dark:text-zinc-400 light:text-zinc-600 hover:text-white dark:hover:text-white light:hover:text-zinc-950'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div className="pt-8 border-t border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-400 dark:text-zinc-400 light:text-zinc-600">
           <div>
-            &copy; {new Date().getFullYear()} {siteSettings.siteName || 'Vebstar'} &mdash; The Open Source Catalog.
+            &copy; 2026 Vebpartner. All rights reserved.
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => onNavigatePage('about')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-            >
-              About
+            <button onClick={() => onNavigatePage('privacy')} className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer">
+              Privacy
             </button>
-            <button
-              onClick={() => onNavigatePage('manifesto')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-            >
-              Manifesto
+            <button onClick={() => onNavigatePage('terms')} className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer">
+              Terms
             </button>
-            <button
-              onClick={() => onNavigatePage('blog')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-            >
-              Blog
-            </button>
-            <button
-              onClick={() => onNavigatePage('faq')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-            >
-              FAQ
-            </button>
-            <button
-              onClick={() => onNavigatePage('advertise')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer text-emerald-400 dark:text-emerald-400 light:text-emerald-600 font-semibold"
-            >
-              Advertise / Sponsor
-            </button>
-            <button
-              onClick={() => onNavigatePage('contact')}
-              className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-            >
-              Contact
-            </button>
-            {footerPages.map((page) => (
-              <button
-                key={page.id}
-                onClick={() => onNavigatePage(page.slug)}
-                className="hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors cursor-pointer"
-              >
-                {page.title}
-              </button>
-            ))}
           </div>
         </div>
       </div>

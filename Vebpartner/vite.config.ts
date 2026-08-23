@@ -1,11 +1,21 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import { defineConfig, type Plugin } from 'vite';
+
+const getSiteUrl = () =>
+  (process.env.VITE_SITE_URL || process.env.SITE_URL || process.env.URL || 'https://vebpartner.com').replace(/\/+$/, '');
+
+const siteUrlHtmlPlugin = (): Plugin => ({
+  name: 'site-url-html-transform',
+  transformIndexHtml(html) {
+    return html.replace(/%SITE_URL%/g, getSiteUrl());
+  },
+});
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), siteUrlHtmlPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

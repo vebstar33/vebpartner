@@ -21,7 +21,6 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { CustomPage, SiteSettings, Advertisement } from '../types';
-import { VebstarLogo } from './Icons';
 
 interface PageViewProps {
   page: CustomPage;
@@ -71,72 +70,72 @@ export const PageView: React.FC<PageViewProps> = ({
   // Pre-formatted FAQ items for FAQ page
   const FAQ_ITEMS = [
     {
-      q: 'What is Vebstar?',
-      a: 'Vebstar is an open-source software directory and comparison engine that helps engineering teams, developers, and privacy advocates discover transparent, self-hostable alternatives to proprietary cloud SaaS.',
+      q: 'What is Vebpartner?',
+      a: 'Vebpartner is a directory of business opportunities, platforms and tools for people researching businesses they can actually start.',
     },
     {
       q: 'How are tools evaluated and verified?',
-      a: 'Every listing on Vebstar is verified for active maintenance (recent commits, pull requests), genuine open-source or permissive licensing (MIT, Apache 2.0, AGPL-3.0), functional feature parity with proprietary tools, and clean documentation.',
+      a: 'Listings on Vebpartner are organized to clarify the provider, business model, partner structure and practical use case where that information is available.',
     },
     {
-      q: 'Can I self-host the software listed on Vebstar?',
-      a: 'Yes! Over 90% of tools on Vebstar include 1-click Docker commands, Docker Compose configurations, or Helm charts for direct self-hosting on your private cloud or bare metal servers.',
+      q: 'Can I compare business models on Vebpartner?',
+      a: 'Yes. You can browse by category, listing type and partner model to compare opportunities, platforms and tools.',
     },
     {
-      q: 'How can I submit my own open-source project?',
-      a: 'Click "Submit a Tool" in the header navigation or the button at the bottom of any page. Fill out your GitHub repository URL, primary replaced SaaS apps, and tags. Our moderation team reviews submissions within 24-48 hours.',
+      q: 'How can I submit an opportunity?',
+      a: 'Use the Submit an Opportunity page or the submission button to suggest a business opportunity, platform, tool, partner program or relevant service for review.',
     },
     {
-      q: 'How does Vebstar fund its operations?',
-      a: 'Vebstar is independently operated and funded through non-intrusive sponsorships from reputable cloud hosting providers, developer tool companies, and verified open-source maintainers.',
+      q: 'How does Vebpartner fund its operations?',
+      a: 'Vebpartner may be supported by sponsorships and affiliate relationships, while listing content remains organized for public research.',
     },
     {
-      q: 'How do I advertise or sponsor on Vebstar?',
-      a: 'Visit our Advertise page or contact sponsor@vebstar.com. We offer sitewide announcement banners, category featured picks, dedicated tool page sponsorships, and newsletter placements.',
+      q: 'How do I advertise or sponsor on Vebpartner?',
+      a: 'Visit the Advertise / Sponsor page or contact sponsor@vebpartner.com to discuss featured listings, sponsored placements, category sponsorships or custom partnerships.',
     },
   ];
 
   // Sponsorship packages for Advertise page
   const SPONSOR_PACKAGES = [
     {
-      name: 'Sitewide Sticky Header Banner',
-      price: '$950',
-      period: '/ month',
+      name: 'Featured Listing',
+      price: 'Contact',
+      period: '',
       badge: 'Maximum Reach',
-      description: 'Prime placement pinned at the very top of Vebstar, visible across 100% of sessions.',
+      description: 'Prominent visibility for a relevant provider, platform, tool or business opportunity.',
       features: [
-        'Over 1.2M monthly impressions',
-        'Custom sponsor badge + CTA button',
-        'Direct link to your landing page with UTM tracking',
-        'Weekly click-through and impression analytics report',
+        'Featured placement in relevant directory areas',
+        'Clear sponsor label and custom CTA',
+        'Direct link to your landing page',
+        'Campaign reporting options on request',
       ],
       highlight: true,
     },
     {
-      name: 'Featured Category Pick',
-      price: '$450',
-      period: '/ month',
+      name: 'Category Sponsorship',
+      price: 'Contact',
+      period: '',
       badge: 'High Intent',
-      description: 'Top pinned card position in chosen high-traffic category pages (Database, Analytics, CRM).',
+      description: 'Sponsor a category aligned with your ideal business-builder audience.',
       features: [
-        'Pinned rank #1 in designated category',
-        'Exclusive "Featured Sponsor" badge highlight',
-        'Custom CTA link on card hover and details modal',
-        'Targeted developer audience searching for solutions',
+        'Visibility in selected category contexts',
+        'Sponsor badge and concise positioning',
+        'Custom CTA and campaign destination',
+        'Relevant audience targeting by business type',
       ],
       highlight: false,
     },
     {
-      name: 'Tool Detail Dedicated Sponsor',
-      price: '$350',
-      period: '/ month',
-      badge: 'Direct Replacement',
-      description: 'Exclusive banner on high-traffic alternative pages (e.g., Novu, Supabase, Typebot).',
+      name: 'Custom Partnership',
+      price: 'Contact',
+      period: '',
+      badge: 'Partnership',
+      description: 'Tailored visibility for partner programs, reseller offers and promoted opportunities.',
       features: [
-        'Dedicated 1-Click Hosting banner slot',
-        'Visible directly below tool title & screenshot',
-        'Ultra-high conversion from developers ready to deploy',
-        'Includes social shoutout on Vebstar X/Twitter',
+        'Custom placement strategy',
+        'Promoted business opportunity positioning',
+        'Partner visibility across relevant journeys',
+        'Optional campaign support from Vebpartner',
       ],
       highlight: false,
     },
@@ -264,7 +263,7 @@ export const PageView: React.FC<PageViewProps> = ({
             </div>
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Official Vebstar Publication</span>
+              <span>Official Vebpartner Publication</span>
             </div>
           </div>
         </div>
@@ -318,7 +317,7 @@ export const PageView: React.FC<PageViewProps> = ({
                   </div>
 
                   <a
-                    href="mailto:sponsor@vebstar.com?subject=Sponsorship%20Inquiry%20-%20Vebstar"
+                    href="mailto:sponsor@vebpartner.com?subject=Sponsorship%20Inquiry%20-%20Vebpartner"
                     className={`mt-6 w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all text-center ${
                       pkg.highlight
                         ? 'bg-emerald-500 hover:bg-emerald-400 text-zinc-950 shadow-sm'
@@ -332,23 +331,23 @@ export const PageView: React.FC<PageViewProps> = ({
               ))}
             </div>
 
-            {/* Audience Stats Infographic */}
+            {/* Sponsorship focus areas */}
             <div className="p-6 rounded-2xl bg-[#0d0f17] border border-white/[0.08] grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">1.2M+</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Monthly Pageviews</div>
+                <div className="text-sm sm:text-base font-extrabold text-white">Listings</div>
+                <div className="text-xs text-zinc-400 font-medium mt-1">Featured providers</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">500k+</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Unique Developers</div>
+                <div className="text-sm sm:text-base font-extrabold text-emerald-400">Categories</div>
+                <div className="text-xs text-zinc-400 font-medium mt-1">Sponsor placements</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">48,000+</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Newsletter Subscribers</div>
+                <div className="text-sm sm:text-base font-extrabold text-white">Programs</div>
+                <div className="text-xs text-zinc-400 font-medium mt-1">Promoted opportunities</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono">180+</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Countries Reached</div>
+                <div className="text-sm sm:text-base font-extrabold text-cyan-400">Partners</div>
+                <div className="text-xs text-zinc-400 font-medium mt-1">Custom campaigns</div>
               </div>
             </div>
           </div>
@@ -427,7 +426,7 @@ export const PageView: React.FC<PageViewProps> = ({
                       required
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Linus Torvalds"
+                      placeholder="Your name"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
                     />
                   </div>
@@ -438,7 +437,7 @@ export const PageView: React.FC<PageViewProps> = ({
                       required
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="linus@kernel.org"
+                      placeholder="you@example.com"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
                     />
                   </div>
@@ -490,7 +489,7 @@ export const PageView: React.FC<PageViewProps> = ({
 
         {/* Other Pages Navigation Carousel */}
         <div className="pt-12 border-t border-white/[0.08] space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Explore More on Vebstar</h4>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Explore More on Vebpartner</h4>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {allPages
               .filter((p) => p.slug !== page.slug && p.published)
@@ -508,7 +507,7 @@ export const PageView: React.FC<PageViewProps> = ({
                     {p.title}
                   </div>
                   <div className="text-xs text-zinc-500 line-clamp-1 mt-0.5">
-                    {p.subtitle || 'Read guide on Vebstar'}
+                    {p.subtitle || 'Read guide on Vebpartner'}
                   </div>
                 </button>
               ))}
@@ -518,14 +517,14 @@ export const PageView: React.FC<PageViewProps> = ({
         {/* Bottom CTA Banner */}
         <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <h3 className="text-base sm:text-lg font-bold text-white">Know a great open-source tool?</h3>
-            <p className="text-xs text-zinc-400">Submit your project or favorite alternative to feature it on Vebstar.</p>
+            <h3 className="text-base sm:text-lg font-bold text-white">Know a great business resource?</h3>
+            <p className="text-xs text-zinc-400">Submit a business opportunity, platform, tool, program or service for Vebpartner review.</p>
           </div>
           <button
             onClick={onOpenSubmitModal}
             className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer transition-all active:scale-95"
           >
-            Submit an Alternative
+            Submit an Opportunity
           </button>
         </div>
       </div>

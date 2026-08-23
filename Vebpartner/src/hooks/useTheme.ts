@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 export type ThemePreference = 'dark' | 'light' | 'system';
 export type ResolvedTheme = 'dark' | 'light';
 
-const STORAGE_KEY = 'vebstar_theme';
+const STORAGE_KEY = 'vebpartner_theme';
 
 export function useTheme() {
   const [preference, setPreferenceState] = useState<ThemePreference>(() => {

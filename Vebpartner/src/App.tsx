@@ -62,7 +62,7 @@ export function App() {
   const [tags, setTags] = useState<TagItem[]>([]);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>({
     siteName: 'Vebpartner',
-    siteUrl: 'https://vebpartner.com',
+    siteUrl: SITE_URL,
     tagline: 'Discover business opportunities, reseller programs, white-label platforms and business tools you can actually start.',
     heroTitle: 'Businesses You Can Actually Start',
     heroSubtitle: 'Discover practical business models, partner programs, platforms and tools you can use to build a real online business.',
@@ -141,7 +141,7 @@ export function App() {
   // Bookmarks & Upvotes local state
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('vebstar_bookmarks') || localStorage.getItem('openalt_bookmarks');
+      const saved = localStorage.getItem('vebpartner_bookmarks');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -150,7 +150,7 @@ export function App() {
 
   const [upvotedIds, setUpvotedIds] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('vebstar_upvotes') || localStorage.getItem('openalt_upvotes');
+      const saved = localStorage.getItem('vebpartner_upvotes');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -391,12 +391,12 @@ export function App() {
 
   // Save bookmarks to localStorage
   useEffect(() => {
-    localStorage.setItem('vebstar_bookmarks', JSON.stringify(bookmarkedIds));
+    localStorage.setItem('vebpartner_bookmarks', JSON.stringify(bookmarkedIds));
   }, [bookmarkedIds]);
 
   // Save upvotes to localStorage
   useEffect(() => {
-    localStorage.setItem('vebstar_upvotes', JSON.stringify(upvotedIds));
+    localStorage.setItem('vebpartner_upvotes', JSON.stringify(upvotedIds));
   }, [upvotedIds]);
 
   // Upvote tool handler
@@ -412,7 +412,7 @@ export function App() {
       }
       if (!upvotedIds.includes(id)) {
         setUpvotedIds([...upvotedIds, id]);
-        addToast('Upvoted!', 'Thank you for supporting this open source tool', 'success');
+        addToast('Upvoted!', 'Thank you for supporting this business resource', 'success');
       }
     } catch (err) {
       addToast('Error', 'Failed to submit upvote', 'error');
@@ -435,7 +435,7 @@ export function App() {
   const handleSubmitTool = async (submission: Partial<UserSubmission>) => {
     const created = await api.submitTool(submission);
     setSubmissions([created, ...submissions]);
-    addToast('Tool Submitted!', 'Your open source tool has been queued for review', 'success');
+    addToast('Resource Submitted!', 'Your business resource has been queued for review', 'success');
   };
 
   // Admin Listing Handlers
@@ -460,7 +460,7 @@ export function App() {
   const handleBulkDeleteListings = async (ids: string[]) => {
     await api.bulkDeleteListings(ids);
     setListings((prev) => prev.filter((l) => !ids.includes(l.id)));
-    addToast('Bulk Delete Completed', `Removed ${ids.length} software listings.`, 'info');
+    addToast('Bulk Delete Completed', `Removed ${ids.length} business listings.`, 'info');
   };
 
   const handleBulkUpdateListings = async (ids: string[], updates: Partial<ToolListing>) => {
@@ -468,7 +468,7 @@ export function App() {
     setListings((prev) =>
       prev.map((l) => (ids.includes(l.id) ? { ...l, ...updates } : l))
     );
-    addToast('Bulk Update Completed', `Updated ${ids.length} software listings.`, 'success');
+    addToast('Bulk Update Completed', `Updated ${ids.length} business listings.`, 'success');
   };
 
   const handleReorderCategories = async (reordered: Category[]) => {
@@ -571,13 +571,13 @@ export function App() {
   const handleResetData = async () => {
     await api.resetData();
     await fetchData();
-    addToast('Database Reset', 'Default verified open-source database restored.', 'info');
+    addToast('Database Reset', 'Default verified business directory restored.', 'info');
   };
 
   const handleImportData = async (data: any) => {
     await api.importData(data);
     await fetchData();
-    addToast('Data Imported', 'New open-source catalog loaded.', 'success');
+    addToast('Data Imported', 'New business directory data loaded.', 'success');
   };
 
   // AI Enrich
@@ -976,6 +976,7 @@ export function App() {
         onSelectCategory={(catId) => {
           setActivePageSlug(null);
           setSelectedCategory(catId);
+          setSelectedListingType('all');
         }}
         onNavigateHome={() => {
           setActivePageSlug(null);
@@ -1087,7 +1088,7 @@ export function App() {
             {loading ? (
               <div className="py-24 text-center space-y-4">
                 <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 font-mono tracking-wide">Loading open source catalog...</p>
+                <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 font-mono tracking-wide">Loading business directory...</p>
               </div>
             ) : filteredListings.length === 0 ? (
               <div className="py-20 text-center space-y-4 bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-white rounded-3xl border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 p-8 max-w-2xl mx-auto shadow-sm">
@@ -1097,7 +1098,7 @@ export function App() {
                 <div>
                   <h3 className="text-lg font-bold text-white dark:text-white light:text-zinc-900 tracking-tight">No tools found</h3>
                   <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 max-w-md mx-auto mt-1 leading-relaxed">
-                    No tools matched your current search filters. Try clearing your filters or submit a new open-source tool to the catalog!
+                    No tools matched your current search filters. Try clearing your filters or submit a new business resource to the directory!
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
@@ -1108,6 +1109,7 @@ export function App() {
                       setSelectedProprietary('');
                       setSelectedPricing('all');
                       setSelectedLicense('all');
+                      setSelectedListingType('all');
                     }}
                     className="px-4 py-2 rounded-xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 hover:bg-zinc-700 dark:hover:bg-zinc-700 light:hover:bg-zinc-200 text-white dark:text-white light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
                   >
@@ -1160,6 +1162,13 @@ export function App() {
         onSelectCategory={(catId) => {
           setActivePageSlug(null);
           setSelectedCategory(catId);
+          setSelectedListingType('all');
+          window.scrollTo({ top: 500, behavior: 'smooth' });
+        }}
+        onSelectListingType={(listingType) => {
+          setActivePageSlug(null);
+          setSelectedListingType(listingType);
+          setSelectedCategory('all');
           window.scrollTo({ top: 500, behavior: 'smooth' });
         }}
         onOpenSubmit={() => setIsSubmitModalOpen(true)}
