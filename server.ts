@@ -259,7 +259,13 @@ function normalizeBusinessListing(listing: ToolListing): ToolListing {
   };
 }
 
-let listings: ToolListing[] = deduplicateById(loadData<ToolListing[]>(LISTINGS_FILE, INITIAL_LISTINGS)).map(normalizeBusinessListing);
+function mergeCuratedListings(storedListings: ToolListing[]): ToolListing[] {
+  const storedIds = new Set(storedListings.map((listing) => listing.id));
+  const missingCuratedListings = INITIAL_LISTINGS.filter((listing) => !storedIds.has(listing.id));
+  return deduplicateById([...storedListings, ...missingCuratedListings]);
+}
+
+let listings: ToolListing[] = mergeCuratedListings(loadData<ToolListing[]>(LISTINGS_FILE, INITIAL_LISTINGS)).map(normalizeBusinessListing);
 let submissions: UserSubmission[] = loadData<UserSubmission[]>(SUBMISSIONS_FILE, []);
 let categories: Category[] = INITIAL_CATEGORIES;
 let ads: Advertisement[] = loadData<Advertisement[]>(ADS_FILE, INITIAL_ADS);

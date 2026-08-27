@@ -24,7 +24,7 @@ export interface BusinessListing {
   startCost: string;
   revenueModel: string;
   difficulty: string;
-  businessIcon: string;
+  businessIcon?: string;
   provider: {
     name: string;
     logo?: string;
@@ -128,6 +128,7 @@ export function businessListingToToolListing(listing: BusinessListing): ToolList
     providerHandles: listing.providerHandles,
     youEarnThrough: listing.youEarnThrough,
     pricingModel: `From ${listing.startCost} (${listing.provider.name} Starter)`,
+    logoUrl: listing.provider.logo,
     featured: listing.featured,
     verified: true,
     status: listing.status,

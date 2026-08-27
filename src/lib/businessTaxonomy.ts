@@ -91,6 +91,7 @@ export const BUSINESS_LISTING_CATEGORY_IDS: Record<string, string[]> = {
   'reputation-management-agency': ['agencies-services', 'marketing-growth'],
   'print-on-demand-business': ['e-commerce'],
   'dropshipping-business': ['e-commerce'],
+  'selfnamed-white-label-beauty': ['e-commerce', 'reseller-businesses'],
   'digital-product-business': ['e-commerce', 'creator-businesses'],
   'online-course-business': ['creator-businesses'],
   'course-membership-business': ['creator-businesses'],

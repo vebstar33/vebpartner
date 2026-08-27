@@ -481,4 +481,126 @@ export const batch03Listings: BusinessListing[] = [
     featured: false,
     lastVerified: '2026-08-21T00:00:00Z',
   },
+  {
+    id: 'selfnamed-white-label-beauty',
+    slug: 'selfnamed-white-label-beauty',
+    name: 'Selfnamed White-Label Beauty',
+    tagline: 'Launch a branded skincare line without minimum order quantities',
+    shortDescription:
+      'Start a white-label beauty brand using Selfnamed as the supplier platform. Choose ready-made skincare products, add your branding and sell through ecommerce or dropshipping without committing to inventory upfront.',
+    category: 'e-commerce',
+    categoriesList: ['Business Blueprint', 'Ecommerce Business', 'White-Label Supplier'],
+    tags: ['beauty', 'skincare', 'white-label', 'private-label', 'ecommerce', 'dropshipping', 'no-inventory', 'no-code'],
+    listingType: 'opportunity',
+    partnerModels: ['white-label'],
+    partnerModel: 'White Label',
+    youSell: 'Branded skincare and clean beauty products under your own brand.',
+    providerHandles: 'Product catalog, manufacturing, packaging options, compliance support and fulfillment workflows.',
+    youEarnThrough: 'Retail margin on product sales, bundles, repeat purchases and optional bulk/wholesale channels.',
+    startCost: 'Free setup',
+    revenueModel: 'Product Margin',
+    difficulty: 'Easy–Medium',
+    provider: {
+      name: 'Selfnamed',
+      logo: 'https://www.google.com/s2/favicons?domain=selfnamed.com&sz=128',
+      website: 'https://www.selfnamed.com',
+      programUrl: 'https://www.selfnamed.com/en/white-label-skincare',
+      affiliateUrl: 'https://www.selfnamed.com/en/white-label-skincare',
+    },
+    overview: {
+      businessType: 'B2C / Beauty Ecommerce',
+      inventoryRequired: 'No',
+      codingRequired: 'No',
+      recurringRevenue: 'Repeat purchases',
+      whiteLabel: 'Yes',
+    },
+    whatYouSell: {
+      description:
+        'A branded beauty line built from ready-made white-label skincare formulas, packaging designs and ecommerce fulfillment options.',
+      items: [
+        'White-label skincare products',
+        'Branded beauty bundles',
+        'Clean cosmetics catalog',
+        'Skincare starter sets',
+        'Dropshipped customer orders',
+        'Bulk retail stock when demand is proven',
+      ],
+      note:
+        'Because there is no minimum order quantity for the core white-label flow, the practical starting point can be testing single units, samples or small branded product sets before scaling.',
+    },
+    targetCustomers: [
+      'Beauty entrepreneurs',
+      'Ecommerce store owners',
+      'Skincare professionals',
+      'Estheticians and spa owners',
+      'Creators with beauty audiences',
+      'Boutique retailers testing a private-label line',
+    ],
+    howItWorks: [
+      { stepNumber: 1, title: 'Choose a beauty niche', description: 'Define the audience, skin concern, positioning and price level for the brand.' },
+      { stepNumber: 2, title: 'Select products', description: 'Choose ready-made skincare products from Selfnamed’s catalog instead of developing formulas from scratch.' },
+      { stepNumber: 3, title: 'Apply branding', description: 'Use the design studio or uploaded brand assets to create labels, packaging visuals and product mockups.' },
+      { stepNumber: 4, title: 'Connect ecommerce', description: 'Connect a supported storefront or place manual/bulk orders depending on the sales model.' },
+      { stepNumber: 5, title: 'Test demand', description: 'Order single units or small sets, validate product-market fit and gather customer feedback.' },
+      { stepNumber: 6, title: 'Scale fulfillment', description: 'Use dropshipping, recurring product drops or bulk orders once demand and margins are clearer.' },
+    ],
+    exampleBusinessModel: {
+      customerPrice: 'Retail margin after product and shipping costs',
+      scenarios: [
+        'Sell a focused three-product routine under your own brand and keep the retail margin after product, shipping, platform, marketing, taxes and support costs.',
+        'Use dropshipping for early validation, then move selected bestsellers into bulk or wholesale ordering when repeat demand justifies it.',
+      ],
+      disclaimer,
+    },
+    platformCosts: [
+      {
+        planName: 'Selfnamed core setup',
+        price: 'Free setup',
+        description:
+          'Selfnamed states that account creation, catalog browsing, the design studio and core dropshipping services can be used without a required monthly subscription.',
+        details:
+          'Product base costs and shipping still apply when orders are fulfilled. Optional upgrades, sample sets, Pro discounts, design services, bulk orders and warehousing may add costs.',
+      },
+      {
+        planName: 'Product fulfillment',
+        price: 'Per product/order',
+        description: 'You pay product and fulfillment-related costs when ordering for yourself, stocking inventory or fulfilling customer orders.',
+        details: 'Retail margin depends on selected products, shipping, taxes, platform fees, returns and paid acquisition costs.',
+      },
+    ],
+    whyProvider: [
+      {
+        title: 'No-MOQ white-label catalog',
+        description:
+          'Selfnamed lets operators choose ready-made skincare products and sell them under their own brand without committing to traditional minimum order quantities.',
+      },
+      {
+        title: 'Beauty-specific fulfillment stack',
+        description:
+          'The platform combines product creation, packaging, design tools, mockups, ecommerce integrations and EU/US fulfillment workflows for beauty brands.',
+      },
+      {
+        title: 'Compliance-oriented production',
+        description:
+          'Selfnamed positions its catalog around certified, production-ready formulas and handles production, quality control, compliance and dispatch for skincare products.',
+      },
+    ],
+    requirements: [
+      { label: 'Branding', value: 'Brand concept and assets' },
+      { label: 'Storefront', value: 'Recommended' },
+      { label: 'Inventory', value: 'Not required to start' },
+      { label: 'Marketing', value: 'Required' },
+      { label: 'Compliance', value: 'Review claims carefully' },
+    ],
+    monetization: {
+      type: 'Product Margin',
+      commissionType: 'White-label retail margin',
+      commissionValue:
+        'The operator sets retail prices and earns the remaining margin after Selfnamed product costs, shipping, storefront fees, taxes, refunds and marketing expenses.',
+    },
+    status: 'published',
+    featured: false,
+    lastVerified: '2026-08-27T00:00:00Z',
+    upvotes: 0,
+  },
 ];
