@@ -141,10 +141,13 @@ export const PageView: React.FC<PageViewProps> = ({
     },
   ];
 
+  const normalizeMarkdownStars = (text: string) =>
+    text
+      .replace(/\\{1,2}\*/g, '*')
+      .replace(/\*\*\s+([^*]+?)\s+\*\*/g, '**$1**');
+
   const renderInlineMarkdown = (text: string): React.ReactNode => {
-    const normalizedText = text
-      .replace(/\\\*\\\*\s*(\*\*[^*]+?\*\*)\s*\\\*\\\*/g, '$1')
-      .replace(/\\\*/g, '*');
+    const normalizedText = normalizeMarkdownStars(text);
     const parts: React.ReactNode[] = [];
     const boldPattern = /\*\*(.+?)\*\*/g;
     let lastIndex = 0;
