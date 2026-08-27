@@ -1,0 +1,8 @@
+{
+  "name": "Vebpartner Directory \u0026 Admin Hub",
+  "description": "Discover business opportunities, reseller programs, white-label platforms, business tools and proven models you can actually start with Vebpartner.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'yogigunes@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Tool Listings
+    match /listings/{listingId} {
+      allow read: if true;
+      allow create, delete: if isAdmin() && isValidId(listingId);
+      allow update: if (
+        isAdmin() && isValidId(listingId)
+      ) || (
+        // Allow public upvote increment
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvotes']) &&
+        request.resource.data.upvotes == resource.data.upvotes + 1
+      );
+    }
+
+    // Categories
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(categoryId);
+    }
+
+    // Advertisements
+    match /advertisements/{adId} {
+      allow read: if true;
+      allow create, delete: if isAdmin() && isValidId(adId);
+      allow update: if (
+        isAdmin() && isValidId(adId)
+      ) || (
+        // Allow public click/impression increment
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['impressions', 'clicks'])
+      );
+    }
+
+    // Custom Pages
+    match /customPages/{pageId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(pageId);
+    }
+
+    // Site Settings
+    match /siteSettings/{settingsId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(settingsId);
+    }
+
+    // Community Submissions
+    match /userSubmissions/{submissionId} {
+      allow create: if isValidId(submissionId) && request.resource.data.toolName is string;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Admins Collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() && isValidId(adminId);
+    }
+  }
+}

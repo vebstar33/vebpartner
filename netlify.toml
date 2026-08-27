@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+[build.environment]
+  SITE_URL = "https://vebpartner.com"
+  VITE_SITE_URL = "https://vebpartner.com"
+
+[[redirects]]
+  from = "/api/explore/metadata"
+  to = "/.netlify/functions/explore-metadata"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
