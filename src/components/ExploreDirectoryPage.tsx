@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Globe2, Search } from 'lucide-react';
 import { ExploreDirectoryDefinition, ExploreListingInput, ExploreMetadata } from '../types';
-import { api } from '../lib/api';
 
 const getHostname = (url: string) => {
   try {
@@ -21,6 +20,9 @@ const getFallbackTitle = (url: string) =>
     ?.replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase()) || getHostname(url);
 
+const getListingTitle = (listing: ExploreListingInput, metadata?: ExploreMetadata) =>
+  listing.title || metadata?.title || getFallbackTitle(listing.url);
+
 interface ExploreLogoProps {
   metadata?: ExploreMetadata;
   listing: ExploreListingInput;
@@ -29,7 +31,7 @@ interface ExploreLogoProps {
 const ExploreLogo: React.FC<ExploreLogoProps> = ({ metadata, listing }) => {
   const [failed, setFailed] = useState(false);
   const src = metadata?.faviconUrl || getFallbackFavicon(listing.url);
-  const label = metadata?.title || getFallbackTitle(listing.url);
+  const label = getListingTitle(listing, metadata);
 
   return (
     <div className="w-9 h-9 rounded-lg border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-950 dark:bg-zinc-950 light:bg-white flex items-center justify-center shrink-0 overflow-hidden">
@@ -56,7 +58,7 @@ interface ExploreListingRowProps {
 }
 
 const ExploreListingRow: React.FC<ExploreListingRowProps> = ({ listing, metadata }) => {
-  const name = metadata?.title || getFallbackTitle(listing.url);
+  const name = getListingTitle(listing, metadata);
   const description = listing.description || metadata?.description || `${getHostname(listing.url)} resource for ${listing.category.toLowerCase()}.`;
   const tags = listing.tags || [];
 
@@ -112,42 +114,10 @@ interface ExploreDirectoryPageProps {
 
 export const ExploreDirectoryPage: React.FC<ExploreDirectoryPageProps> = ({ directory }) => {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [metadataByUrl, setMetadataByUrl] = useState<Record<string, ExploreMetadata>>({});
 
   useEffect(() => {
     setActiveCategory('All');
   }, [directory.slug]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const missingListings = directory.listings.filter((listing) => !metadataByUrl[listing.url]);
-
-    missingListings.forEach((listing) => {
-      api.getExploreMetadata(listing.url)
-        .then((metadata) => {
-          if (cancelled) return;
-          setMetadataByUrl((prev) => ({
-            ...prev,
-            [listing.url]: metadata,
-          }));
-        })
-        .catch(() => {
-          if (cancelled) return;
-          setMetadataByUrl((prev) => ({
-            ...prev,
-            [listing.url]: {
-              title: getFallbackTitle(listing.url),
-              domain: getHostname(listing.url),
-              faviconUrl: getFallbackFavicon(listing.url),
-            },
-          }));
-        });
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [directory.listings, directory.slug, metadataByUrl]);
 
   const filteredListings = useMemo(() => {
     if (activeCategory === 'All') return directory.listings;
@@ -195,7 +165,6 @@ export const ExploreDirectoryPage: React.FC<ExploreDirectoryPageProps> = ({ dire
             <ExploreListingRow
               key={listing.url}
               listing={listing}
-              metadata={metadataByUrl[listing.url]}
             />
           ))}
         </div>

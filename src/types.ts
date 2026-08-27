@@ -237,6 +237,7 @@ export type SortOption = 'stars' | 'upvotes' | 'name' | 'newest';
 
 export interface ExploreListingInput {
   url: string;
+  title?: string;
   category: string;
   tags?: string[];
   description?: string;
