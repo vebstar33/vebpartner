@@ -290,34 +290,34 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-xl overflow-y-auto animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-[#0D0F17] border border-white/[0.08] shadow-2xl shadow-black overflow-hidden"
+        className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-vp-surface-raised border border-vp shadow-2xl shadow-black overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-white/[0.06] bg-[#090A10]">
+        <div className="flex items-center justify-between p-5 border-b border-vp-subtle bg-vp-bg">
           <div>
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 tracking-tight">
-              <span className="text-emerald-400 font-extrabold">{isEditing ? 'Edit Listing:' : 'Add New Listing'}</span>
-              {isEditing && <span className="text-zinc-300">{listingToEdit?.name}</span>}
+            <h3 className="text-lg font-bold text-vp-primary flex items-center gap-2 tracking-tight">
+              <span className="text-vp-brand font-extrabold">{isEditing ? 'Edit Listing:' : 'Add New Listing'}</span>
+              {isEditing && <span className="text-vp-secondary">{listingToEdit?.name}</span>}
             </h3>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <p className="text-xs text-vp-muted mt-0.5">
               Manage listing details, related providers, business context, links and comparison notes.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-white/[0.08] transition-colors"
+            className="p-2 rounded-xl bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-muted hover:text-vp-primary border border-vp transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* AI Quick Auto-Fill Assistant Strip */}
-        <div className="p-4 bg-zinc-900/60 border-b border-white/[0.06]">
+        <div className="p-4 bg-vp-surface-subtle/60 border-b border-vp-subtle">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span className="text-xs font-bold text-white">Auto-Fill Assistant</span>
-              <p className="text-[11px] text-zinc-400">
+              <span className="text-xs font-bold text-vp-primary">Auto-Fill Assistant</span>
+              <p className="text-[11px] text-vp-muted">
                 Type a repository name or GitHub URL to auto-extract comprehensive metadata.
               </p>
             </div>
@@ -328,13 +328,13 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                 placeholder="e.g. https://github.com/supabase/supabase or Formbricks"
                 value={aiPrompt}
                 onChange={(e) => setAiPrompt(e.target.value)}
-                className="px-3 py-1.5 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-64 sm:w-72"
+                className="px-3 py-1.5 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-zinc-500 w-64 sm:w-72"
               />
               <button
                 type="button"
                 onClick={handleAiAutoFill}
                 disabled={isAiLoading}
-                className="px-3.5 py-1.5 rounded-xl bg-zinc-100 hover:bg-white disabled:opacity-50 text-zinc-950 font-bold text-xs flex items-center gap-1.5 shrink-0 transition-all active:scale-95 shadow-sm"
+                className="px-3.5 py-1.5 rounded-xl bg-zinc-100 hover:bg-white disabled:opacity-50 text-vp-inverse font-bold text-xs flex items-center gap-1.5 shrink-0 transition-all active:scale-95 shadow-sm"
               >
                 {isAiLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 <span>{isAiLoading ? 'Analyzing...' : 'Auto-Fill'}</span>
@@ -344,7 +344,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
 
           {aiSuccessMessage && (
             <div className="mt-2.5 p-2 rounded-xl bg-emerald-950/50 border border-emerald-800/60 text-xs text-emerald-300 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-vp-brand shrink-0" />
               <span>{aiSuccessMessage}</span>
             </div>
           )}
@@ -353,22 +353,22 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
         {/* Scrollable Form Body */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto flex-1 space-y-6">
           {error && (
-            <div className="p-3.5 rounded-xl bg-rose-950/50 border border-rose-800 text-xs text-rose-300 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="p-3.5 rounded-xl bg-rose-950/50 border border-rose-800 text-xs text-vp-error flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-vp-error" />
               <span>{error}</span>
             </div>
           )}
 
           {/* Section 1: Basic Info */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-vp-brand flex items-center gap-1.5">
               <span>1. Basic Information</span>
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                  Tool Name <span className="text-rose-400">*</span>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">
+                  Tool Name <span className="text-vp-error">*</span>
                 </label>
                 <input
                   type="text"
@@ -376,25 +376,25 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   placeholder="e.g. Supabase, Plausible, Cal.com"
                   value={name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">URL Slug</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">URL Slug</label>
                 <input
                   type="text"
                   placeholder="supabase, plausible-analytics"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-zinc-300 placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-secondary placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                Short Tagline <span className="text-rose-400">*</span>
+              <label className="block text-xs font-semibold text-vp-secondary mb-1">
+                Short Tagline <span className="text-vp-error">*</span>
               </label>
               <input
                 type="text"
@@ -402,24 +402,24 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                 placeholder="A practical provider or tool for launching an online business"
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">Detailed Overview</label>
+              <label className="block text-xs font-semibold text-vp-secondary mb-1">Detailed Overview</label>
               <textarea
                 rows={3}
                 placeholder="Explain the business use case, provider fit, and why it belongs on Vebpartner..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 leading-relaxed"
+                className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500 leading-relaxed"
               />
             </div>
 
             {/* Replaces (Ersätter proprietär mjukvara) */}
-            <div className="p-4 rounded-2xl bg-zinc-950 border border-white/[0.06] space-y-2">
-              <label className="block text-xs font-semibold text-zinc-200">
+            <div className="p-4 rounded-2xl bg-vp-bg border border-vp-subtle space-y-2">
+              <label className="block text-xs font-semibold text-vp-secondary">
                 Proprietary Software Replaced (e.g. Firebase, Notion, Google Analytics)
               </label>
               <div className="flex gap-2">
@@ -434,12 +434,12 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                       handleAddReplace();
                     }
                   }}
-                  className="flex-1 px-3 py-2 text-xs rounded-xl bg-zinc-900 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                  className="flex-1 px-3 py-2 text-xs rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
                 />
                 <button
                   type="button"
                   onClick={handleAddReplace}
-                  className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold"
+                  className="px-3.5 py-2 rounded-xl bg-vp-surface-hover hover:bg-vp-surface-hover text-vp-primary text-xs font-semibold"
                 >
                   + Add
                 </button>
@@ -454,7 +454,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveReplace(item)}
-                      className="hover:text-rose-400 text-emerald-400"
+                      className="hover:text-vp-error text-vp-brand"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -465,18 +465,18 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
           </div>
 
           {/* Section 2: Taxonomy & Repositories */}
-          <div className="space-y-4 pt-4 border-t border-white/[0.06]">
+          <div className="space-y-4 pt-4 border-t border-vp-subtle">
             <h4 className="text-xs font-bold uppercase tracking-wider text-teal-400">
               2. Taxonomy, Pricing & Repositories
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Category</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500"
                 >
                   {categories
                     .filter((c) => c.id !== 'all')
@@ -489,11 +489,11 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">License</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">License</label>
                 <select
                   value={license}
                   onChange={(e) => setLicense(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500 font-mono"
                 >
                   <option value="MIT">MIT</option>
                   <option value="AGPL-3.0">AGPL-3.0</option>
@@ -506,11 +506,11 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Pricing Model</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">Pricing Model</label>
                 <select
                   value={pricingModel}
                   onChange={(e) => setPricingModel(e.target.value as any)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500"
                 >
                   <option value="100% Free Open Source">100% Free Open Source</option>
                   <option value="Open Core / Freemium Cloud">Open Core / Freemium Cloud</option>
@@ -521,8 +521,8 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1 flex items-center gap-1">
-                  <Github className="w-3.5 h-3.5 text-zinc-400" />
+                <label className="block text-xs font-semibold text-vp-secondary mb-1 flex items-center gap-1">
+                  <Github className="w-3.5 h-3.5 text-vp-muted" />
                   <span>GitHub Repository URL</span>
                 </label>
                 <input
@@ -530,13 +530,13 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   placeholder="https://github.com/supabase/supabase"
                   value={githubUrl}
                   onChange={(e) => setGithubUrl(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1 flex items-center gap-1">
-                  <Globe className="w-3.5 h-3.5 text-zinc-400" />
+                <label className="block text-xs font-semibold text-vp-secondary mb-1 flex items-center gap-1">
+                  <Globe className="w-3.5 h-3.5 text-vp-muted" />
                   <span>Official Website URL</span>
                 </label>
                 <input
@@ -544,53 +544,53 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   placeholder="https://supabase.com"
                   value={websiteUrl}
                   onChange={(e) => setWebsiteUrl(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">GitHub Stars</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">GitHub Stars</label>
                 <input
                   type="number"
                   value={stars}
                   onChange={(e) => setStars(Number(e.target.value))}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Documentation URL</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">Documentation URL</label>
                 <input
                   type="url"
                   placeholder="https://docs.example.com"
                   value={docsUrl}
                   onChange={(e) => setDocsUrl(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Logo / Favicon URL</label>
+                <label className="block text-xs font-semibold text-vp-secondary mb-1">Logo / Favicon URL</label>
                 <input
                   type="url"
                   placeholder="https://example.com/favicon.ico"
                   value={logoUrl}
                   onChange={(e) => setLogoUrl(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
           </div>
 
           {/* Section 3: Tech Stack & Tags */}
-          <div className="space-y-4 pt-4 border-t border-white/[0.06]">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400">3. Tech Stack & Implementation</h4>
+          <div className="space-y-4 pt-4 border-t border-vp-subtle">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-vp-info">3. Tech Stack & Implementation</h4>
 
             {/* Tech stack */}
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
+              <label className="block text-xs font-semibold text-vp-secondary mb-1">
                 Technologies & Languages (Tech Stack)
               </label>
               <div className="flex gap-2">
@@ -605,12 +605,12 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                       handleAddTech();
                     }
                   }}
-                  className="flex-1 px-3 py-2 text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                  className="flex-1 px-3 py-2 text-xs rounded-xl bg-vp-bg border border-vp text-vp-primary placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
                 />
                 <button
                   type="button"
                   onClick={handleAddTech}
-                  className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold"
+                  className="px-3.5 py-2 rounded-xl bg-vp-surface-hover hover:bg-vp-surface-hover text-vp-primary text-xs font-semibold"
                 >
                   + Add
                 </button>
@@ -619,10 +619,10 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                 {techList.map((t) => (
                   <span
                     key={t}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-800 text-zinc-200 border border-white/[0.04]"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-vp-surface-hover text-vp-secondary border border-white/[0.04]"
                   >
                     <span>{t}</span>
-                    <button type="button" onClick={() => handleRemoveTech(t)} className="hover:text-rose-400">
+                    <button type="button" onClick={() => handleRemoveTech(t)} className="hover:text-vp-error">
                       <X className="w-3 h-3" />
                     </button>
                   </span>
@@ -632,8 +632,8 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
 
             {/* Docker Quickstart */}
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1 flex items-center gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+              <label className="block text-xs font-semibold text-vp-secondary mb-1 flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-vp-brand" />
                 <span>Docker Run / Compose Command</span>
               </label>
               <input
@@ -641,21 +641,21 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                 placeholder="docker run -p 3000:3000 tool/tool or docker compose up -d"
                 value={dockerCommand}
                 onChange={(e) => setDockerCommand(e.target.value)}
-                className="w-full px-3 py-2 font-mono text-xs rounded-xl bg-zinc-950 border border-white/[0.08] text-emerald-400 placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 font-mono text-xs rounded-xl bg-vp-bg border border-vp text-vp-brand placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
 
           {/* Section 4: Comparison Matrix */}
-          <div className="space-y-4 pt-4 border-t border-white/[0.06]">
+          <div className="space-y-4 pt-4 border-t border-vp-subtle">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-vp-warning">
                 4. Feature & Provider Comparison Matrix
               </h4>
               <button
                 type="button"
                 onClick={handleAddComparisonPoint}
-                className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1"
+                className="text-xs text-vp-brand hover:text-emerald-300 font-semibold flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Comparison Row</span>
@@ -666,14 +666,14 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               {comparisonPoints.map((cp, idx) => (
                 <div
                   key={idx}
-                  className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 rounded-2xl bg-zinc-950 border border-white/[0.06] relative group"
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 rounded-2xl bg-vp-bg border border-vp-subtle relative group"
                 >
                   <input
                     type="text"
                     placeholder="Dimension (e.g. Data Ownership)"
                     value={cp.feature}
                     onChange={(e) => handleUpdateComparisonPoint(idx, 'feature', e.target.value)}
-                    className="px-2.5 py-1.5 text-xs rounded-xl bg-zinc-900 border border-white/[0.08] text-white placeholder-zinc-500"
+                    className="px-2.5 py-1.5 text-xs rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary placeholder-zinc-500"
                   />
                   <input
                     type="text"
@@ -688,12 +688,12 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                       placeholder="Proprietary SaaS limitation"
                       value={cp.proprietaryTool}
                       onChange={(e) => handleUpdateComparisonPoint(idx, 'proprietaryTool', e.target.value)}
-                      className="flex-1 px-2.5 py-1.5 text-xs rounded-xl bg-zinc-900 border border-white/[0.08] text-zinc-300 placeholder-zinc-500"
+                      className="flex-1 px-2.5 py-1.5 text-xs rounded-xl bg-vp-surface-subtle border border-vp text-vp-secondary placeholder-zinc-500"
                     />
                     <button
                       type="button"
                       onClick={() => handleRemoveComparisonPoint(idx)}
-                      className="p-1.5 text-zinc-500 hover:text-rose-400 rounded-lg hover:bg-zinc-800"
+                      className="p-1.5 text-vp-faint hover:text-vp-error rounded-lg hover:bg-vp-surface-hover"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -704,7 +704,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
           </div>
 
           {/* Section 5: Visibility & Status */}
-          <div className="space-y-4 pt-4 border-t border-white/[0.06]">
+          <div className="space-y-4 pt-4 border-t border-vp-subtle">
             <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400">5. Publishing Status & Badges</h4>
 
             {/* Publishing status switcher */}
@@ -712,8 +712,8 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               <label
                 className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-start gap-3 ${
                   status === 'published'
-                    ? 'bg-emerald-500/10 border-emerald-500/50 text-white'
-                    : 'bg-zinc-950 border-white/[0.06] text-zinc-400 hover:border-zinc-700'
+                    ? 'bg-vp-brand-subtle border-emerald-500/50 text-vp-primary'
+                    : 'bg-vp-bg border-vp-subtle text-vp-muted hover:border-vp-strong'
                 }`}
               >
                 <input
@@ -722,14 +722,14 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   value="published"
                   checked={status === 'published'}
                   onChange={() => setStatus('published')}
-                  className="mt-1 text-emerald-500 focus:ring-emerald-500"
+                  className="mt-1 text-vp-brand focus:ring-[var(--vp-brand)]"
                 />
                 <div>
-                  <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                  <div className="text-xs font-bold text-vp-brand flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Published (Live)</span>
                   </div>
-                  <div className="text-[11px] text-zinc-400 mt-0.5">
+                  <div className="text-[11px] text-vp-muted mt-0.5">
                     Listing is immediately visible to all visitors in the public catalog.
                   </div>
                 </div>
@@ -738,8 +738,8 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
               <label
                 className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-start gap-3 ${
                   status === 'draft'
-                    ? 'bg-amber-500/10 border-amber-500/50 text-white'
-                    : 'bg-zinc-950 border-white/[0.06] text-zinc-400 hover:border-zinc-700'
+                    ? 'bg-vp-warning/10 border-amber-500/50 text-vp-primary'
+                    : 'bg-vp-bg border-vp-subtle text-vp-muted hover:border-vp-strong'
                 }`}
               >
                 <input
@@ -751,26 +751,26 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   className="mt-1 text-amber-500 focus:ring-amber-500"
                 />
                 <div>
-                  <div className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                  <div className="text-xs font-bold text-vp-warning flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Draft (Private)</span>
                   </div>
-                  <div className="text-[11px] text-zinc-400 mt-0.5">
+                  <div className="text-[11px] text-vp-muted mt-0.5">
                     Saved in admin database only. Hidden from the public website until published.
                   </div>
                 </div>
               </label>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 p-4 rounded-2xl bg-zinc-950 border border-white/[0.06]">
+            <div className="flex flex-wrap items-center gap-6 p-4 rounded-2xl bg-vp-bg border border-vp-subtle">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={featured}
                   onChange={(e) => setFeatured(e.target.checked)}
-                  className="w-4 h-4 rounded border-zinc-700 text-emerald-500 focus:ring-emerald-500 bg-zinc-900"
+                  className="w-4 h-4 rounded border-vp-strong text-vp-brand focus:ring-[var(--vp-brand)] bg-vp-surface-subtle"
                 />
-                <span className="text-xs font-semibold text-zinc-200">Mark as Featured Pick</span>
+                <span className="text-xs font-semibold text-vp-secondary">Mark as Featured Pick</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer">
@@ -778,29 +778,29 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   type="checkbox"
                   checked={verified}
                   onChange={(e) => setVerified(e.target.checked)}
-                  className="w-4 h-4 rounded border-zinc-700 text-emerald-500 focus:ring-emerald-500 bg-zinc-900"
+                  className="w-4 h-4 rounded border-vp-strong text-vp-brand focus:ring-[var(--vp-brand)] bg-vp-surface-subtle"
                 />
-                <span className="text-xs font-semibold text-zinc-200">Verified Open Source</span>
+                <span className="text-xs font-semibold text-vp-secondary">Verified Open Source</span>
               </label>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-400">Initial Upvotes:</span>
+                <span className="text-xs text-vp-muted">Initial Upvotes:</span>
                 <input
                   type="number"
                   value={upvotes}
                   onChange={(e) => setUpvotes(Number(e.target.value))}
-                  className="w-20 px-2 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-700 text-white font-mono"
+                  className="w-20 px-2 py-1 text-xs rounded-lg bg-vp-surface-subtle border border-vp-strong text-vp-primary font-mono"
                 />
               </div>
             </div>
           </div>
 
           {/* Footer Actions */}
-          <div className="pt-4 border-t border-white/[0.06] flex items-center justify-end gap-3 sticky bottom-0 bg-[#0D0F17] py-3">
+          <div className="pt-4 border-t border-vp-subtle flex items-center justify-end gap-3 sticky bottom-0 bg-vp-surface-raised py-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-semibold transition-colors border border-white/[0.06]"
+              className="px-4 py-2 rounded-xl bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-secondary text-xs font-semibold transition-colors border border-vp-subtle"
             >
               Cancel
             </button>
@@ -849,7 +849,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                   setIsSaving(false);
                 }
               }}
-              className="px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold transition-colors"
+              className="px-4 py-2 rounded-xl bg-vp-warning/10 hover:bg-vp-warning/15 text-vp-warning border border-vp-warning/25 text-xs font-semibold transition-colors"
             >
               Save as Draft
             </button>
@@ -857,7 +857,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
             <button
               type="submit"
               disabled={isSaving}
-              className="px-6 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-zinc-950 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
+              className="px-6 py-2 rounded-xl bg-vp-brand hover:bg-vp-brand-hover disabled:opacity-50 text-vp-inverse font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
             >
               <Save className="w-4 h-4" />
               <span>

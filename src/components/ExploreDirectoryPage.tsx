@@ -34,7 +34,7 @@ const ExploreLogo: React.FC<ExploreLogoProps> = ({ metadata, listing }) => {
   const label = getListingTitle(listing, metadata);
 
   return (
-    <div className="w-9 h-9 rounded-lg border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-950 dark:bg-zinc-950 light:bg-white flex items-center justify-center shrink-0 overflow-hidden">
+    <div className="w-9 h-9 rounded-lg border border-vp dark:border-vp light:border-zinc-200 bg-vp-bg dark:bg-vp-bg light:bg-white flex items-center justify-center shrink-0 overflow-hidden">
       {!failed ? (
         <img
           src={src}
@@ -44,7 +44,7 @@ const ExploreLogo: React.FC<ExploreLogoProps> = ({ metadata, listing }) => {
           onError={() => setFailed(true)}
         />
       ) : (
-        <span className="text-xs font-extrabold text-emerald-400 light:text-emerald-700">
+        <span className="text-xs font-extrabold text-vp-brand light:text-emerald-700">
           {label.slice(0, 1).toUpperCase()}
         </span>
       )}
@@ -67,32 +67,32 @@ const ExploreListingRow: React.FC<ExploreListingRowProps> = ({ listing, metadata
       href={listing.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group grid grid-cols-[auto_1fr] sm:grid-cols-[auto_minmax(0,1.25fr)_auto_auto] gap-3 sm:gap-4 items-center rounded-xl border border-white/[0.07] dark:border-white/[0.07] light:border-zinc-200 bg-zinc-900/42 dark:bg-zinc-900/42 light:bg-white hover:bg-zinc-900/70 dark:hover:bg-zinc-900/70 light:hover:bg-zinc-50 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 light:hover:border-emerald-400/60 px-3 py-2.5 transition-colors shadow-sm"
+      className="group grid grid-cols-[auto_1fr] sm:grid-cols-[auto_minmax(0,1.25fr)_auto_auto] gap-3 sm:gap-4 items-center rounded-xl border border-vp dark:border-vp light:border-zinc-200 bg-vp-surface-subtle/42 dark:bg-vp-surface-subtle/42 light:bg-white hover:bg-vp-surface-subtle/70 dark:hover:bg-vp-surface-subtle/70 light:hover:bg-zinc-50 hover:border-vp-brand dark:hover:border-vp-brand light:hover:border-emerald-400/60 px-3 py-2.5 transition-colors shadow-sm"
     >
       <ExploreLogo metadata={metadata} listing={listing} />
 
       <div className="min-w-0">
         <div className="flex items-center gap-2 min-w-0">
-          <h2 className="text-sm font-bold text-white dark:text-white light:text-zinc-950 truncate">
+          <h2 className="text-sm font-bold text-vp-primary dark:text-vp-primary light:text-vp-inverse truncate">
             {name}
           </h2>
-          <span className="hidden sm:inline text-[11px] text-zinc-500 dark:text-zinc-500 light:text-zinc-500 truncate">
+          <span className="hidden sm:inline text-[11px] text-vp-faint dark:text-vp-faint light:text-vp-faint truncate">
             {metadata?.domain || getHostname(listing.url)}
           </span>
         </div>
-        <p className="mt-0.5 text-xs leading-relaxed text-zinc-400 dark:text-zinc-400 light:text-zinc-600 line-clamp-2">
+        <p className="mt-0.5 text-xs leading-relaxed text-vp-muted dark:text-vp-muted light:text-zinc-600 line-clamp-2">
           {description}
         </p>
       </div>
 
       <div className="col-start-2 sm:col-start-auto flex flex-wrap items-center gap-1.5 min-w-0">
-        <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-300 dark:text-emerald-300 light:text-emerald-700 border border-emerald-500/20 text-[10px] font-bold">
+        <span className="px-2 py-1 rounded-md bg-vp-brand-subtle text-emerald-300 dark:text-emerald-300 light:text-emerald-700 border border-vp-brand text-[10px] font-bold">
           {listing.category}
         </span>
         {tags.slice(0, 3).map((tag) => (
           <span
             key={tag}
-            className="px-2 py-1 rounded-md bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-zinc-100 border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 text-[10px] font-semibold text-zinc-400 dark:text-zinc-400 light:text-zinc-600"
+            className="px-2 py-1 rounded-md bg-vp-bg/80 dark:bg-vp-bg/80 light:bg-zinc-100 border border-vp-subtle dark:border-vp-subtle light:border-zinc-200 text-[10px] font-semibold text-vp-muted dark:text-vp-muted light:text-zinc-600"
           >
             {tag}
           </span>
@@ -100,7 +100,7 @@ const ExploreListingRow: React.FC<ExploreListingRowProps> = ({ listing, metadata
       </div>
 
       <div className="col-span-2 sm:col-span-1 justify-self-stretch sm:justify-self-end">
-        <span className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-extrabold transition-colors">
+        <span className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse text-xs font-extrabold transition-colors">
           Visit <ExternalLink className="w-3 h-3" />
         </span>
       </div>
@@ -127,14 +127,14 @@ export const ExploreDirectoryPage: React.FC<ExploreDirectoryPageProps> = ({ dire
   return (
     <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6">
-        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-emerald-400 dark:text-emerald-400 light:text-emerald-700">
+        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-vp-brand dark:text-vp-brand light:text-emerald-700">
           <Globe2 className="w-3.5 h-3.5" />
           <span>Explore</span>
         </div>
-        <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-white dark:text-white light:text-zinc-950 tracking-tight">
+        <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-vp-primary dark:text-vp-primary light:text-vp-inverse tracking-tight">
           {directory.title}
         </h1>
-        <p className="mt-2 max-w-3xl text-sm text-zinc-400 dark:text-zinc-400 light:text-zinc-600 leading-relaxed">
+        <p className="mt-2 max-w-3xl text-sm text-vp-muted dark:text-vp-muted light:text-zinc-600 leading-relaxed">
           {directory.description}
         </p>
       </div>
@@ -149,8 +149,8 @@ export const ExploreDirectoryPage: React.FC<ExploreDirectoryPageProps> = ({ dire
               onClick={() => setActiveCategory(category)}
               className={`shrink-0 px-3 py-1.5 rounded-full border text-xs font-bold transition-colors cursor-pointer ${
                 selected
-                  ? 'bg-emerald-500 text-zinc-950 border-emerald-400'
-                  : 'bg-zinc-900/70 dark:bg-zinc-900/70 light:bg-white border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:border-emerald-500/30'
+                  ? 'bg-vp-brand text-vp-inverse border-emerald-400'
+                  : 'bg-vp-surface-subtle/70 dark:bg-vp-surface-subtle/70 light:bg-white border-vp dark:border-vp light:border-zinc-200 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:border-vp-brand'
               }`}
             >
               {category}
@@ -169,9 +169,9 @@ export const ExploreDirectoryPage: React.FC<ExploreDirectoryPageProps> = ({ dire
           ))}
         </div>
       ) : (
-        <div className="py-16 text-center rounded-2xl border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white">
-          <Search className="w-5 h-5 text-zinc-500 mx-auto mb-3" />
-          <p className="text-sm font-bold text-white dark:text-white light:text-zinc-950">No listings in this category yet</p>
+        <div className="py-16 text-center rounded-2xl border border-vp dark:border-vp light:border-zinc-200 bg-vp-surface-subtle/50 dark:bg-vp-surface-subtle/50 light:bg-white">
+          <Search className="w-5 h-5 text-vp-faint mx-auto mb-3" />
+          <p className="text-sm font-bold text-vp-primary dark:text-vp-primary light:text-vp-inverse">No listings in this category yet</p>
         </div>
       )}
     </main>

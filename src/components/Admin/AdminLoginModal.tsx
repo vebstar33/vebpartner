@@ -99,11 +99,11 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="w-full max-w-md rounded-2xl bg-[#0d0f17] border border-white/[0.08] shadow-2xl p-6 sm:p-8 relative space-y-6 text-zinc-100">
+      <div className="w-full max-w-md rounded-2xl bg-vp-surface-raised border border-vp shadow-2xl p-6 sm:p-8 relative space-y-6 text-vp-primary">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-2 rounded-xl text-vp-muted hover:text-vp-primary hover:bg-vp-surface-hover transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -111,21 +111,21 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
+          <div className="w-12 h-12 rounded-2xl bg-vp-brand-subtle border border-vp-brand text-vp-brand flex items-center justify-center mx-auto shadow-inner">
             <Lock className="w-6 h-6" />
           </div>
-          <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
+          <h2 className="text-lg sm:text-xl font-extrabold text-vp-primary tracking-tight">
             Admin Mission Control
           </h2>
-          <p className="text-xs text-zinc-400 max-w-xs mx-auto">
+          <p className="text-xs text-vp-muted max-w-xs mx-auto">
             Authorized administrators only. Authenticate to manage software catalog, drafts, categories, and sponsorships.
           </p>
         </div>
 
         {/* Error Alert */}
         {error && (
-          <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start gap-2.5">
-            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+          <div className="p-3.5 rounded-xl bg-vp-error/10 border border-vp-error/25 text-vp-error text-xs flex items-start gap-2.5">
+            <AlertCircle className="w-4 h-4 text-vp-error shrink-0 mt-0.5" />
             <div className="flex-1 leading-relaxed">{error}</div>
           </div>
         )}
@@ -135,7 +135,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           type="button"
           onClick={handleGoogleSignIn}
           disabled={isLoading}
-          className="w-full py-2.5 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/[0.08] text-xs font-semibold text-white flex items-center justify-center gap-2.5 transition-all active:scale-[0.98] cursor-pointer disabled:opacity-50 shadow-sm"
+          className="w-full py-2.5 px-4 rounded-xl bg-vp-surface-subtle hover:bg-vp-surface-hover border border-vp text-xs font-semibold text-vp-primary flex items-center justify-center gap-2.5 transition-all active:scale-[0.98] cursor-pointer disabled:opacity-50 shadow-sm"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -161,15 +161,15 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
         {/* Divider */}
         <div className="flex items-center gap-3">
           <div className="h-px bg-white/[0.08] flex-1" />
-          <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-500">or with email</span>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-vp-faint">or with email</span>
           <div className="h-px bg-white/[0.08] flex-1" />
         </div>
 
         {/* Email & Password Form */}
         <form onSubmit={handleEmailAuth} className="space-y-3.5">
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-              <Mail className="w-3.5 h-3.5 text-zinc-400" />
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5 flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-vp-muted" />
               <span>Admin Email</span>
             </label>
             <input
@@ -178,13 +178,13 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
               onChange={(e) => setEmail(e.target.value)}
               placeholder="yogigunes@gmail.com"
               required
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 transition-all font-mono"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-bg border border-vp text-xs text-vp-primary placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 transition-all font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-              <Key className="w-3.5 h-3.5 text-zinc-400" />
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5 flex items-center gap-1.5">
+              <Key className="w-3.5 h-3.5 text-vp-muted" />
               <span>Password</span>
             </label>
             <input
@@ -193,14 +193,14 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
               required
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 transition-all"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-bg border border-vp text-xs text-vp-primary placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 transition-all"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-sm cursor-pointer disabled:opacity-50"
+            className="w-full py-2.5 px-4 rounded-xl bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-sm cursor-pointer disabled:opacity-50"
           >
             <LogIn className="w-4 h-4" />
             <span>
@@ -214,7 +214,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
         </form>
 
         {/* Toggle Mode */}
-        <div className="pt-2 text-center text-xs text-zinc-500 flex items-center justify-center gap-1.5">
+        <div className="pt-2 text-center text-xs text-vp-faint flex items-center justify-center gap-1.5">
           <span>{isRegisterMode ? 'Already have credentials?' : 'Need to set up admin password?'}</span>
           <button
             type="button"
@@ -222,15 +222,15 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
               setIsRegisterMode(!isRegisterMode);
               setError(null);
             }}
-            className="text-emerald-400 hover:text-emerald-300 font-semibold underline cursor-pointer"
+            className="text-vp-brand hover:text-emerald-300 font-semibold underline cursor-pointer"
           >
             {isRegisterMode ? 'Sign In' : 'Set up credentials'}
           </button>
         </div>
 
         {/* Root admin notice */}
-        <div className="p-3 rounded-xl bg-zinc-950/80 border border-white/[0.04] text-[11px] text-zinc-500 text-center">
-          Root administrator authority configured for: <span className="font-mono text-zinc-400">{ROOT_ADMIN_EMAIL}</span>
+        <div className="p-3 rounded-xl bg-vp-bg/80 border border-white/[0.04] text-[11px] text-vp-faint text-center">
+          Root administrator authority configured for: <span className="font-mono text-vp-muted">{ROOT_ADMIN_EMAIL}</span>
         </div>
       </div>
     </div>

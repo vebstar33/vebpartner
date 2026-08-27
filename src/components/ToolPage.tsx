@@ -155,18 +155,18 @@ export const ToolPage: React.FC<ToolPageProps> = ({
   const featuredProjects = allListings.slice(0, 12);
 
   return (
-    <div className="w-full text-zinc-200">
+    <div className="w-full text-vp-secondary">
       {/* Top Banner Advertisement (Exact match to screenshot) */}
-      <div className="border-b border-zinc-800/80 bg-[#09090b] px-4 py-2 text-xs">
+      <div className="border-b border-vp bg-vp-bg px-4 py-2 text-xs">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2.5 text-zinc-300 flex-wrap justify-center sm:justify-start">
-            <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-zinc-800 text-zinc-400 border border-zinc-700/60">
+          <div className="flex items-center gap-2.5 text-vp-secondary flex-wrap justify-center sm:justify-start">
+            <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-vp-surface-hover text-vp-muted border border-vp-strong">
               Ad
             </span>
             <div className="flex items-center gap-1.5 font-medium">
               <OpenlaneLogo className="w-4 h-4" />
-              <span className="font-semibold text-white">Openlane</span>
-              <span className="text-zinc-400">– Open-source, developer-first platform for automated compliance, risk management, and built-in Trust Center.</span>
+              <span className="font-semibold text-vp-primary">Openlane</span>
+              <span className="text-vp-muted">– Open-source, developer-first platform for automated compliance, risk management, and built-in Trust Center.</span>
             </div>
           </div>
 
@@ -175,7 +175,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               href="https://openlane.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1 rounded-lg border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-200 text-xs font-medium transition-colors flex items-center gap-1"
+              className="px-3 py-1 rounded-lg border border-vp-strong bg-vp-surface-hover/80 hover:bg-vp-surface-hover text-vp-secondary text-xs font-medium transition-colors flex items-center gap-1"
             >
               <span>Learn More</span>
             </a>
@@ -186,10 +186,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
       {/* Main Tool Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Back breadcrumb navigation */}
-        <div className="mb-4 flex items-center justify-between text-xs text-zinc-400">
+        <div className="mb-4 flex items-center justify-between text-xs text-vp-muted">
           <button
             onClick={onBackToDirectory}
-            className="flex items-center gap-1 hover:text-white transition-colors group"
+            className="flex items-center gap-1 hover:text-vp-primary transition-colors group"
           >
             <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             <span>Back to all businesses</span>
@@ -205,24 +205,24 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               <div className="flex items-center gap-3.5">
                 {/* Brand Logo */}
                 {listing.id === 'novu' ? (
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-vp-surface-subtle border border-vp flex items-center justify-center p-2 shadow-sm shrink-0">
                     <NovuLogo className="w-full h-full" />
                   </div>
                 ) : listing.logoUrl ? (
                   <img
                     src={listing.logoUrl}
                     alt={listing.name}
-                    className="w-12 h-12 rounded-xl object-cover bg-zinc-900 border border-zinc-800 p-1 shadow-sm shrink-0"
+                    className="w-12 h-12 rounded-xl object-cover bg-vp-surface-subtle border border-vp p-1 shadow-sm shrink-0"
                     onError={(e) => {
                       (e.currentTarget as HTMLElement).style.display = 'none';
                     }}
                   />
                 ) : listing.businessIcon ? (
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-vp-surface-subtle border border-vp flex items-center justify-center text-vp-secondary shadow-sm shrink-0">
                     <BusinessIcon name={listing.businessIcon} className="w-6 h-6" />
                   </div>
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-white font-bold text-base shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-vp-surface-hover border border-vp-strong flex items-center justify-center text-vp-primary font-bold text-base shrink-0">
                     {listing.name.slice(0, 2).toUpperCase()}
                   </div>
                 )}
@@ -237,7 +237,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         listing.partnerModels?.map((partnerModel) => (
                           <span
                             key={partnerModel}
-                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 text-zinc-300"
+                            className="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-vp-surface-subtle border border-vp text-vp-secondary"
                           >
                             {getPartnerModelLabel(partnerModel)}
                           </span>
@@ -245,11 +245,11 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     </div>
                   )}
                   <div className="flex items-center gap-2">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-vp-primary tracking-tight">
                       {listing.name}
                     </h1>
                     {listing.verified && (
-                      <VerifiedBadge className="w-5 h-5 text-blue-500 shrink-0" />
+                      <VerifiedBadge className="w-5 h-5 text-vp-info shrink-0" />
                     )}
                   </div>
                 </div>
@@ -261,17 +261,17 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   onClick={(e) => onToggleBookmark(listing.id, e)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                     isBookmarked
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                      : 'bg-[#141414] hover:bg-zinc-800 text-zinc-300 border-zinc-800'
+                      ? 'bg-vp-warning/15 text-vp-warning border-vp-warning/30'
+                      : 'bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-secondary border-vp'
                   }`}
                 >
-                  <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-400 text-amber-400' : ''}`} />
+                  <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-vp-warning text-vp-warning' : ''}`} />
                   <span>{isBookmarked ? 'Saved' : 'Save'}</span>
                 </button>
 
                 <button
                   onClick={onReport || (() => alert('Listing reported for moderation review.'))}
-                  className="p-2 rounded-lg bg-[#141414] hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors"
+                  className="p-2 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-muted hover:text-vp-primary border border-vp transition-colors"
                   title="Report"
                 >
                   <Flag className="w-3.5 h-3.5" />
@@ -279,7 +279,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 <button
                   onClick={handleCopyLink}
-                  className="p-2 rounded-lg bg-[#141414] hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800 transition-colors"
+                  className="p-2 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-muted hover:text-vp-primary border border-vp transition-colors"
                   title="Embed code"
                 >
                   <Code className="w-3.5 h-3.5" />
@@ -288,19 +288,19 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             </div>
 
             {/* Tagline / Subtitle */}
-            <p className="text-sm sm:text-[15px] text-zinc-300 leading-relaxed font-normal">
+            <p className="text-sm sm:text-[15px] text-vp-secondary leading-relaxed font-normal">
               {listing.tagline || listing.description}
             </p>
 
             {/* "Powered by:" or related provider section */}
             {listing.isBlueprint || listing.providerName ? (
               <div className="space-y-2">
-                <h3 className="text-xs font-normal text-zinc-400">
+                <h3 className="text-xs font-normal text-vp-muted">
                   Powered by:
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-semibold text-white">
-                    {!listing.providerLogoUrl && <Layers className="w-3.5 h-3.5 text-zinc-400 shrink-0" />}
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-vp-surface-subtle border border-vp text-xs font-semibold text-vp-primary">
+                    {!listing.providerLogoUrl && <Layers className="w-3.5 h-3.5 text-vp-muted shrink-0" />}
                     <ProviderLogoPlate
                       src={listing.providerLogoUrl}
                       name={listing.providerName || 'HighLevel'}
@@ -311,14 +311,14 @@ export const ToolPage: React.FC<ToolPageProps> = ({
               </div>
             ) : listing.replaces && listing.replaces.length > 0 ? (
               <div className="space-y-2">
-                <h3 className="text-xs font-normal text-zinc-400">
+                <h3 className="text-xs font-normal text-vp-muted">
                   Related provider:
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {listing.replaces.map((prop) => (
                     <span
                       key={prop}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-medium text-zinc-200"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-vp-surface-subtle border border-vp text-xs font-medium text-vp-secondary"
                     >
                       <ProprietaryIcon name={prop} className="w-3.5 h-3.5 shrink-0" />
                       <span>{prop}</span>
@@ -335,7 +335,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href={listing.affiliateUrl || listing.websiteUrl || 'HIGHLEVEL_AFFILIATE_URL'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-xl bg-[#f8b273] hover:bg-[#f59747] text-zinc-950 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all active:scale-95 shadow-sm cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-vp-cta hover:bg-vp-cta-hover text-vp-inverse font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all active:scale-95 shadow-sm cursor-pointer"
                 >
                   <span>Start This Business</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -346,7 +346,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     href={listing.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-[#f8b273] hover:bg-[#f59747] text-zinc-950 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
+                    className="px-4 py-2 rounded-xl bg-vp-cta hover:bg-vp-cta-hover text-vp-inverse font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
                   >
                     <span>Visit {listing.name}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -356,10 +356,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     href="https://sevalla.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-[#141414] hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition-colors"
+                    className="px-4 py-2 rounded-xl bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-secondary border border-vp text-xs sm:text-sm font-medium flex items-center gap-1.5 transition-colors"
                   >
                     <span>Host with Stellar Hosted</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-vp-muted" />
                   </a>
                 </>
               )}
@@ -369,14 +369,14 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             {listing.isBlueprint || listing.blueprintDetails ? (
               <div className="space-y-8 pt-2">
                 {/* Lead Paragraph */}
-                <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-vp-secondary leading-relaxed font-normal">
                   {listing.blueprintDetails?.leadParagraph ||
                     'Build a recurring-revenue business helping small businesses capture leads, manage customers, automate follow-ups, book appointments and generate reviews using HighLevel as the underlying platform.'}
                 </p>
 
                 {opportunityStructureRows.length > 0 && (
-                  <div className="rounded-2xl border border-zinc-800 bg-[#111111] p-5 sm:p-6 space-y-4 shadow-sm">
-                    <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                  <div className="rounded-2xl border border-vp bg-vp-surface p-5 sm:p-6 space-y-4 shadow-sm">
+                    <h3 className="text-xs font-bold text-vp-muted uppercase tracking-wider">
                       Partner Structure
                     </h3>
                     <div className="divide-y divide-zinc-800/80">
@@ -385,10 +385,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                           key={row.label}
                           className="grid grid-cols-1 sm:grid-cols-[150px_1fr] gap-1.5 sm:gap-4 py-3 first:pt-0 last:pb-0"
                         >
-                          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-vp-faint">
                             {row.label}
                           </span>
-                          <span className="text-xs sm:text-sm text-zinc-200 leading-relaxed">
+                          <span className="text-xs sm:text-sm text-vp-secondary leading-relaxed">
                             {row.value}
                           </span>
                         </div>
@@ -398,54 +398,54 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 )}
 
                 {/* Business Overview Card */}
-                <div className="rounded-2xl border border-zinc-800 bg-[#111111] p-6 space-y-4 shadow-sm">
-                  <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                <div className="rounded-2xl border border-vp bg-vp-surface p-6 space-y-4 shadow-sm">
+                  <h3 className="text-xs font-bold text-vp-muted uppercase tracking-wider">
                     Business Overview
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs sm:text-sm">
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Starting Cost</span>
-                      <span className="font-semibold text-white font-mono">{listing.blueprintDetails?.startCost || '$97/month'}</span>
+                      <span className="text-vp-faint block text-[11px]">Starting Cost</span>
+                      <span className="font-semibold text-vp-primary font-mono">{listing.blueprintDetails?.startCost || '$97/month'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Revenue Model</span>
-                      <span className="font-semibold text-zinc-200">{listing.blueprintDetails?.revenueModel || 'Recurring monthly revenue'}</span>
+                      <span className="text-vp-faint block text-[11px]">Revenue Model</span>
+                      <span className="font-semibold text-vp-secondary">{listing.blueprintDetails?.revenueModel || 'Recurring monthly revenue'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Difficulty</span>
-                      <span className="font-semibold text-zinc-200">{listing.blueprintDetails?.difficulty || 'Easy–Medium'}</span>
+                      <span className="text-vp-faint block text-[11px]">Difficulty</span>
+                      <span className="font-semibold text-vp-secondary">{listing.blueprintDetails?.difficulty || 'Easy–Medium'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Business Type</span>
-                      <span className="font-semibold text-zinc-200">{listing.blueprintDetails?.businessType || 'B2B'}</span>
+                      <span className="text-vp-faint block text-[11px]">Business Type</span>
+                      <span className="font-semibold text-vp-secondary">{listing.blueprintDetails?.businessType || 'B2B'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Inventory Required</span>
-                      <span className="font-semibold text-zinc-200">{listing.blueprintDetails?.inventoryRequired || 'No'}</span>
+                      <span className="text-vp-faint block text-[11px]">Inventory Required</span>
+                      <span className="font-semibold text-vp-secondary">{listing.blueprintDetails?.inventoryRequired || 'No'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Coding Required</span>
-                      <span className="font-semibold text-zinc-200">{listing.blueprintDetails?.codingRequired || 'No'}</span>
+                      <span className="text-vp-faint block text-[11px]">Coding Required</span>
+                      <span className="font-semibold text-vp-secondary">{listing.blueprintDetails?.codingRequired || 'No'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">Recurring Revenue</span>
-                      <span className="font-semibold text-emerald-400">{listing.blueprintDetails?.recurringRevenue || 'Yes'}</span>
+                      <span className="text-vp-faint block text-[11px]">Recurring Revenue</span>
+                      <span className="font-semibold text-vp-brand">{listing.blueprintDetails?.recurringRevenue || 'Yes'}</span>
                     </div>
                     <div>
-                      <span className="text-zinc-500 block text-[11px]">White-Label Potential</span>
-                      <span className="font-semibold text-emerald-400">{listing.blueprintDetails?.whiteLabel || 'Yes'}</span>
+                      <span className="text-vp-faint block text-[11px]">White-Label Potential</span>
+                      <span className="font-semibold text-vp-brand">{listing.blueprintDetails?.whiteLabel || 'Yes'}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* What You Sell */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">What You Sell</h2>
-                  <p className="text-xs sm:text-sm text-zinc-300">
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">What You Sell</h2>
+                  <p className="text-xs sm:text-sm text-vp-secondary">
                     {listing.blueprintDetails?.whatYouSellDescription || 'Create a packaged CRM and marketing automation service for small businesses.'}
                   </p>
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-vp-muted uppercase tracking-wider">
                       A package can include:
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
@@ -463,22 +463,22 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         'Customer communication',
                         'Marketing workflows',
                       ]).map((item) => (
-                        <div key={item} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-[#141414] border border-zinc-800/80 text-zinc-300">
-                          <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <div key={item} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-vp-surface-subtle border border-vp text-vp-secondary">
+                          <Check className="w-4 h-4 text-vp-brand shrink-0" />
                           <span>{item}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs text-zinc-500 italic pt-1">
+                  <p className="text-xs text-vp-faint italic pt-1">
                     {listing.blueprintDetails?.whatYouSellNote || 'Do not present every feature as mandatory. The business owner chooses which services to package.'}
                   </p>
                 </div>
 
                 {/* Who You Sell To */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">Who You Sell To</h2>
-                  <p className="text-xs sm:text-sm text-zinc-300">Potential customers include:</p>
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">Who You Sell To</h2>
+                  <p className="text-xs sm:text-sm text-vp-secondary">Potential customers include:</p>
                   <div className="flex flex-wrap gap-2">
                     {(listing.blueprintDetails?.targetCustomers || [
                       'Dentists',
@@ -492,7 +492,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       'Agencies',
                       'Other appointment-based businesses',
                     ]).map((customer) => (
-                      <span key={customer} className="px-3 py-1.5 rounded-lg bg-[#141414] border border-zinc-800 text-xs sm:text-sm font-medium text-zinc-200">
+                      <span key={customer} className="px-3 py-1.5 rounded-lg bg-vp-surface-subtle border border-vp text-xs sm:text-sm font-medium text-vp-secondary">
                         {customer}
                       </span>
                     ))}
@@ -501,7 +501,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 {/* How The Business Works */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">How The Business Works</h2>
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">How The Business Works</h2>
                   <div className="space-y-3">
                     {(listing.blueprintDetails?.howItWorksSteps || [
                       {
@@ -537,18 +537,18 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         description: 'Charge the customer monthly for continued access to the service.',
                       },
                     ]).map((step) => (
-                      <div key={step.stepNumber} className="p-4 rounded-xl bg-[#141414] border border-zinc-800/80 space-y-1.5">
+                      <div key={step.stepNumber} className="p-4 rounded-xl bg-vp-surface-subtle border border-vp space-y-1.5">
                         <div className="flex items-center gap-2.5">
-                          <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold flex items-center justify-center shrink-0">
+                          <span className="w-6 h-6 rounded-full bg-vp-brand-subtle text-vp-brand border border-vp-brand text-xs font-mono font-bold flex items-center justify-center shrink-0">
                             {step.stepNumber}
                           </span>
-                          <h3 className="font-bold text-white text-sm sm:text-base">{step.title}</h3>
+                          <h3 className="font-bold text-vp-primary text-sm sm:text-base">{step.title}</h3>
                         </div>
-                        <p className="text-xs sm:text-sm text-zinc-300 pl-8 leading-relaxed">{step.description}</p>
+                        <p className="text-xs sm:text-sm text-vp-secondary pl-8 leading-relaxed">{step.description}</p>
                         {step.example && (
                           <div className="pl-8 pt-1 flex items-center gap-2 text-xs">
-                            <span className="text-zinc-500">Example:</span>
-                            <code className="font-mono text-emerald-300 bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800 text-[11px]">
+                            <span className="text-vp-faint">Example:</span>
+                            <code className="font-mono text-emerald-300 bg-vp-surface-subtle px-2 py-0.5 rounded border border-vp text-[11px]">
                               {step.example}
                             </code>
                           </div>
@@ -560,14 +560,14 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 {/* Example Business Model */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">Example Business Model</h2>
-                  <p className="text-xs text-zinc-400">
-                    Clearly label this section as an <strong className="text-zinc-200">example</strong>, not expected earnings or guaranteed income.
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">Example Business Model</h2>
+                  <p className="text-xs text-vp-muted">
+                    Clearly label this section as an <strong className="text-vp-secondary">example</strong>, not expected earnings or guaranteed income.
                   </p>
-                  <div className="p-5 rounded-2xl bg-[#141414] border border-zinc-800 space-y-3">
+                  <div className="p-5 rounded-2xl bg-vp-surface-subtle border border-vp space-y-3">
                     <div className="flex items-center gap-2 text-xs sm:text-sm">
-                      <span className="text-zinc-400">Example customer price:</span>
-                      <code className="font-mono font-bold text-white bg-zinc-900 px-2.5 py-1 rounded-lg border border-zinc-800">
+                      <span className="text-vp-muted">Example customer price:</span>
+                      <code className="font-mono font-bold text-vp-primary bg-vp-surface-subtle px-2.5 py-1 rounded-lg border border-vp">
                         {listing.blueprintDetails?.exampleBusinessModel?.customerPrice || '$199/month'}
                       </code>
                     </div>
@@ -576,12 +576,12 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         '10 customers × $199/month = $1,990/month gross revenue',
                         '25 customers × $199/month = $4,975/month gross revenue',
                       ]).map((scenario, sIdx) => (
-                        <div key={sIdx} className="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 text-zinc-200">
+                        <div key={sIdx} className="p-3 rounded-xl bg-vp-surface-subtle/80 border border-vp text-vp-secondary">
                           {scenario}
                         </div>
                       ))}
                     </div>
-                    <blockquote className="text-xs text-zinc-500 italic pt-2 border-t border-zinc-800/80">
+                    <blockquote className="text-xs text-vp-faint italic pt-2 border-t border-vp">
                       {listing.blueprintDetails?.exampleBusinessModel?.disclaimer ||
                         'These figures are illustrative examples only. Pricing, expenses, customer acquisition and actual results vary.'}
                     </blockquote>
@@ -590,7 +590,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 {/* Platform Costs */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">Platform Costs</h2>
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">Platform Costs</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                     {(listing.blueprintDetails?.platformCosts || [
                       {
@@ -612,15 +612,15 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         details: 'Includes SaaS Mode and automated sub-account creation.',
                       },
                     ]).map((plan) => (
-                      <div key={plan.planName} className="p-4 rounded-xl bg-[#141414] border border-zinc-800 space-y-2 flex flex-col justify-between">
+                      <div key={plan.planName} className="p-4 rounded-xl bg-vp-surface-subtle border border-vp space-y-2 flex flex-col justify-between">
                         <div>
-                          <div className="flex items-center justify-between pb-1 border-b border-zinc-800/60">
-                            <h3 className="font-bold text-white text-sm">{plan.planName}</h3>
-                            <span className="font-mono text-emerald-400 font-bold text-xs">{plan.price}</span>
+                          <div className="flex items-center justify-between pb-1 border-b border-vp">
+                            <h3 className="font-bold text-vp-primary text-sm">{plan.planName}</h3>
+                            <span className="font-mono text-vp-brand font-bold text-xs">{plan.price}</span>
                           </div>
-                          <p className="text-xs text-zinc-300 pt-2 leading-relaxed">{plan.description}</p>
+                          <p className="text-xs text-vp-secondary pt-2 leading-relaxed">{plan.description}</p>
                         </div>
-                        <p className="text-[11px] text-zinc-500 pt-2 border-t border-zinc-800/60 font-mono">{plan.details}</p>
+                        <p className="text-[11px] text-vp-faint pt-2 border-t border-vp font-mono">{plan.details}</p>
                       </div>
                     ))}
                   </div>
@@ -628,7 +628,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 {/* Why Provider */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">Why {listing.providerName || 'HighLevel'}</h2>
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">Why {listing.providerName || 'HighLevel'}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {(listing.blueprintDetails?.whyProviderReasons || [
                       {
@@ -648,9 +648,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         description: 'Agency Pro includes SaaS Mode, which can automate parts of account creation and recurring SaaS delivery.',
                       },
                     ]).map((reason) => (
-                      <div key={reason.title} className="p-4 rounded-xl bg-[#141414] border border-zinc-800 space-y-1.5">
-                        <h3 className="font-bold text-white text-sm">{reason.title}</h3>
-                        <p className="text-xs text-zinc-400 leading-relaxed">{reason.description}</p>
+                      <div key={reason.title} className="p-4 rounded-xl bg-vp-surface-subtle border border-vp space-y-1.5">
+                        <h3 className="font-bold text-vp-primary text-sm">{reason.title}</h3>
+                        <p className="text-xs text-vp-muted leading-relaxed">{reason.description}</p>
                       </div>
                     ))}
                   </div>
@@ -658,8 +658,8 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                 {/* What You Need */}
                 <div className="space-y-4 pt-1">
-                  <h2 className="text-xl font-bold text-white tracking-tight">What You Need</h2>
-                  <div className="p-5 rounded-2xl bg-[#141414] border border-zinc-800 space-y-2 text-xs sm:text-sm">
+                  <h2 className="text-xl font-bold text-vp-primary tracking-tight">What You Need</h2>
+                  <div className="p-5 rounded-2xl bg-vp-surface-subtle border border-vp space-y-2 text-xs sm:text-sm">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5">
                       {(listing.blueprintDetails?.requirements || [
                         { label: 'Platform', value: 'HighLevel' },
@@ -671,9 +671,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                         { label: 'Can scale to multiple customers', value: 'Yes' },
                         { label: 'White-label potential', value: 'Yes' },
                       ]).map((req) => (
-                        <div key={req.label} className="flex items-center justify-between py-1.5 border-b border-zinc-800/60">
-                          <span className="text-zinc-400">{req.label}</span>
-                          <span className={`font-medium ${req.value === 'Yes' ? 'text-emerald-400' : 'text-white'}`}>
+                        <div key={req.label} className="flex items-center justify-between py-1.5 border-b border-vp">
+                          <span className="text-vp-muted">{req.label}</span>
+                          <span className={`font-medium ${req.value === 'Yes' ? 'text-vp-brand' : 'text-vp-primary'}`}>
                             {req.value}
                           </span>
                         </div>
@@ -683,16 +683,16 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 </div>
 
                 {/* Start This Business CTA Box */}
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-[#18181b] to-[#111113] border border-zinc-800 space-y-3">
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-vp-surface-hover to-vp-surface border border-vp space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-base">{listing.providerName || 'HighLevel'}</span>
-                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+                        <span className="font-bold text-vp-primary text-base">{listing.providerName || 'HighLevel'}</span>
+                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-vp-brand-subtle text-vp-brand border border-vp-brand font-mono">
                           From {listing.blueprintDetails?.startCost || '$97/month'}
                         </span>
                       </div>
-                      <p className="text-xs text-zinc-400 mt-1">
+                      <p className="text-xs text-vp-muted mt-1">
                         {listing.blueprintDetails?.ctaData?.supportingText || 'CRM and marketing automation platform for agencies and businesses.'}
                       </p>
                     </div>
@@ -700,7 +700,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       href={listing.affiliateUrl || listing.websiteUrl || 'HIGHLEVEL_AFFILIATE_URL'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-2.5 rounded-xl bg-[#f8b273] hover:bg-[#f59747] text-zinc-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0 cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-vp-cta hover:bg-vp-cta-hover text-vp-inverse font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0 cursor-pointer"
                     >
                       <span>Start This Business</span>
                       <ArrowUpRight className="w-4 h-4" />
@@ -711,28 +711,28 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             ) : (
               <>
                 {/* Product Interface Preview Mockup */}
-                <div className="rounded-xl border border-zinc-800 bg-[#0d0d10] overflow-hidden shadow-2xl">
+                <div className="rounded-xl border border-vp bg-vp-surface-raised overflow-hidden shadow-2xl">
                   {listing.id === 'novu' ? (
-                    <div className="p-6 sm:p-8 bg-gradient-to-b from-[#121218] to-[#09090c] text-white space-y-6">
+                    <div className="p-6 sm:p-8 bg-gradient-to-b from-vp-surface-subtle to-vp-bg text-vp-primary space-y-6">
                       {/* Top Mockup Header Bar */}
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4 text-xs text-zinc-400">
+                      <div className="flex items-center justify-between border-b border-vp pb-4 text-xs text-vp-muted">
                         <div className="flex items-center gap-6">
                           <div className="flex items-center gap-2">
                             <NovuLogo className="w-5 h-5" />
-                            <span className="font-bold text-white text-sm">Novu</span>
+                            <span className="font-bold text-vp-primary text-sm">Novu</span>
                           </div>
-                          <span className="text-zinc-500 hidden sm:inline">Product</span>
-                          <span className="text-zinc-500 hidden sm:inline">Resources</span>
-                          <span className="text-zinc-500 hidden sm:inline">Docs</span>
-                          <span className="text-zinc-500 hidden sm:inline">Customers</span>
-                          <span className="text-zinc-500 hidden sm:inline">Pricing</span>
+                          <span className="text-vp-faint hidden sm:inline">Product</span>
+                          <span className="text-vp-faint hidden sm:inline">Resources</span>
+                          <span className="text-vp-faint hidden sm:inline">Docs</span>
+                          <span className="text-vp-faint hidden sm:inline">Customers</span>
+                          <span className="text-vp-faint hidden sm:inline">Pricing</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-zinc-400 flex items-center gap-1">
-                            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                          <span className="font-mono text-vp-muted flex items-center gap-1">
+                            <Star className="w-3 h-3 text-vp-warning fill-vp-warning" />
                             39.5k
                           </span>
-                          <button className="px-2.5 py-1 rounded bg-zinc-800 text-white font-medium text-[11px]">
+                          <button className="px-2.5 py-1 rounded bg-vp-surface-hover text-vp-primary font-medium text-[11px]">
                             Get Started
                           </button>
                         </div>
@@ -740,41 +740,41 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
                       {/* Mockup Headline */}
                       <div className="text-center space-y-3 max-w-lg mx-auto py-2">
-                        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">
+                        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-vp-primary leading-tight">
                           The communication infrastructure for agents and products
                         </h2>
-                        <p className="text-xs text-zinc-400">
+                        <p className="text-xs text-vp-muted">
                           One platform to connect your products and your agents to every channel your users live on: Inbox, Email, SMS, Push, Chat, Slack, Microsoft Teams, Resend, and more.
                         </p>
                         <div className="flex justify-center gap-2 pt-2">
-                          <span className="px-3 py-1 rounded bg-zinc-200 text-zinc-950 font-bold text-xs">Start for free</span>
-                          <span className="px-3 py-1 rounded bg-zinc-800 text-zinc-200 font-medium text-xs">Visit Doc</span>
+                          <span className="px-3 py-1 rounded bg-zinc-200 text-vp-inverse font-bold text-xs">Start for free</span>
+                          <span className="px-3 py-1 rounded bg-vp-surface-hover text-vp-secondary font-medium text-xs">Visit Doc</span>
                         </div>
                       </div>
 
                       {/* Mockup Notification Inbox Component Floating UI */}
-                      <div className="rounded-lg bg-[#14141c] border border-zinc-800 p-4 max-w-md mx-auto shadow-xl space-y-3">
-                        <div className="flex items-center justify-between border-b border-zinc-800 pb-2 text-xs">
+                      <div className="rounded-lg bg-vp-surface-subtle border border-vp p-4 max-w-md mx-auto shadow-xl space-y-3">
+                        <div className="flex items-center justify-between border-b border-vp pb-2 text-xs">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-white">Inbox</span>
-                            <span className="bg-blue-500/20 text-blue-400 text-[10px] px-1.5 py-0.2 rounded-full font-mono">3 new</span>
+                            <span className="font-bold text-vp-primary">Inbox</span>
+                            <span className="bg-vp-info/15 text-vp-info text-[10px] px-1.5 py-0.2 rounded-full font-mono">3 new</span>
                           </div>
-                          <span className="text-zinc-500 text-[11px]">Mark all as read</span>
+                          <span className="text-vp-faint text-[11px]">Mark all as read</span>
                         </div>
                         <div className="space-y-2 text-xs">
-                          <div className="p-2 rounded bg-zinc-900/90 border border-zinc-800 flex items-start justify-between">
+                          <div className="p-2 rounded bg-vp-surface-subtle/90 border border-vp flex items-start justify-between">
                             <div>
-                              <div className="font-medium text-zinc-200">Deployment Succeeded</div>
-                              <div className="text-[11px] text-zinc-400">Production pipeline deployed in 42s</div>
+                              <div className="font-medium text-vp-secondary">Deployment Succeeded</div>
+                              <div className="text-[11px] text-vp-muted">Production pipeline deployed in 42s</div>
                             </div>
-                            <span className="text-[10px] text-zinc-500">2m ago</span>
+                            <span className="text-[10px] text-vp-faint">2m ago</span>
                           </div>
-                          <div className="p-2 rounded bg-zinc-900/50 border border-zinc-800/60 flex items-start justify-between">
+                          <div className="p-2 rounded bg-vp-surface-subtle/50 border border-vp flex items-start justify-between">
                             <div>
-                              <div className="font-medium text-zinc-200">New team member joined</div>
-                              <div className="text-[11px] text-zinc-400">sarah@company.com joined workspace</div>
+                              <div className="font-medium text-vp-secondary">New team member joined</div>
+                              <div className="text-[11px] text-vp-muted">sarah@company.com joined workspace</div>
                             </div>
-                            <span className="text-[10px] text-zinc-500">1h ago</span>
+                            <span className="text-[10px] text-vp-faint">1h ago</span>
                           </div>
                         </div>
                       </div>
@@ -786,12 +786,12 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       className="w-full h-auto max-h-[420px] object-cover"
                     />
                   ) : (
-                    <div className="p-12 text-center bg-gradient-to-b from-zinc-900 to-[#101014] space-y-3">
-                      <div className="w-12 h-12 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mx-auto text-zinc-300 font-bold">
+                    <div className="p-12 text-center bg-gradient-to-b from-vp-surface-subtle to-vp-surface space-y-3">
+                      <div className="w-12 h-12 rounded-xl bg-vp-surface-hover border border-vp-strong flex items-center justify-center mx-auto text-vp-secondary font-bold">
                         {listing.name.slice(0, 2)}
                       </div>
-                      <h3 className="text-lg font-bold text-white">{listing.name} Interface</h3>
-                      <p className="text-xs text-zinc-400 max-w-md mx-auto">
+                      <h3 className="text-lg font-bold text-vp-primary">{listing.name} Interface</h3>
+                      <p className="text-xs text-vp-muted max-w-md mx-auto">
                         Practical platform details, provider information and business-use context.
                       </p>
                     </div>
@@ -799,7 +799,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 </div>
 
                 {/* Rich Markdown Article Description */}
-                <div className="space-y-4 text-xs sm:text-sm text-zinc-300 leading-relaxed pt-1">
+                <div className="space-y-4 text-xs sm:text-sm text-vp-secondary leading-relaxed pt-1">
                   {listing.detailedParagraphs && listing.detailedParagraphs.length > 0 ? (
                     listing.detailedParagraphs.map((para, idx) => (
                       <p key={idx}>
@@ -810,7 +810,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                           </>
                         ) : idx === 1 ? (
                           <>
-                            The embeddable <code className="bg-zinc-800 px-1 py-0.5 rounded text-zinc-200 font-mono text-[11px]">&lt;Inbox /&gt;</code> component drops a fully functional notification center into any React, Next.js, or Remix app. It includes real-time delivery, user preference controls, snooze, read/archive states, and tabbed filtering out of the box. The visual appearance is customizable to match your product.
+                            The embeddable <code className="bg-vp-surface-hover px-1 py-0.5 rounded text-vp-secondary font-mono text-[11px]">&lt;Inbox /&gt;</code> component drops a fully functional notification center into any React, Next.js, or Remix app. It includes real-time delivery, user preference controls, snooze, read/archive states, and tabbed filtering out of the box. The visual appearance is customizable to match your product.
                           </>
                         ) : idx === 2 ? (
                           <>
@@ -846,12 +846,12 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
             {/* Categories Section */}
             <div className="space-y-2 pt-2">
-              <h4 className="text-xs font-semibold text-white">Categories:</h4>
+              <h4 className="text-xs font-semibold text-vp-primary">Categories:</h4>
               <div className="flex flex-wrap gap-2">
                 {(listing.categoriesList || [listing.category]).map((cat) => (
                   <span
                     key={cat}
-                    className="px-3 py-1 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-medium text-zinc-300"
+                    className="px-3 py-1 rounded-lg bg-vp-surface-subtle border border-vp text-xs font-medium text-vp-secondary"
                   >
                     {cat}
                   </span>
@@ -861,10 +861,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
             {/* Tags Section (With bullets like screenshot: • typescript • react...) */}
             <div className="space-y-2">
-              <h4 className="text-xs font-semibold text-white">Tags:</h4>
-              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-zinc-400">
+              <h4 className="text-xs font-semibold text-vp-primary">Tags:</h4>
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-vp-muted">
                 {listing.tags?.map((tag) => (
-                  <span key={tag} className="inline-flex items-center gap-1 hover:text-zinc-200 transition-colors">
+                  <span key={tag} className="inline-flex items-center gap-1 hover:text-vp-secondary transition-colors">
                     <span className="text-zinc-600">•</span>
                     <span>{tag}</span>
                   </span>
@@ -874,40 +874,40 @@ export const ToolPage: React.FC<ToolPageProps> = ({
 
             {/* Built With Section */}
             <div className="space-y-2">
-              <h4 className="text-xs font-semibold text-white">Built with:</h4>
+              <h4 className="text-xs font-semibold text-vp-primary">Built with:</h4>
               <div className="flex flex-wrap gap-2">
                 {listing.techStack?.map((tech) => (
                   <span
                     key={tech}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-medium text-zinc-300"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-vp-surface-subtle border border-vp text-xs font-medium text-vp-secondary"
                   >
                     <TechIcon name={tech} className="w-3.5 h-3.5" />
                     <span>{tech}</span>
                   </span>
                 ))}
-                <span className="px-2.5 py-1 rounded-lg bg-[#141414] border border-zinc-800 text-xs font-medium text-zinc-400">
+                <span className="px-2.5 py-1 rounded-lg bg-vp-surface-subtle border border-vp text-xs font-medium text-vp-muted">
                   +74 more
                 </span>
               </div>
             </div>
 
             {/* Bottom Actions & Social Sharing Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-zinc-800/80 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-vp text-xs">
               <button
                 onClick={handleCopyLink}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 text-zinc-300 font-medium border border-zinc-800 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover text-vp-secondary font-medium border border-vp transition-colors"
               >
-                {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedLink ? <Check className="w-3.5 h-3.5 text-vp-brand" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedLink ? 'Copied Link!' : 'Copy Link [C]'}</span>
               </button>
 
-              <div className="flex items-center gap-2 text-zinc-400">
-                <span className="text-zinc-500 mr-1">Share:</span>
+              <div className="flex items-center gap-2 text-vp-muted">
+                <span className="text-vp-faint mr-1">Share:</span>
                 <a
                   href={`https://twitter.com/intent/tweet?text=Check out ${listing.name} on Vebpartner&url=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on X / Twitter"
                 >
                   <XTwitterIcon className="w-3.5 h-3.5" />
@@ -916,7 +916,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://threads.net"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on Threads"
                 >
                   <ThreadsIcon className="w-3.5 h-3.5" />
@@ -925,7 +925,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://reddit.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on Reddit"
                 >
                   <RedditIcon className="w-3.5 h-3.5" />
@@ -934,7 +934,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://news.ycombinator.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on Hacker News"
                 >
                   <HackerNewsIcon className="w-3.5 h-3.5" />
@@ -943,7 +943,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on Facebook"
                 >
                   <FacebookIcon className="w-3.5 h-3.5" />
@@ -952,7 +952,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on LinkedIn"
                 >
                   <LinkedInIcon className="w-3.5 h-3.5" />
@@ -961,7 +961,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://pinterest.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on Pinterest"
                 >
                   <PinterestIcon className="w-3.5 h-3.5" />
@@ -970,7 +970,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   href="https://whatsapp.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-[#141414] hover:bg-zinc-800 hover:text-white transition-colors"
+                  className="p-1.5 rounded-lg bg-vp-surface-subtle hover:bg-vp-surface-hover hover:text-vp-primary transition-colors"
                   title="Share on WhatsApp"
                 >
                   <WhatsAppIcon className="w-3.5 h-3.5" />
@@ -979,18 +979,18 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             </div>
 
             {/* Similar listings section */}
-            <div className="space-y-4 pt-6 border-t border-zinc-800/80">
+            <div className="space-y-4 pt-6 border-t border-vp">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-bold text-white">Similar business listings</h3>
-                  <div className="h-px w-16 sm:w-32 bg-zinc-800" />
+                  <h3 className="text-sm font-bold text-vp-primary">Similar business listings</h3>
+                  <div className="h-px w-16 sm:w-32 bg-vp-surface-hover" />
                 </div>
                 <button
                   onClick={onBackToDirectory}
-                  className="px-3 py-1 rounded-lg border border-zinc-800 bg-[#141414] hover:bg-zinc-800 text-xs text-zinc-300 hover:text-white flex items-center gap-1 transition-colors"
+                  className="px-3 py-1 rounded-lg border border-vp bg-vp-surface-subtle hover:bg-vp-surface-hover text-xs text-vp-secondary hover:text-vp-primary flex items-center gap-1 transition-colors"
                 >
                   <span>View more Vebpartner listings</span>
-                  <ArrowRight className="w-3 h-3 text-zinc-400" />
+                  <ArrowRight className="w-3 h-3 text-vp-muted" />
                 </button>
               </div>
 
@@ -999,53 +999,53 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   <div
                     key={sim.id}
                     onClick={() => onSelectListing(sim)}
-                    className="p-4 rounded-xl bg-[#111111] border border-zinc-800 hover:border-zinc-700 transition-colors cursor-pointer space-y-3 group"
+                    className="p-4 rounded-xl bg-vp-surface border border-vp hover:border-vp-strong transition-colors cursor-pointer space-y-3 group"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-xs">
+                      <div className="w-6 h-6 rounded-lg bg-vp-warning/15 text-vp-warning border border-vp-warning/25 flex items-center justify-center font-bold text-xs">
                         {sim.name.slice(0, 1)}
                       </div>
-                      <span className="font-bold text-white text-sm group-hover:text-zinc-200">
+                      <span className="font-bold text-vp-primary text-sm group-hover:text-vp-secondary">
                         {sim.name}
                       </span>
                       {sim.verified && <VerifiedBadge className="w-3.5 h-3.5 shrink-0" />}
                     </div>
 
-                    <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-vp-muted line-clamp-2 leading-relaxed">
                       {sim.tagline || sim.description}
                     </p>
 
                     {/* Dotted Leader Line Metrics */}
-                    <div className="space-y-1.5 pt-1 text-[11px] text-zinc-400">
+                    <div className="space-y-1.5 pt-1 text-[11px] text-vp-muted">
                       <div className="flex items-center justify-between">
                         <span className="flex items-center gap-1">
-                          <Star className="w-3 h-3 text-zinc-500" />
+                          <Star className="w-3 h-3 text-vp-faint" />
                           <span>Stars</span>
                         </span>
-                        <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                        <span className="text-zinc-200 font-mono font-semibold">
+                        <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                        <span className="text-vp-secondary font-mono font-semibold">
                           {(sim.stars || 2897).toLocaleString()}
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-zinc-500" />
+                          <Clock className="w-3 h-3 text-vp-faint" />
                           <span>Last commit</span>
                         </span>
-                        <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                        <span className="text-zinc-300 font-mono">
+                        <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                        <span className="text-vp-secondary font-mono">
                           {sim.lastCommit || '5 months ago'}
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
                         <span className="flex items-center gap-1">
-                          <Server className="w-3 h-3 text-zinc-500" />
+                          <Server className="w-3 h-3 text-vp-faint" />
                           <span>License</span>
                         </span>
-                        <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                        <span className="text-zinc-300 font-mono">
+                        <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                        <span className="text-vp-secondary font-mono">
                           {sim.license || 'MIT'}
                         </span>
                       </div>
@@ -1060,80 +1060,80 @@ export const ToolPage: React.FC<ToolPageProps> = ({
           <div className="lg:col-span-4 space-y-5">
             {/* WIDGET 1: Blueprint Key Metrics OR GitHub Stars & Sparkline */}
             {listing.isBlueprint || listing.startCost ? (
-              <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-4">
+              <div className="p-5 rounded-2xl bg-vp-surface border border-vp space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-bold text-white text-base">
-                    <DollarSign className="w-4 h-4 text-emerald-400" />
+                  <div className="flex items-center gap-1.5 font-bold text-vp-primary text-base">
+                    <DollarSign className="w-4 h-4 text-vp-brand" />
                     <span>{listing.startCost || '$97/mo'}</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-vp-brand-subtle text-vp-brand border border-vp-brand">
                     {listing.revenueModel || 'Recurring'}
                   </span>
                 </div>
 
                 {/* Metrics with Dotted Leader Lines */}
-                <div className="space-y-2.5 pt-2 border-t border-zinc-800/80 text-xs text-zinc-400">
+                <div className="space-y-2.5 pt-2 border-t border-vp text-xs text-vp-muted">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-zinc-500" />
+                      <Layers className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Provider</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.providerName || 'HighLevel'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.providerName || 'HighLevel'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <TrendingUp className="w-3.5 h-3.5 text-zinc-500" />
+                      <TrendingUp className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Difficulty</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.difficulty || 'Easy–Medium'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.difficulty || 'Easy–Medium'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-zinc-500" />
+                      <Check className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Inventory Req.</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.blueprintDetails?.inventoryRequired || 'No'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.blueprintDetails?.inventoryRequired || 'No'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Code className="w-3.5 h-3.5 text-zinc-500" />
+                      <Code className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Coding Req.</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.blueprintDetails?.codingRequired || 'No'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.blueprintDetails?.codingRequired || 'No'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Tag className="w-3.5 h-3.5 text-zinc-500" />
+                      <Tag className="w-3.5 h-3.5 text-vp-faint" />
                       <span>White-Label</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-emerald-400 font-mono font-medium">{listing.blueprintDetails?.whiteLabel || 'Yes'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-brand font-mono font-medium">{listing.blueprintDetails?.whiteLabel || 'Yes'}</span>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-4">
+              <div className="p-5 rounded-2xl bg-vp-surface border border-vp space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-bold text-white text-base">
-                    <Star className="w-4 h-4 text-zinc-400" />
+                  <div className="flex items-center gap-1.5 font-bold text-vp-primary text-base">
+                    <Star className="w-4 h-4 text-vp-muted" />
                     <span>{(listing.stars || 39531).toLocaleString()} stars</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-vp-brand-subtle text-vp-brand border border-vp-brand">
                     {listing.starsChange30d || '+205 (+0.5%)'}
                   </span>
                 </div>
 
                 {/* Glowing Neon Green Sparkline Graph with "Last 30 days" */}
                 <div className="relative h-14 w-full pt-1">
-                  <svg viewBox="0 0 200 40" className="w-full h-full text-emerald-400 stroke-current fill-none">
+                  <svg viewBox="0 0 200 40" className="w-full h-full text-vp-brand stroke-current fill-none">
                     <path
                       d="M 0,35 Q 40,32 70,28 T 130,18 T 170,8 T 200,3"
                       strokeWidth="2.2"
@@ -1145,60 +1145,60 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       className="opacity-15"
                     />
                   </svg>
-                  <div className="text-right text-[10px] text-zinc-500 -mt-1 font-mono">
+                  <div className="text-right text-[10px] text-vp-faint -mt-1 font-mono">
                     Last 30 days
                   </div>
                 </div>
 
                 {/* Metrics with Dotted Leader Lines */}
-                <div className="space-y-2.5 pt-2 border-t border-zinc-800/80 text-xs text-zinc-400">
+                <div className="space-y-2.5 pt-2 border-t border-vp text-xs text-vp-muted">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-zinc-500" />
+                      <Clock className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Last commit</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.lastCommit || '8 hours ago'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.lastCommit || '8 hours ago'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                      <Calendar className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Repository age</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.repoAge || '5 years'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.repoAge || '5 years'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Tag className="w-3.5 h-3.5 text-zinc-500" />
+                      <Tag className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Version</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.version || 'v3.19.0'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.version || 'v3.19.0'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Server className="w-3.5 h-3.5 text-zinc-500" />
+                      <Server className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Self-hosted</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
-                    <span className="text-zinc-100 font-mono font-medium">{listing.selfHosted || 'Yes'}</span>
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
+                    <span className="text-vp-primary font-mono font-medium">{listing.selfHosted || 'Yes'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <Github className="w-3.5 h-3.5 text-zinc-500" />
+                      <Github className="w-3.5 h-3.5 text-vp-faint" />
                       <span>Repository</span>
                     </span>
-                    <div className="flex-1 mx-2 border-b border-dotted border-zinc-800" />
+                    <div className="flex-1 mx-2 border-b border-dotted border-vp" />
                     <a
                       href={listing.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#f8b273] hover:underline font-mono font-medium"
+                      className="text-vp-cta hover:underline font-mono font-medium"
                     >
                       {listing.repoName || 'novuhq/novu'}
                     </a>
@@ -1208,18 +1208,18 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             )}
 
             {/* WIDGET 2: CodeRabbit Sponsored Ad Box */}
-            <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-3 relative overflow-hidden">
+            <div className="p-5 rounded-2xl bg-vp-surface border border-vp space-y-3 relative overflow-hidden">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <CodeRabbitLogo className="w-5 h-5 text-orange-500 shrink-0" />
-                  <span className="font-bold text-white text-sm">CodeRabbit</span>
+                  <span className="font-bold text-vp-primary text-sm">CodeRabbit</span>
                 </div>
-                <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-zinc-800 text-zinc-400 border border-zinc-700/60">
+                <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-vp-surface-hover text-vp-muted border border-vp-strong">
                   Ad
                 </span>
               </div>
 
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-vp-muted leading-relaxed">
                 The leading AI Code Review platform. Ship better quality code in 50% less time, with 90% fewer bugs.
               </p>
 
@@ -1227,7 +1227,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                 href="https://coderabbit.ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2 px-4 rounded-xl bg-[#f97316] hover:bg-[#ea580c] text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                className="w-full py-2 px-4 rounded-xl bg-vp-cta hover:bg-vp-cta-hover text-vp-primary text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
               >
                 <span>Try it for free</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1235,8 +1235,8 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             </div>
 
             {/* WIDGET 3: Featured Projects Icon Grid (2 Rows x 6 Columns = 12 Project Icons) */}
-            <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-3">
-              <h4 className="text-xs font-semibold text-zinc-300">
+            <div className="p-5 rounded-2xl bg-vp-surface border border-vp space-y-3">
+              <h4 className="text-xs font-semibold text-vp-secondary">
                 Featured projects:
               </h4>
               <div className="grid grid-cols-6 gap-2">
@@ -1245,16 +1245,16 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     key={tool.id}
                     onClick={() => onSelectListing(tool)}
                     title={tool.name}
-                    className="w-9 h-9 rounded-lg bg-[#181818] border border-zinc-800 hover:border-zinc-600 p-1.5 flex items-center justify-center transition-all hover:scale-105 group"
+                    className="w-9 h-9 rounded-lg bg-vp-surface-hover border border-vp hover:border-zinc-600 p-1.5 flex items-center justify-center transition-all hover:scale-105 group"
                   >
                     {tool.id === 'novu' ? (
                       <NovuLogo className="w-full h-full" />
                     ) : tool.logoUrl ? (
                       <img src={tool.logoUrl} alt={tool.name} className="w-full h-full object-cover rounded" />
                     ) : tool.businessIcon ? (
-                      <BusinessIcon name={tool.businessIcon} className="w-4 h-4 text-zinc-300 group-hover:text-white" />
+                      <BusinessIcon name={tool.businessIcon} className="w-4 h-4 text-vp-secondary group-hover:text-vp-primary" />
                     ) : (
-                      <span className="text-[10px] font-bold text-zinc-300 group-hover:text-white">
+                      <span className="text-[10px] font-bold text-vp-secondary group-hover:text-vp-primary">
                         {tool.name.slice(0, 2)}
                       </span>
                     )}
@@ -1264,9 +1264,9 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             </div>
 
             {/* WIDGET 4: Newsletter Subscription Box */}
-            <div className="p-5 rounded-2xl bg-[#111111] border border-zinc-800/90 space-y-3">
-              <h4 className="text-sm font-bold text-white">Subscribe to our newsletter</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+            <div className="p-5 rounded-2xl bg-vp-surface border border-vp space-y-3">
+              <h4 className="text-sm font-bold text-vp-primary">Subscribe to our newsletter</h4>
+              <p className="text-xs text-vp-muted leading-relaxed">
                 Every Sunday we break down practical business models, provider programs and tools worth understanding.
               </p>
               <form
@@ -1281,11 +1281,11 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                   placeholder="Enter your email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="flex-1 bg-[#181818] border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-600"
+                  className="flex-1 bg-vp-surface-hover border border-vp rounded-xl px-3 py-2 text-xs text-vp-secondary placeholder-zinc-500 focus:outline-none focus:border-zinc-600"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 font-semibold text-xs transition-colors shrink-0"
+                  className="px-4 py-2 rounded-xl bg-white hover:bg-zinc-200 text-vp-inverse font-semibold text-xs transition-colors shrink-0"
                 >
                   {newsletterSubscribed ? 'Subscribed!' : 'Subscribe'}
                 </button>

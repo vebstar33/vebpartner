@@ -102,23 +102,23 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-lg bg-[#0d0f17] border border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+      <div className="relative w-full max-w-lg bg-vp-surface-raised border border-vp rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between bg-zinc-950/60">
+        <div className="px-6 py-4 border-b border-vp-subtle flex items-center justify-between bg-vp-bg/60">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="w-8 h-8 rounded-lg bg-vp-brand-subtle border border-vp-brand flex items-center justify-center text-vp-brand">
               <Layers className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">
+              <h2 className="text-base font-bold text-vp-primary">
                 {categoryToEdit ? 'Edit Category' : 'Create New Category'}
               </h2>
-              <p className="text-xs text-zinc-400">Configure directory taxonomy and filtering tags.</p>
+              <p className="text-xs text-vp-muted">Configure directory taxonomy and filtering tags.</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-vp-muted hover:text-vp-primary hover:bg-vp-surface-hover transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -127,25 +127,25 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium">
+            <div className="p-3.5 rounded-xl bg-vp-error/10 border border-vp-error/25 text-vp-error text-xs font-medium">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Category Name *</label>
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Category Name *</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
               placeholder="e.g. AI Businesses, Reseller Businesses"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary text-xs focus:outline-none focus:ring-2 focus:ring-[var(--vp-brand)]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Category Slug / ID *</label>
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Category Slug / ID *</label>
             <input
               type="text"
               required
@@ -153,16 +153,16 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
               disabled={Boolean(categoryToEdit && categoryToEdit.id === 'all')}
               onChange={(e) => setId(e.target.value)}
               placeholder="ai-machine-learning"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary font-mono text-xs focus:outline-none focus:ring-2 focus:ring-[var(--vp-brand)] disabled:opacity-50"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Icon Selection</label>
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Icon Selection</label>
             <select
               value={icon}
               onChange={(e) => setIcon(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary text-xs focus:outline-none focus:ring-2 focus:ring-[var(--vp-brand)]"
             >
               {AVAILABLE_ICONS.map((ic) => (
                 <option key={ic} value={ic}>
@@ -173,35 +173,35 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Description</label>
+            <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Description</label>
             <textarea
               rows={2}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Short summary of this category's tools..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle border border-vp text-vp-primary text-xs focus:outline-none focus:ring-2 focus:ring-[var(--vp-brand)]"
             />
           </div>
 
           <div className="pt-2">
-            <label className="flex items-center gap-2.5 cursor-pointer p-3 rounded-xl bg-zinc-900/60 border border-zinc-800">
+            <label className="flex items-center gap-2.5 cursor-pointer p-3 rounded-xl bg-vp-surface-subtle/60 border border-vp">
               <input
                 type="checkbox"
                 checked={featured}
                 onChange={(e) => setFeatured(e.target.checked)}
-                className="w-4 h-4 rounded border-zinc-700 text-emerald-500 focus:ring-emerald-500 bg-zinc-900"
+                className="w-4 h-4 rounded border-vp-strong text-vp-brand focus:ring-[var(--vp-brand)] bg-vp-surface-subtle"
               />
-              <span className="text-xs font-semibold text-zinc-200">Highlight in Category Filter Bar</span>
+              <span className="text-xs font-semibold text-vp-secondary">Highlight in Category Filter Bar</span>
             </label>
           </div>
         </form>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-white/[0.06] bg-zinc-950/60 flex items-center justify-end gap-3">
+        <div className="px-6 py-4 border-t border-vp-subtle bg-vp-bg/60 flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-zinc-200 transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-vp-surface-hover hover:bg-vp-surface-hover text-xs font-semibold text-vp-secondary transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -209,7 +209,7 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
             type="button"
             onClick={handleSubmit}
             disabled={loading}
-            className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-sm transition-all cursor-pointer disabled:opacity-50"
+            className="px-5 py-2 rounded-xl bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse font-bold text-xs shadow-sm transition-all cursor-pointer disabled:opacity-50"
           >
             {loading ? 'Saving...' : categoryToEdit ? 'Update Category' : 'Save Category'}
           </button>

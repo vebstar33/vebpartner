@@ -159,7 +159,7 @@ export const PageView: React.FC<PageViewProps> = ({
       }
 
       parts.push(
-        <strong key={`${match.index}-${match[1]}`} className="font-bold text-zinc-100">
+        <strong key={`${match.index}-${match[1]}`} className="font-bold text-vp-primary">
           {match[1]}
         </strong>
       );
@@ -180,22 +180,22 @@ export const PageView: React.FC<PageViewProps> = ({
       const trimmed = line.trim();
       if (trimmed.startsWith('# ')) {
         return (
-          <h2 key={idx} className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-4 tracking-tight">
+          <h2 key={idx} className="text-2xl sm:text-3xl font-extrabold text-vp-primary mt-8 mb-4 tracking-tight">
             {renderInlineMarkdown(trimmed.replace('# ', ''))}
           </h2>
         );
       }
       if (trimmed.startsWith('### ')) {
         return (
-          <h3 key={idx} className="text-lg sm:text-xl font-bold text-zinc-100 mt-6 mb-3 flex items-center gap-2">
-            <span className="w-1.5 h-4 rounded-full bg-emerald-500" />
+          <h3 key={idx} className="text-lg sm:text-xl font-bold text-vp-primary mt-6 mb-3 flex items-center gap-2">
+            <span className="w-1.5 h-4 rounded-full bg-vp-brand" />
             {renderInlineMarkdown(trimmed.replace('### ', ''))}
           </h3>
         );
       }
       if (trimmed.startsWith('## ')) {
         return (
-          <h2 key={idx} className="text-xl sm:text-2xl font-bold text-white mt-8 mb-3 tracking-tight">
+          <h2 key={idx} className="text-xl sm:text-2xl font-bold text-vp-primary mt-8 mb-3 tracking-tight">
             {renderInlineMarkdown(trimmed.replace('## ', ''))}
           </h2>
         );
@@ -203,14 +203,14 @@ export const PageView: React.FC<PageViewProps> = ({
       if (trimmed.startsWith('- ')) {
         const itemText = trimmed.replace('- ', '');
         return (
-          <li key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed ml-4 list-disc marker:text-emerald-500 my-1.5">
+          <li key={idx} className="text-vp-secondary text-sm sm:text-base leading-relaxed ml-4 list-disc marker:text-vp-brand my-1.5">
             {renderInlineMarkdown(itemText)}
           </li>
         );
       }
       if (trimmed.match(/^\d+\.\s/)) {
         return (
-          <li key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed ml-4 list-decimal marker:text-emerald-400 font-medium my-2">
+          <li key={idx} className="text-vp-secondary text-sm sm:text-base leading-relaxed ml-4 list-decimal marker:text-vp-brand font-medium my-2">
             {renderInlineMarkdown(trimmed.replace(/^\d+\.\s/, ''))}
           </li>
         );
@@ -219,7 +219,7 @@ export const PageView: React.FC<PageViewProps> = ({
         return <div key={idx} className="h-3" />;
       }
       return (
-        <p key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed my-2.5">
+        <p key={idx} className="text-vp-secondary text-sm sm:text-base leading-relaxed my-2.5">
           {renderInlineMarkdown(trimmed)}
         </p>
       );
@@ -227,14 +227,14 @@ export const PageView: React.FC<PageViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#08090E] text-zinc-100 pb-28">
+    <div className="min-h-screen bg-vp-bg text-vp-primary pb-28">
       {/* Top Header / Breadcrumbs Bar */}
-      <div className="border-b border-white/[0.06] bg-[#0c0d14]/90 backdrop-blur-md sticky top-16 z-20">
+      <div className="border-b border-vp-subtle bg-vp-surface-raised/90 backdrop-blur-md sticky top-16 z-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               onClick={onBack}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-white/[0.08] text-xs font-semibold text-zinc-300 hover:text-white transition-all active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-vp-surface-subtle/80 hover:bg-vp-surface-hover border border-vp text-xs font-semibold text-vp-secondary hover:text-vp-primary transition-all active:scale-95 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Directory</span>
@@ -242,13 +242,13 @@ export const PageView: React.FC<PageViewProps> = ({
 
             <span className="text-zinc-600 hidden sm:inline">/</span>
 
-            <span className="text-xs text-zinc-400 font-medium hidden sm:inline capitalize">
+            <span className="text-xs text-vp-muted font-medium hidden sm:inline capitalize">
               {page.category || 'Pages'}
             </span>
 
             <span className="text-zinc-600 hidden sm:inline">/</span>
 
-            <span className="text-xs text-emerald-400 font-semibold truncate max-w-[200px] sm:max-w-none">
+            <span className="text-xs text-vp-brand font-semibold truncate max-w-[200px] sm:max-w-none">
               {page.title}
             </span>
           </div>
@@ -256,9 +256,9 @@ export const PageView: React.FC<PageViewProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-white/[0.08] text-xs font-medium text-zinc-300 hover:text-white transition-all active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-vp-surface-subtle/80 hover:bg-vp-surface-hover border border-vp text-xs font-medium text-vp-secondary hover:text-vp-primary transition-all active:scale-95 cursor-pointer"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-vp-brand" /> : <Share2 className="w-3.5 h-3.5" />}
               <span>{copied ? 'Link Copied' : 'Share'}</span>
             </button>
           </div>
@@ -270,30 +270,30 @@ export const PageView: React.FC<PageViewProps> = ({
         {/* Page Hero Header */}
         <div className="space-y-4">
           {page.badge && (
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-vp-brand-subtle text-vp-brand border border-vp-brand text-xs font-bold uppercase tracking-wider">
               <span>{page.badge}</span>
             </div>
           )}
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-vp-primary tracking-tight leading-tight">
             {page.title}
           </h1>
 
           {page.subtitle && (
-            <p className="text-base sm:text-lg text-zinc-400 font-normal leading-relaxed max-w-3xl">
+            <p className="text-base sm:text-lg text-vp-muted font-normal leading-relaxed max-w-3xl">
               {page.subtitle}
             </p>
           )}
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 pt-2 border-t border-white/[0.06]">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-vp-faint pt-2 border-t border-vp-subtle">
             <div className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+              <Calendar className="w-3.5 h-3.5 text-vp-muted" />
               <span>
                 Updated {new Date(page.lastUpdated || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-vp-brand" />
               <span>Official Vebpartner Publication</span>
             </div>
           </div>
@@ -310,8 +310,8 @@ export const PageView: React.FC<PageViewProps> = ({
                   key={idx}
                   className={`p-6 rounded-2xl border transition-all relative flex flex-col justify-between ${
                     pkg.highlight
-                      ? 'bg-[#151c24] border-emerald-500/40 shadow-sm'
-                      : 'bg-[#0d0f17] border-white/[0.08] hover:border-white/[0.15]'
+                      ? 'bg-vp-surface-hover border-vp-brand shadow-sm'
+                      : 'bg-vp-surface-raised border-vp hover:border-white/[0.15]'
                   }`}
                 >
                   <div className="space-y-4">
@@ -319,8 +319,8 @@ export const PageView: React.FC<PageViewProps> = ({
                       <span
                         className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md ${
                           pkg.highlight
-                            ? 'bg-emerald-500 text-zinc-950'
-                            : 'bg-zinc-800 text-zinc-300'
+                            ? 'bg-vp-brand text-vp-inverse'
+                            : 'bg-vp-surface-hover text-vp-secondary'
                         }`}
                       >
                         {pkg.badge}
@@ -328,19 +328,19 @@ export const PageView: React.FC<PageViewProps> = ({
                     </div>
 
                     <div>
-                      <h3 className="text-base font-bold text-white leading-snug">{pkg.name}</h3>
-                      <p className="text-xs text-zinc-400 mt-1">{pkg.description}</p>
+                      <h3 className="text-base font-bold text-vp-primary leading-snug">{pkg.name}</h3>
+                      <p className="text-xs text-vp-muted mt-1">{pkg.description}</p>
                     </div>
 
                     <div className="flex items-baseline gap-1 py-2">
-                      <span className="text-3xl font-extrabold text-white font-mono">{pkg.price}</span>
-                      <span className="text-xs text-zinc-400">{pkg.period}</span>
+                      <span className="text-3xl font-extrabold text-vp-primary font-mono">{pkg.price}</span>
+                      <span className="text-xs text-vp-muted">{pkg.period}</span>
                     </div>
 
-                    <div className="space-y-2 border-t border-white/[0.08] pt-4">
+                    <div className="space-y-2 border-t border-vp pt-4">
                       {pkg.features.map((feat, fIdx) => (
-                        <div key={fIdx} className="flex items-start gap-2 text-xs text-zinc-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                        <div key={fIdx} className="flex items-start gap-2 text-xs text-vp-secondary">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-vp-brand shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -351,8 +351,8 @@ export const PageView: React.FC<PageViewProps> = ({
                     href="mailto:sponsor@vebpartner.com?subject=Sponsorship%20Inquiry%20-%20Vebpartner"
                     className={`mt-6 w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all text-center ${
                       pkg.highlight
-                        ? 'bg-emerald-500 hover:bg-emerald-400 text-zinc-950 shadow-sm'
-                        : 'bg-zinc-800 hover:bg-zinc-700 text-white'
+                        ? 'bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse shadow-sm'
+                        : 'bg-vp-surface-hover hover:bg-vp-surface-hover text-vp-primary'
                     }`}
                   >
                     <span>Reserve Placement</span>
@@ -363,22 +363,22 @@ export const PageView: React.FC<PageViewProps> = ({
             </div>
 
             {/* Sponsorship focus areas */}
-            <div className="p-6 rounded-2xl bg-[#0d0f17] border border-white/[0.08] grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            <div className="p-6 rounded-2xl bg-vp-surface-raised border border-vp grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
               <div>
-                <div className="text-sm sm:text-base font-extrabold text-white">Listings</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Featured providers</div>
+                <div className="text-sm sm:text-base font-extrabold text-vp-primary">Listings</div>
+                <div className="text-xs text-vp-muted font-medium mt-1">Featured providers</div>
               </div>
               <div>
-                <div className="text-sm sm:text-base font-extrabold text-emerald-400">Categories</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Sponsor placements</div>
+                <div className="text-sm sm:text-base font-extrabold text-vp-brand">Categories</div>
+                <div className="text-xs text-vp-muted font-medium mt-1">Sponsor placements</div>
               </div>
               <div>
-                <div className="text-sm sm:text-base font-extrabold text-white">Programs</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Promoted opportunities</div>
+                <div className="text-sm sm:text-base font-extrabold text-vp-primary">Programs</div>
+                <div className="text-xs text-vp-muted font-medium mt-1">Promoted opportunities</div>
               </div>
               <div>
-                <div className="text-sm sm:text-base font-extrabold text-cyan-400">Partners</div>
-                <div className="text-xs text-zinc-400 font-medium mt-1">Custom campaigns</div>
+                <div className="text-sm sm:text-base font-extrabold text-vp-info">Partners</div>
+                <div className="text-xs text-vp-muted font-medium mt-1">Custom campaigns</div>
               </div>
             </div>
           </div>
@@ -387,8 +387,8 @@ export const PageView: React.FC<PageViewProps> = ({
         {/* 2. FAQ ACCORDIONS (if on FAQ page) */}
         {page.slug === 'faq' && (
           <div className="space-y-3 my-8">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-emerald-400" />
+            <h3 className="text-lg font-bold text-vp-primary mb-4 flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-vp-brand" />
               <span>Frequently Asked Questions</span>
             </h3>
             {FAQ_ITEMS.map((item, idx) => {
@@ -396,17 +396,17 @@ export const PageView: React.FC<PageViewProps> = ({
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/[0.08] bg-[#0d0f17] overflow-hidden transition-all"
+                  className="rounded-xl border border-vp bg-vp-surface-raised overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-zinc-800/30 transition-colors"
+                    className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-vp-surface-hover/30 transition-colors"
                   >
-                    <span className="font-semibold text-sm sm:text-base text-zinc-100">{item.q}</span>
-                    {isOpen ? <ChevronUp className="w-4 h-4 text-zinc-400" /> : <ChevronDown className="w-4 h-4 text-zinc-400" />}
+                    <span className="font-semibold text-sm sm:text-base text-vp-primary">{item.q}</span>
+                    {isOpen ? <ChevronUp className="w-4 h-4 text-vp-muted" /> : <ChevronDown className="w-4 h-4 text-vp-muted" />}
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-4 pt-1 text-zinc-300 text-xs sm:text-sm leading-relaxed border-t border-white/[0.04]">
+                    <div className="px-5 pb-4 pt-1 text-vp-secondary text-xs sm:text-sm leading-relaxed border-t border-white/[0.04]">
                       {item.a}
                     </div>
                   )}
@@ -418,31 +418,31 @@ export const PageView: React.FC<PageViewProps> = ({
 
         {/* 3. CONTACT FORM (if on Contact page) */}
         {page.slug === 'contact' && (
-          <div className="my-8 p-6 sm:p-8 rounded-2xl bg-[#0d0f17] border border-white/[0.08] space-y-6">
+          <div className="my-8 p-6 sm:p-8 rounded-2xl bg-vp-surface-raised border border-vp space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <div className="w-10 h-10 rounded-xl bg-vp-brand-subtle border border-vp-brand flex items-center justify-center text-vp-brand">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-white">Send Us a Direct Message</h3>
-                <p className="text-xs text-zinc-400">We typically respond within 12–24 hours on business days.</p>
+                <h3 className="text-base sm:text-lg font-bold text-vp-primary">Send Us a Direct Message</h3>
+                <p className="text-xs text-vp-muted">We typically respond within 12–24 hours on business days.</p>
               </div>
             </div>
 
             {contactSubmitted ? (
-              <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center space-y-2">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h4 className="font-bold text-white text-base">Message Sent Successfully!</h4>
-                <p className="text-xs text-zinc-300">
-                  Thank you, <span className="font-semibold text-white">{contactName}</span>. Our team will get back to you at{' '}
-                  <span className="font-semibold text-white">{contactEmail}</span> shortly.
+              <div className="p-6 rounded-xl bg-vp-brand-subtle border border-vp-brand text-center space-y-2">
+                <CheckCircle2 className="w-8 h-8 text-vp-brand mx-auto" />
+                <h4 className="font-bold text-vp-primary text-base">Message Sent Successfully!</h4>
+                <p className="text-xs text-vp-secondary">
+                  Thank you, <span className="font-semibold text-vp-primary">{contactName}</span>. Our team will get back to you at{' '}
+                  <span className="font-semibold text-vp-primary">{contactEmail}</span> shortly.
                 </p>
                 <button
                   onClick={() => {
                     setContactSubmitted(false);
                     setContactMessage('');
                   }}
-                  className="mt-3 px-4 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-medium"
+                  className="mt-3 px-4 py-1.5 rounded-lg bg-vp-surface-hover hover:bg-vp-surface-hover text-xs text-vp-primary font-medium"
                 >
                   Send Another Message
                 </button>
@@ -451,35 +451,35 @@ export const PageView: React.FC<PageViewProps> = ({
               <form onSubmit={handleContactSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Your Name *</label>
+                    <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Your Name *</label>
                     <input
                       type="text"
                       required
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
                       placeholder="Your name"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle/90 border border-vp text-vp-primary text-xs focus:outline-none focus:border-zinc-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Your Email *</label>
+                    <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Your Email *</label>
                     <input
                       type="email"
                       required
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle/90 border border-vp text-vp-primary text-xs focus:outline-none focus:border-zinc-500"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Inquiry Type</label>
+                  <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Inquiry Type</label>
                   <select
                     value={contactCategory}
                     onChange={(e) => setContactCategory(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle/90 border border-vp text-vp-primary text-xs focus:outline-none focus:border-zinc-500"
                   >
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Sponsorship / Advertising">Sponsorship / Advertising</option>
@@ -490,20 +490,20 @@ export const PageView: React.FC<PageViewProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1.5">Message *</label>
+                  <label className="block text-xs font-semibold text-vp-secondary mb-1.5">Message *</label>
                   <textarea
                     required
                     rows={4}
                     value={contactMessage}
                     onChange={(e) => setContactMessage(e.target.value)}
                     placeholder="How can we help you?"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-zinc-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-vp-surface-subtle/90 border border-vp text-vp-primary text-xs focus:outline-none focus:border-zinc-500"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-sm flex items-center gap-2 cursor-pointer transition-all active:scale-95"
+                  className="px-6 py-2.5 rounded-xl bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse font-bold text-xs shadow-sm flex items-center gap-2 cursor-pointer transition-all active:scale-95"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Send Message</span>
@@ -514,13 +514,13 @@ export const PageView: React.FC<PageViewProps> = ({
         )}
 
         {/* Render Formatted Markdown Body */}
-        <div className="prose prose-invert max-w-none text-zinc-300 text-sm sm:text-base leading-relaxed space-y-4 pt-4 border-t border-white/[0.06]">
+        <div className="prose prose-invert max-w-none text-vp-secondary text-sm sm:text-base leading-relaxed space-y-4 pt-4 border-t border-vp-subtle">
           {renderMarkdownContent(page.contentMarkdown)}
         </div>
 
         {/* Other Pages Navigation Carousel */}
-        <div className="pt-12 border-t border-white/[0.08] space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Explore More on Vebpartner</h4>
+        <div className="pt-12 border-t border-vp space-y-4">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-vp-muted">Explore More on Vebpartner</h4>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {allPages
               .filter((p) => p.slug !== page.slug && p.published)
@@ -529,15 +529,15 @@ export const PageView: React.FC<PageViewProps> = ({
                 <button
                   key={p.id}
                   onClick={() => onNavigatePage(p.slug)}
-                  className="p-4 rounded-xl bg-[#0d0f17] hover:bg-zinc-800/80 border border-white/[0.06] hover:border-white/[0.15] text-left transition-all group cursor-pointer"
+                  className="p-4 rounded-xl bg-vp-surface-raised hover:bg-vp-surface-hover/80 border border-vp-subtle hover:border-white/[0.15] text-left transition-all group cursor-pointer"
                 >
-                  <div className="text-[10px] uppercase font-bold text-emerald-400 tracking-wider">
+                  <div className="text-[10px] uppercase font-bold text-vp-brand tracking-wider">
                     {p.badge || 'Guide'}
                   </div>
-                  <div className="font-bold text-zinc-100 text-sm group-hover:text-emerald-300 transition-colors mt-1">
+                  <div className="font-bold text-vp-primary text-sm group-hover:text-emerald-300 transition-colors mt-1">
                     {p.title}
                   </div>
-                  <div className="text-xs text-zinc-500 line-clamp-1 mt-0.5">
+                  <div className="text-xs text-vp-faint line-clamp-1 mt-0.5">
                     {p.subtitle || 'Read guide on Vebpartner'}
                   </div>
                 </button>
@@ -546,14 +546,14 @@ export const PageView: React.FC<PageViewProps> = ({
         </div>
 
         {/* Bottom CTA Banner */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="p-6 sm:p-8 rounded-2xl bg-vp-surface-subtle border border-vp flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <h3 className="text-base sm:text-lg font-bold text-white">Know a great business resource?</h3>
-            <p className="text-xs text-zinc-400">Submit a business opportunity, platform, tool, program or service for Vebpartner review.</p>
+            <h3 className="text-base sm:text-lg font-bold text-vp-primary">Know a great business resource?</h3>
+            <p className="text-xs text-vp-muted">Submit a business opportunity, platform, tool, program or service for Vebpartner review.</p>
           </div>
           <button
             onClick={onOpenSubmitModal}
-            className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer transition-all active:scale-95"
+            className="px-5 py-2.5 rounded-xl bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer transition-all active:scale-95"
           >
             Submit an Opportunity
           </button>

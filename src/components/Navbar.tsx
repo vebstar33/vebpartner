@@ -105,17 +105,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#08090E]/95 dark:bg-[#08090E]/95 light:bg-white/95 backdrop-blur-md border-b border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 transition-colors duration-200">
+    <header className="sticky top-0 z-40 w-full bg-vp-bg/95 dark:bg-vp-bg/95 light:bg-white/95 backdrop-blur-md border-b border-vp dark:border-vp light:border-zinc-200 transition-colors duration-200">
       {/* Top Announcement Bar (Configurable in Admin) */}
       {siteSettings.announcementEnabled && siteSettings.announcementText && (
-        <div className="bg-gradient-to-r from-emerald-900/60 via-emerald-600/30 to-cyan-900/60 dark:from-emerald-900/60 dark:via-emerald-600/30 dark:to-cyan-900/60 light:from-emerald-50 light:via-teal-100/70 light:to-cyan-50 border-b border-emerald-500/20 px-4 py-1.5 text-center text-xs text-emerald-200 dark:text-emerald-200 light:text-emerald-900 font-medium">
+        <div className="bg-gradient-to-r from-emerald-900/60 via-emerald-600/30 to-cyan-900/60 dark:from-emerald-900/60 dark:via-emerald-600/30 dark:to-cyan-900/60 light:from-emerald-50 light:via-teal-100/70 light:to-cyan-50 border-b border-vp-brand px-4 py-1.5 text-center text-xs text-emerald-200 dark:text-emerald-200 light:text-emerald-900 font-medium">
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
             <span>{siteSettings.announcementText}</span>
             {siteSettings.announcementUrl && (
               <a
                 href={siteSettings.announcementUrl}
-                className="underline hover:text-white dark:hover:text-white light:hover:text-emerald-950 font-bold ml-1"
+                className="underline hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-emerald-950 font-bold ml-1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -133,25 +133,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-6">
             <button
               onClick={onNavigateHome}
-              className="flex items-center gap-2.5 text-white dark:text-white light:text-zinc-900 hover:opacity-90 transition-opacity group cursor-pointer text-left"
+              className="flex items-center gap-2.5 text-vp-primary dark:text-vp-primary light:text-zinc-900 hover:opacity-90 transition-opacity group cursor-pointer text-left"
             >
-              <div className="text-white dark:text-white light:text-zinc-900 group-hover:scale-105 transition-transform duration-200">
-                <VebpartnerLogo className="w-6 h-6 text-emerald-400 dark:text-white light:text-emerald-600" />
+              <div className="text-vp-primary dark:text-vp-primary light:text-zinc-900 group-hover:scale-105 transition-transform duration-200">
+                <VebpartnerLogo className="w-6 h-6 text-vp-brand dark:text-vp-primary light:text-emerald-600" />
               </div>
-              <span className="font-extrabold text-white dark:text-white light:text-zinc-950 tracking-tight text-[18px] leading-tight">
+              <span className="font-extrabold text-vp-primary dark:text-vp-primary light:text-vp-inverse tracking-tight text-[18px] leading-tight">
                 {siteSettings.siteName || 'Vebpartner'}
               </span>
             </button>
 
             {/* Desktop Navigation - Grouped Menus */}
-            <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-zinc-300 dark:text-zinc-300 light:text-zinc-700">
+            <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-vp-secondary dark:text-vp-secondary light:text-zinc-700">
               {/* 1. Direct Directory Link */}
               <button
                 onClick={() => {
                   onSelectCategory?.('all');
                   onNavigateHome();
                 }}
-                className="px-3 py-1.5 rounded-lg hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100 transition-colors cursor-pointer font-medium"
+                className="px-3 py-1.5 rounded-lg hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover/60 dark:hover:bg-vp-surface-hover/60 light:hover:bg-zinc-100 transition-colors cursor-pointer font-medium"
               >
                 Directory
               </button>
@@ -164,14 +164,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                     activeDropdown === 'categories'
-                      ? 'text-white dark:text-white light:text-zinc-950 bg-zinc-800/80 dark:bg-zinc-800/80 light:bg-zinc-100 shadow-sm font-semibold'
-                      : 'hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100'
+                      ? 'text-vp-primary dark:text-vp-primary light:text-vp-inverse bg-vp-surface-hover/80 dark:bg-vp-surface-hover/80 light:bg-zinc-100 shadow-sm font-semibold'
+                      : 'hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover/60 dark:hover:bg-vp-surface-hover/60 light:hover:bg-zinc-100'
                   }`}
                 >
-                  <Layers className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
+                  <Layers className="w-3.5 h-3.5 text-vp-muted dark:text-vp-muted light:text-vp-faint" />
                   <span>Categories</span>
                   <ChevronDown
-                    className={`w-3 h-3 text-zinc-400 transition-transform duration-200 ${
+                    className={`w-3 h-3 text-vp-muted transition-transform duration-200 ${
                       activeDropdown === 'categories' ? 'rotate-180' : ''
                     }`}
                   />
@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {/* Grouped Mega Menu Dropdown Box */}
                 {activeDropdown === 'categories' && (
-                  <div className="absolute left-0 mt-2 w-[720px] rounded-2xl bg-[#0c0e16] dark:bg-[#0c0e16] light:bg-white border border-white/[0.1] dark:border-white/[0.1] light:border-zinc-200 shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute left-0 mt-2 w-[720px] rounded-2xl bg-vp-surface-raised dark:bg-vp-surface-raised light:bg-white border border-vp dark:border-vp light:border-zinc-200 shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                     <div className="grid grid-cols-3 gap-4 pb-3">
                       {groupedCategories.map((group) => {
                         const GroupIcon =
@@ -192,15 +192,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                         return (
                           <div key={group.id} className="space-y-2">
                             {/* Group Header */}
-                            <div className="flex items-center gap-2 pb-1.5 border-b border-white/[0.06] dark:border-white/[0.06] light:border-zinc-100">
-                              <div className="p-1 rounded-md bg-zinc-800 text-zinc-300 dark:text-zinc-300 light:text-zinc-700">
+                            <div className="flex items-center gap-2 pb-1.5 border-b border-vp-subtle dark:border-vp-subtle light:border-zinc-100">
+                              <div className="p-1 rounded-md bg-vp-surface-hover text-vp-secondary dark:text-vp-secondary light:text-zinc-700">
                                 <GroupIcon className="w-3.5 h-3.5" />
                               </div>
                               <div>
-                                <h4 className="font-bold text-white dark:text-white light:text-zinc-900 text-xs leading-none">
+                                <h4 className="font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 text-xs leading-none">
                                   {group.name}
                                 </h4>
-                                <p className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500 line-clamp-1 mt-0.5">
+                                <p className="text-[10px] text-vp-muted dark:text-vp-muted light:text-vp-faint line-clamp-1 mt-0.5">
                                   {group.shortName}
                                 </p>
                               </div>
@@ -214,13 +214,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                                   <button
                                     key={cat.id}
                                     onClick={() => handleCategoryClick(cat.id)}
-                                    className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-850/80 dark:hover:bg-zinc-850/80 light:hover:bg-zinc-100 transition-colors text-xs group cursor-pointer"
+                                    className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-zinc-850/80 dark:hover:bg-zinc-850/80 light:hover:bg-zinc-100 transition-colors text-xs group cursor-pointer"
                                   >
                                     <span className="truncate group-hover:translate-x-0.5 transition-transform">
                                       {cat.name}
                                     </span>
                                     {typeof count === 'number' && (
-                                      <span className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500 font-mono px-1.5 py-0.5 rounded bg-zinc-900 dark:bg-zinc-900 light:bg-zinc-100 border border-white/[0.04] dark:border-white/[0.04] light:border-zinc-200 shrink-0 ml-1">
+                                      <span className="text-[10px] text-vp-muted dark:text-vp-muted light:text-vp-faint font-mono px-1.5 py-0.5 rounded bg-vp-surface-subtle dark:bg-vp-surface-subtle light:bg-zinc-100 border border-white/[0.04] dark:border-white/[0.04] light:border-zinc-200 shrink-0 ml-1">
                                         {count}
                                       </span>
                                     )}
@@ -234,14 +234,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
 
                     {/* Mega Menu Footer Actions */}
-                    <div className="pt-3 border-t border-white/[0.06] dark:border-white/[0.06] light:border-zinc-100 flex items-center justify-between text-xs">
+                    <div className="pt-3 border-t border-vp-subtle dark:border-vp-subtle light:border-zinc-100 flex items-center justify-between text-xs">
                       <button
                         onClick={() => handleCategoryClick('all')}
-                        className="text-emerald-400 dark:text-emerald-400 light:text-emerald-600 hover:underline font-semibold cursor-pointer"
+                        className="text-vp-brand dark:text-vp-brand light:text-emerald-600 hover:underline font-semibold cursor-pointer"
                       >
                         Browse All {totalListingsCount || ''} Businesses &rarr;
                       </button>
-                      <span className="text-zinc-400 dark:text-zinc-400 light:text-zinc-500 text-[11px]">
+                      <span className="text-vp-muted dark:text-vp-muted light:text-vp-faint text-[11px]">
                         {categories.length - 1} business categories
                       </span>
                     </div>
@@ -255,14 +255,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveDropdown(activeDropdown === 'explore' ? null : 'explore')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                     activeDropdown === 'explore'
-                      ? 'text-white dark:text-white light:text-zinc-950 bg-zinc-800/80 dark:bg-zinc-800/80 light:bg-zinc-100 shadow-sm font-semibold'
-                      : 'hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100'
+                      ? 'text-vp-primary dark:text-vp-primary light:text-vp-inverse bg-vp-surface-hover/80 dark:bg-vp-surface-hover/80 light:bg-zinc-100 shadow-sm font-semibold'
+                      : 'hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover/60 dark:hover:bg-vp-surface-hover/60 light:hover:bg-zinc-100'
                   }`}
                 >
-                  <Compass className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
+                  <Compass className="w-3.5 h-3.5 text-vp-muted dark:text-vp-muted light:text-vp-faint" />
                   <span>Explore</span>
                   <ChevronDown
-                    className={`w-3 h-3 text-zinc-400 transition-transform duration-200 ${
+                    className={`w-3 h-3 text-vp-muted transition-transform duration-200 ${
                       activeDropdown === 'explore' ? 'rotate-180' : ''
                     }`}
                   />
@@ -270,9 +270,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {/* Grouped Explore Dropdown Box */}
                 {activeDropdown === 'explore' && (
-                  <div className="absolute left-0 mt-2 w-80 rounded-2xl bg-[#0c0e16] dark:bg-[#0c0e16] light:bg-white border border-white/[0.1] dark:border-white/[0.1] light:border-zinc-200 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150 space-y-3 text-xs">
+                  <div className="absolute left-0 mt-2 w-80 rounded-2xl bg-vp-surface-raised dark:bg-vp-surface-raised light:bg-white border border-vp dark:border-vp light:border-zinc-200 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150 space-y-3 text-xs">
                     <div>
-                      <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-400 light:text-zinc-500 uppercase tracking-wider px-2.5 pb-1">
+                      <div className="text-[10px] font-bold text-vp-muted dark:text-vp-muted light:text-vp-faint uppercase tracking-wider px-2.5 pb-1">
                         Compact Directories
                       </div>
                       <div className="grid grid-cols-2 gap-1">
@@ -280,9 +280,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                           <button
                             key={directory.slug}
                             onClick={() => handlePageClick(getExplorePath(directory.slug).slice(1))}
-                            className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors flex items-center gap-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 cursor-pointer"
+                            className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse transition-colors flex items-center gap-2 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 cursor-pointer"
                           >
-                            <Compass className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600 shrink-0" />
+                            <Compass className="w-3.5 h-3.5 text-vp-brand light:text-emerald-600 shrink-0" />
                             <span className="font-semibold truncate">{directory.navLabel}</span>
                           </button>
                         ))}
@@ -303,11 +303,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveDropdown(activeDropdown === 'vebpartner' ? null : 'vebpartner')}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs font-semibold transition-all cursor-pointer ${
                   activeDropdown === 'vebpartner'
-                    ? 'bg-zinc-800 border-white/[0.12] text-white dark:bg-zinc-800 dark:text-white light:bg-zinc-100 light:text-zinc-950 light:border-zinc-300'
-                    : 'bg-zinc-900/90 border-white/[0.1] text-zinc-300 hover:text-white hover:bg-zinc-800 dark:bg-zinc-900/90 dark:border-white/[0.1] dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 light:bg-white light:border-zinc-200 light:text-zinc-700 light:hover:text-zinc-950 light:hover:bg-zinc-100'
+                    ? 'bg-vp-surface-hover border-vp text-vp-primary dark:bg-vp-surface-hover dark:text-vp-primary light:bg-zinc-100 light:text-vp-inverse light:border-zinc-300'
+                    : 'bg-vp-surface-subtle/90 border-vp text-vp-secondary hover:text-vp-primary hover:bg-vp-surface-hover dark:bg-vp-surface-subtle/90 dark:border-vp dark:text-vp-secondary dark:hover:text-vp-primary dark:hover:bg-vp-surface-hover light:bg-white light:border-zinc-200 light:text-zinc-700 light:hover:text-vp-inverse light:hover:bg-zinc-100'
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600" />
+                <BookOpen className="w-3.5 h-3.5 text-vp-brand light:text-emerald-600" />
                 <span>Vebpartner</span>
                 <ChevronDown
                   className={`w-3 h-3 opacity-60 transition-transform ${
@@ -317,16 +317,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               {activeDropdown === 'vebpartner' && (
-                <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-[#0c0e16] dark:bg-[#0c0e16] light:bg-white border border-white/[0.1] dark:border-white/[0.1] light:border-zinc-200 shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 text-xs">
+                <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-vp-surface-raised dark:bg-vp-surface-raised light:bg-white border border-vp dark:border-vp light:border-zinc-200 shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 text-xs">
                   {infoLinks.map((link) => {
                     const LinkIcon = link.icon;
                     return (
                       <button
                         key={link.slug}
                         onClick={() => handlePageClick(link.slug)}
-                        className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-white dark:hover:text-white light:hover:text-zinc-950 transition-colors flex items-center gap-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 cursor-pointer"
+                        className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-zinc-850 dark:hover:bg-zinc-850 light:hover:bg-zinc-100 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse transition-colors flex items-center gap-2 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 cursor-pointer"
                       >
-                        <LinkIcon className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600 shrink-0" />
+                        <LinkIcon className="w-3.5 h-3.5 text-vp-brand light:text-emerald-600 shrink-0" />
                         <span className="font-semibold">{link.label}</span>
                       </button>
                     );
@@ -339,7 +339,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onFocusSearch}
               aria-label="Search directory tools (⌘K)"
-              className="p-2 rounded-full text-zinc-400 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100 transition-colors cursor-pointer"
+              className="p-2 rounded-full text-vp-muted hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover/60 dark:hover:bg-vp-surface-hover/60 light:hover:bg-zinc-100 transition-colors cursor-pointer"
               title="Search tools (⌘K)"
             >
               <Search className="w-4 h-4" />
@@ -350,9 +350,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onOpenBookmarks}
                 aria-label={`View ${bookmarksCount} saved bookmarks`}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-900 dark:bg-zinc-900 light:bg-white text-zinc-300 dark:text-zinc-300 light:text-zinc-800 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-100 text-xs font-medium transition-colors cursor-pointer shadow-sm"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-vp dark:border-vp light:border-zinc-200 bg-vp-surface-subtle dark:bg-vp-surface-subtle light:bg-white text-vp-secondary dark:text-vp-secondary light:text-zinc-800 hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-100 text-xs font-medium transition-colors cursor-pointer shadow-sm"
               >
-                <Bookmark className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <Bookmark className="w-3.5 h-3.5 text-vp-warning fill-vp-warning" />
                 <span>{bookmarksCount}</span>
               </button>
             )}
@@ -360,9 +360,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Submit Tool Button */}
             <button
               onClick={onOpenSubmit}
-              className="hidden sm:inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full border border-white/[0.12] dark:border-white/[0.12] light:border-zinc-300 bg-zinc-900/90 dark:bg-zinc-900/90 light:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-100 light:text-zinc-900 text-xs font-semibold transition-all active:scale-95 shadow-sm cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full border border-vp dark:border-vp light:border-zinc-300 bg-vp-surface-subtle/90 dark:bg-vp-surface-subtle/90 light:bg-zinc-100 hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-200 text-vp-primary dark:text-vp-primary light:text-zinc-900 text-xs font-semibold transition-all active:scale-95 shadow-sm cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5 text-emerald-400 light:text-emerald-600" />
+              <Plus className="w-3.5 h-3.5 text-vp-brand light:text-emerald-600" />
               <span>Submit Tool</span>
             </button>
 
@@ -370,12 +370,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {isAdminView && (
               <button
                 onClick={onToggleAdminView}
-                className="px-3.5 py-1.5 rounded-full border border-emerald-500 bg-emerald-500/20 text-emerald-300 dark:text-emerald-300 light:text-emerald-700 text-xs font-semibold transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shadow-sm"
+                className="px-3.5 py-1.5 rounded-full border border-emerald-500 bg-vp-brand-subtle text-emerald-300 dark:text-emerald-300 light:text-emerald-700 text-xs font-semibold transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shadow-sm"
               >
-                <Lock className="w-3 h-3 text-emerald-400" />
+                <Lock className="w-3 h-3 text-vp-brand" />
                 <span>Exit Admin</span>
                 {pendingSubmissionsCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-emerald-500 text-zinc-950 font-bold text-[10px] flex items-center justify-center">
+                  <span className="w-4 h-4 rounded-full bg-vp-brand text-vp-inverse font-bold text-[10px] flex items-center justify-center">
                     {pendingSubmissionsCount}
                   </span>
                 )}
@@ -385,7 +385,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Hamburger Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl text-zinc-400 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800/60 dark:hover:bg-zinc-800/60 light:hover:bg-zinc-100 transition-colors cursor-pointer"
+              className="md:hidden p-2 rounded-xl text-vp-muted hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover/60 dark:hover:bg-vp-surface-hover/60 light:hover:bg-zinc-100 transition-colors cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -396,7 +396,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Navigation (Grouped structure) */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-[#0c0e16] dark:bg-[#0c0e16] light:bg-white px-4 py-4 space-y-4 max-h-[80vh] overflow-y-auto shadow-2xl">
+        <div className="md:hidden border-t border-vp dark:border-vp light:border-zinc-200 bg-vp-surface-raised dark:bg-vp-surface-raised light:bg-white px-4 py-4 space-y-4 max-h-[80vh] overflow-y-auto shadow-2xl">
           {/* Quick Submit & Bookmark on mobile */}
           <div className="flex items-center gap-2">
             <button
@@ -404,7 +404,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setIsMobileMenuOpen(false);
                 onOpenSubmit();
               }}
-              className="flex-1 py-2 px-3 rounded-xl bg-emerald-500 text-zinc-950 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+              className="flex-1 py-2 px-3 rounded-xl bg-vp-brand text-vp-inverse font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
             >
               <Plus className="w-4 h-4" />
               <span>Submit a Tool</span>
@@ -416,28 +416,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setIsMobileMenuOpen(false);
                   onOpenBookmarks();
                 }}
-                className="py-2 px-3 rounded-xl bg-zinc-900 dark:bg-zinc-900 light:bg-zinc-100 border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 text-xs font-semibold flex items-center gap-1 text-zinc-200 dark:text-zinc-200 light:text-zinc-800 cursor-pointer"
+                className="py-2 px-3 rounded-xl bg-vp-surface-subtle dark:bg-vp-surface-subtle light:bg-zinc-100 border border-vp dark:border-vp light:border-zinc-200 text-xs font-semibold flex items-center gap-1 text-vp-secondary dark:text-vp-secondary light:text-zinc-800 cursor-pointer"
               >
-                <Bookmark className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <Bookmark className="w-3.5 h-3.5 text-vp-warning fill-vp-warning" />
                 <span>{bookmarksCount}</span>
               </button>
             )}
           </div>
 
           {/* Group 1: Categories Accordion */}
-          <div className="rounded-xl border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-zinc-50 overflow-hidden">
+          <div className="rounded-xl border border-vp-subtle dark:border-vp-subtle light:border-zinc-200 bg-vp-surface-subtle/50 dark:bg-vp-surface-subtle/50 light:bg-zinc-50 overflow-hidden">
             <button
               onClick={() =>
                 setMobileExpandedGroup(mobileExpandedGroup === 'categories' ? null : 'categories')
               }
-              className="w-full flex items-center justify-between p-3 text-xs font-bold text-white dark:text-white light:text-zinc-900 text-left cursor-pointer"
+              className="w-full flex items-center justify-between p-3 text-xs font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 text-left cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
+                <Layers className="w-4 h-4 text-vp-muted dark:text-vp-muted light:text-vp-faint" />
                 <span>Software Categories</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-zinc-400 transition-transform ${
+                className={`w-4 h-4 text-vp-muted transition-transform ${
                   mobileExpandedGroup === 'categories' ? 'rotate-180' : ''
                 }`}
               />
@@ -447,7 +447,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="p-3 pt-0 space-y-3 text-xs border-t border-white/[0.04] dark:border-white/[0.04] light:border-zinc-200">
                 {groupedCategories.map((grp) => (
                   <div key={grp.id} className="space-y-1 pt-2">
-                    <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-400 light:text-zinc-500 uppercase tracking-wider">
+                    <div className="text-[10px] font-bold text-vp-muted dark:text-vp-muted light:text-vp-faint uppercase tracking-wider">
                       {grp.name}
                     </div>
                     <div className="grid grid-cols-1 gap-1">
@@ -455,10 +455,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <button
                           key={cat.id}
                           onClick={() => handleCategoryClick(cat.id)}
-                          className="flex items-center justify-between px-2 py-1.5 rounded-lg text-left text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-200 cursor-pointer"
+                          className="flex items-center justify-between px-2 py-1.5 rounded-lg text-left text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-200 cursor-pointer"
                         >
                           <span>{cat.name}</span>
-                          <span className="text-[10px] text-zinc-400 dark:text-zinc-400 light:text-zinc-500 font-mono">
+                          <span className="text-[10px] text-vp-muted dark:text-vp-muted light:text-vp-faint font-mono">
                             {categoryCounts[cat.id] ?? cat.count ?? 0}
                           </span>
                         </button>
@@ -471,19 +471,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Group 2: Explore Accordion */}
-          <div className="rounded-xl border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-zinc-50 overflow-hidden">
+          <div className="rounded-xl border border-vp-subtle dark:border-vp-subtle light:border-zinc-200 bg-vp-surface-subtle/50 dark:bg-vp-surface-subtle/50 light:bg-zinc-50 overflow-hidden">
             <button
               onClick={() =>
                 setMobileExpandedGroup(mobileExpandedGroup === 'explore' ? null : 'explore')
               }
-              className="w-full flex items-center justify-between p-3 text-xs font-bold text-white dark:text-white light:text-zinc-900 text-left cursor-pointer"
+              className="w-full flex items-center justify-between p-3 text-xs font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 text-left cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <Compass className="w-4 h-4 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
+                <Compass className="w-4 h-4 text-vp-muted dark:text-vp-muted light:text-vp-faint" />
                 <span>Explore</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-zinc-400 transition-transform ${
+                className={`w-4 h-4 text-vp-muted transition-transform ${
                   mobileExpandedGroup === 'explore' ? 'rotate-180' : ''
                 }`}
               />
@@ -495,7 +495,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <button
                     key={directory.slug}
                     onClick={() => handlePageClick(getExplorePath(directory.slug).slice(1))}
-                    className="text-left py-2 px-2 rounded-lg text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-zinc-200 font-semibold cursor-pointer"
+                    className="text-left py-2 px-2 rounded-lg text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-200 font-semibold cursor-pointer"
                   >
                     {directory.navLabel}
                   </button>
@@ -505,19 +505,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Group 3: Vebpartner Pages Accordion */}
-          <div className="rounded-xl border border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-zinc-50 overflow-hidden">
+          <div className="rounded-xl border border-vp-subtle dark:border-vp-subtle light:border-zinc-200 bg-vp-surface-subtle/50 dark:bg-vp-surface-subtle/50 light:bg-zinc-50 overflow-hidden">
             <button
               onClick={() =>
                 setMobileExpandedGroup(mobileExpandedGroup === 'pages' ? null : 'pages')
               }
-              className="w-full flex items-center justify-between p-3 text-xs font-bold text-white dark:text-white light:text-zinc-900 text-left cursor-pointer"
+              className="w-full flex items-center justify-between p-3 text-xs font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 text-left cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <Compass className="w-4 h-4 text-zinc-400 dark:text-zinc-400 light:text-zinc-500" />
+                <Compass className="w-4 h-4 text-vp-muted dark:text-vp-muted light:text-vp-faint" />
                 <span>Vebpartner Pages</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-zinc-400 transition-transform ${
+                className={`w-4 h-4 text-vp-muted transition-transform ${
                   mobileExpandedGroup === 'pages' ? 'rotate-180' : ''
                 }`}
               />
@@ -527,25 +527,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="p-3 pt-0 space-y-1.5 text-xs border-t border-white/[0.04] dark:border-white/[0.04] light:border-zinc-200">
                 <button
                   onClick={() => handlePageClick('about')}
-                  className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
+                  className="w-full text-left py-1.5 px-2 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse cursor-pointer"
                 >
                   About Vebpartner
                 </button>
                 <button
                   onClick={() => handlePageClick('submit-opportunity')}
-                  className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
+                  className="w-full text-left py-1.5 px-2 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse cursor-pointer"
                 >
                   Submit an Opportunity
                 </button>
                 <button
                   onClick={() => handlePageClick('advertise')}
-                  className="w-full text-left py-1.5 px-2 text-emerald-400 dark:text-emerald-400 light:text-emerald-600 font-semibold cursor-pointer"
+                  className="w-full text-left py-1.5 px-2 text-vp-brand dark:text-vp-brand light:text-emerald-600 font-semibold cursor-pointer"
                 >
                   Advertise with Us
                 </button>
                 <button
                   onClick={() => handlePageClick('contact')}
-                  className="w-full text-left py-1.5 px-2 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 hover:text-white dark:hover:text-white light:hover:text-zinc-950 cursor-pointer"
+                  className="w-full text-left py-1.5 px-2 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 hover:text-vp-primary dark:hover:text-vp-primary light:hover:text-vp-inverse cursor-pointer"
                 >
                   Contact Us
                 </button>
@@ -557,15 +557,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Top Banner Advertisement (Managed via Admin) */}
       {topAd && showTopAd && (
-        <div className="border-t border-white/[0.06] dark:border-white/[0.06] light:border-zinc-200 bg-[#0c0e15] dark:bg-[#0c0e15] light:bg-zinc-50 px-4 py-2 text-xs">
+        <div className="border-t border-vp-subtle dark:border-vp-subtle light:border-zinc-200 bg-vp-surface-raised dark:bg-vp-surface-raised light:bg-zinc-50 px-4 py-2 text-xs">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <div className="flex items-center gap-2.5 text-zinc-300 dark:text-zinc-300 light:text-zinc-700 text-center sm:text-left flex-wrap justify-center sm:justify-start">
-              <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-400 dark:text-emerald-400 light:text-emerald-700 border border-emerald-500/30">
+            <div className="flex items-center gap-2.5 text-vp-secondary dark:text-vp-secondary light:text-zinc-700 text-center sm:text-left flex-wrap justify-center sm:justify-start">
+              <span className="px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-vp-brand-subtle text-vp-brand dark:text-vp-brand light:text-emerald-700 border border-vp-brand">
                 {topAd.badgeText || 'Ad'}
               </span>
               <div className="flex items-center gap-1.5 font-medium">
-                <span className="font-bold text-white dark:text-white light:text-zinc-900">{topAd.sponsorName}</span>
-                <span className="text-zinc-400 dark:text-zinc-400 light:text-zinc-600">– {topAd.description || topAd.title}</span>
+                <span className="font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900">{topAd.sponsorName}</span>
+                <span className="text-vp-muted dark:text-vp-muted light:text-zinc-600">– {topAd.description || topAd.title}</span>
               </div>
             </div>
 
@@ -575,14 +575,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => onAdClick?.(topAd.id)}
-                className="px-3 py-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 dark:text-emerald-300 light:text-emerald-700 text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1 rounded-lg border border-vp-brand bg-vp-brand-subtle hover:bg-vp-brand-subtle text-emerald-300 dark:text-emerald-300 light:text-emerald-700 text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
               >
                 <span>{topAd.ctaText || 'Learn More'}</span>
-                <ExternalLink className="w-3 h-3 text-emerald-400 light:text-emerald-600" />
+                <ExternalLink className="w-3 h-3 text-vp-brand light:text-emerald-600" />
               </a>
               <button
                 onClick={() => setShowTopAd(false)}
-                className="p-1 rounded-md text-zinc-500 hover:text-zinc-300 dark:hover:text-zinc-300 light:hover:text-zinc-800 transition-colors cursor-pointer"
+                className="p-1 rounded-md text-vp-faint hover:text-vp-secondary dark:hover:text-vp-secondary light:hover:text-zinc-800 transition-colors cursor-pointer"
                 title="Dismiss ad"
               >
                 <X className="w-3.5 h-3.5" />

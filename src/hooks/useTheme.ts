@@ -14,7 +14,7 @@ export function useTheme() {
     root.classList.remove('light');
     root.style.colorScheme = 'dark';
     body.classList.remove('bg-zinc-50', 'text-zinc-900');
-    body.classList.add('bg-[#08090E]', 'text-zinc-100');
+    body.classList.add('bg-vp-bg', 'text-vp-primary');
 
     try {
       localStorage.setItem(STORAGE_KEY, 'dark');

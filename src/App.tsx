@@ -947,7 +947,7 @@ export function App() {
   // Full Admin Panel View
   if (isAdminMode) {
     return (
-      <div className="min-h-screen bg-[#08090E] dark:bg-[#08090E] light:bg-[#f8fafc] font-sans text-zinc-100 dark:text-zinc-100 light:text-zinc-900 antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+      <div className="min-h-screen bg-vp-bg dark:bg-vp-bg light:bg-vp-bg font-sans text-vp-primary dark:text-vp-primary light:text-zinc-900 antialiased selection:bg-vp-brand/30 selection:text-emerald-200">
         <AdminPanel
           listings={listings}
           submissions={submissions}
@@ -984,7 +984,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#08090E] dark:bg-[#08090E] light:bg-[#f8fafc] font-sans text-zinc-100 dark:text-zinc-100 light:text-zinc-900 antialiased selection:bg-emerald-500/30 selection:text-emerald-200 flex flex-col transition-colors duration-200">
+    <div className="min-h-screen bg-vp-bg dark:bg-vp-bg light:bg-vp-bg font-sans text-vp-primary dark:text-vp-primary light:text-zinc-900 antialiased selection:bg-vp-brand/30 selection:text-emerald-200 flex flex-col transition-colors duration-200">
       {/* Top Navigation Bar */}
       <Navbar
         onOpenSubmit={() => setIsSubmitModalOpen(true)}
@@ -1024,12 +1024,12 @@ export function App() {
       {/* Conditional View: Custom Content Page vs. Directory Home */}
       {routeNotFound && !loading ? (
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-2xl mx-auto rounded-3xl border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-white p-8 text-center shadow-sm">
-            <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">404</p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white dark:text-white light:text-zinc-900 tracking-tight">
+          <div className="max-w-2xl mx-auto rounded-3xl border border-vp dark:border-vp light:border-zinc-200 bg-vp-surface-subtle/60 dark:bg-vp-surface-subtle/60 light:bg-white p-8 text-center shadow-sm">
+            <p className="text-xs font-bold uppercase tracking-wider text-vp-faint mb-3">404</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 tracking-tight">
               Page not found
             </h1>
-            <p className="text-sm text-zinc-400 dark:text-zinc-400 light:text-zinc-600 mt-3">
+            <p className="text-sm text-vp-muted dark:text-vp-muted light:text-zinc-600 mt-3">
               This Vebpartner page does not exist or is no longer published.
             </p>
             <button
@@ -1041,7 +1041,7 @@ export function App() {
                 closeListingDetail();
                 window.history.replaceState(null, '', '/');
               }}
-              className="mt-6 px-4 py-2 rounded-xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 hover:bg-zinc-700 dark:hover:bg-zinc-700 light:hover:bg-zinc-200 text-white dark:text-white light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
+              className="mt-6 px-4 py-2 rounded-xl bg-vp-surface-hover dark:bg-vp-surface-hover light:bg-zinc-100 hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-200 text-vp-primary dark:text-vp-primary light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
             >
               Back to directory
             </button>
@@ -1113,16 +1113,16 @@ export function App() {
             {loading ? (
               <div className="py-24 text-center space-y-4">
                 <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 font-mono tracking-wide">Loading business directory...</p>
+                <p className="text-xs text-vp-muted dark:text-vp-muted light:text-zinc-600 font-mono tracking-wide">Loading business directory...</p>
               </div>
             ) : filteredListings.length === 0 ? (
-              <div className="py-20 text-center space-y-4 bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-white rounded-3xl border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 p-8 max-w-2xl mx-auto shadow-sm">
-                <div className="w-12 h-12 rounded-2xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 border border-white/[0.08] dark:border-white/[0.08] light:border-zinc-200 flex items-center justify-center mx-auto text-zinc-400 dark:text-zinc-400 light:text-zinc-600">
+              <div className="py-20 text-center space-y-4 bg-vp-surface-subtle/60 dark:bg-vp-surface-subtle/60 light:bg-white rounded-3xl border border-vp dark:border-vp light:border-zinc-200 p-8 max-w-2xl mx-auto shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-vp-surface-hover dark:bg-vp-surface-hover light:bg-zinc-100 border border-vp dark:border-vp light:border-zinc-200 flex items-center justify-center mx-auto text-vp-muted dark:text-vp-muted light:text-zinc-600">
                   <Search className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white dark:text-white light:text-zinc-900 tracking-tight">No tools found</h3>
-                  <p className="text-xs text-zinc-400 dark:text-zinc-400 light:text-zinc-600 max-w-md mx-auto mt-1 leading-relaxed">
+                  <h3 className="text-lg font-bold text-vp-primary dark:text-vp-primary light:text-zinc-900 tracking-tight">No tools found</h3>
+                  <p className="text-xs text-vp-muted dark:text-vp-muted light:text-zinc-600 max-w-md mx-auto mt-1 leading-relaxed">
                     No tools matched your current search filters. Try clearing your filters or submit a new business resource to the directory!
                   </p>
                 </div>
@@ -1136,13 +1136,13 @@ export function App() {
                       setSelectedLicense('all');
                       setSelectedListingType('all');
                     }}
-                    className="px-4 py-2 rounded-xl bg-zinc-800 dark:bg-zinc-800 light:bg-zinc-100 hover:bg-zinc-700 dark:hover:bg-zinc-700 light:hover:bg-zinc-200 text-white dark:text-white light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
+                    className="px-4 py-2 rounded-xl bg-vp-surface-hover dark:bg-vp-surface-hover light:bg-zinc-100 hover:bg-vp-surface-hover dark:hover:bg-vp-surface-hover light:hover:bg-zinc-200 text-vp-primary dark:text-vp-primary light:text-zinc-900 text-xs font-semibold transition-colors cursor-pointer border border-transparent light:border-zinc-300"
                   >
                     Reset all filters
                   </button>
                   <button
                     onClick={() => setIsSubmitModalOpen(true)}
-                    className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-bold transition-all shadow-sm cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-vp-brand hover:bg-vp-brand-hover text-vp-inverse text-xs font-bold transition-all shadow-sm cursor-pointer"
                   >
                     Submit a tool
                   </button>

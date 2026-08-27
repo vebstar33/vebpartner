@@ -32,15 +32,15 @@ const ToastItem: React.FC<{ toast: ToastMessage; onDismiss: () => void }> = ({ t
   }, [onDismiss]);
 
   const icons = {
-    success: <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />,
-    error: <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />,
-    info: <Info className="w-5 h-5 text-sky-400 shrink-0" />,
+    success: <CheckCircle2 className="w-5 h-5 text-vp-brand shrink-0" />,
+    error: <AlertCircle className="w-5 h-5 text-vp-error shrink-0" />,
+    info: <Info className="w-5 h-5 text-vp-info shrink-0" />,
   };
 
   const borderColors = {
-    success: 'border-zinc-800 bg-neutral-900 text-neutral-100 shadow-lg',
-    error: 'border-zinc-800 bg-neutral-900 text-neutral-100 shadow-lg',
-    info: 'border-zinc-800 bg-neutral-900 text-neutral-100 shadow-lg',
+    success: 'border-vp bg-neutral-900 text-neutral-100 shadow-lg',
+    error: 'border-vp bg-neutral-900 text-neutral-100 shadow-lg',
+    info: 'border-vp bg-neutral-900 text-neutral-100 shadow-lg',
   };
 
   return (

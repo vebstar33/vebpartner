@@ -34,18 +34,18 @@ export const ToolDetailModal: React.FC<ToolDetailModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative w-full min-h-screen bg-[#0c0c0c] text-zinc-200"
+        className="relative w-full min-h-screen bg-vp-bg text-vp-secondary"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Floating close button */}
         <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-          <span className="hidden sm:inline-flex items-center px-2 py-1 rounded-md bg-zinc-900/90 border border-zinc-700/80 text-[11px] font-mono text-zinc-400">
+          <span className="hidden sm:inline-flex items-center px-2 py-1 rounded-md bg-vp-surface-subtle/90 border border-vp-strong text-[11px] font-mono text-vp-muted">
             Esc to close
           </span>
           <button
             onClick={onClose}
             aria-label="Close view (Esc)"
-            className="p-2.5 rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-all shadow-xl cursor-pointer"
+            className="p-2.5 rounded-full bg-vp-surface-subtle/90 border border-vp-strong text-vp-secondary hover:text-vp-primary hover:bg-vp-surface-hover transition-all shadow-xl cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

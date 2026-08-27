@@ -201,28 +201,28 @@ export function getPartnerModelLabel(partnerModel: PartnerModel): string {
 export function getListingTypeCardClasses(listingType?: ListingType) {
   if (listingType === 'opportunity') {
     return {
-      surface: 'bg-[#111111] dark:bg-[#111111] light:bg-white',
+      surface: 'bg-vp-surface dark:bg-vp-surface light:bg-white',
       border:
-        'border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200 hover:border-zinc-700 light:hover:border-zinc-300',
+        'border-vp dark:border-vp light:border-zinc-200 hover:border-vp-strong light:hover:border-zinc-300',
       badge:
-        'bg-[linear-gradient(180deg,rgba(25,180,100,0.30),rgba(15,110,70,0.18))] text-zinc-100 border-emerald-500/25 shadow-[inset_0_0_10px_rgba(25,180,100,0.18),0_0_6px_rgba(25,180,100,0.08)]',
+        'bg-[linear-gradient(180deg,rgba(25,180,100,0.30),rgba(15,110,70,0.18))] text-vp-primary border-vp-brand shadow-[inset_0_0_10px_rgba(25,180,100,0.18),0_0_6px_rgba(25,180,100,0.08)]',
     };
   }
 
   if (listingType === 'platform') {
     return {
-      surface: 'bg-[#111111] dark:bg-[#111111] light:bg-white',
+      surface: 'bg-vp-surface dark:bg-vp-surface light:bg-white',
       border:
-        'border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200 hover:border-zinc-700 light:hover:border-zinc-300',
+        'border-vp dark:border-vp light:border-zinc-200 hover:border-vp-strong light:hover:border-zinc-300',
       badge:
-        'bg-[linear-gradient(180deg,rgba(60,120,255,0.30),rgba(40,70,180,0.18))] text-zinc-100 border-blue-500/25 shadow-[inset_0_0_10px_rgba(60,120,255,0.18),0_0_6px_rgba(60,120,255,0.08)]',
+        'bg-[linear-gradient(180deg,rgba(60,120,255,0.30),rgba(40,70,180,0.18))] text-vp-primary border-blue-500/25 shadow-[inset_0_0_10px_rgba(60,120,255,0.18),0_0_6px_rgba(60,120,255,0.08)]',
     };
   }
 
   return {
-    surface: 'bg-[#111111] dark:bg-[#111111] light:bg-white',
+    surface: 'bg-vp-surface dark:bg-vp-surface light:bg-white',
     border:
-      'border-zinc-800/90 dark:border-zinc-800/90 light:border-zinc-200 hover:border-zinc-700 light:hover:border-zinc-300',
-    badge: 'bg-[#090909] text-zinc-200 border-zinc-700/80',
+      'border-vp dark:border-vp light:border-zinc-200 hover:border-vp-strong light:hover:border-zinc-300',
+    badge: 'bg-vp-bg text-vp-secondary border-vp-strong',
   };
 }
