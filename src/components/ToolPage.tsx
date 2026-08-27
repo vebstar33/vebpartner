@@ -204,11 +204,7 @@ export const ToolPage: React.FC<ToolPageProps> = ({
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 {/* Brand Logo */}
-                {listing.businessIcon ? (
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200 shadow-sm shrink-0">
-                    <BusinessIcon name={listing.businessIcon} className="w-6 h-6" />
-                  </div>
-                ) : listing.id === 'novu' ? (
+                {listing.id === 'novu' ? (
                   <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 shadow-sm shrink-0">
                     <NovuLogo className="w-full h-full" />
                   </div>
@@ -221,6 +217,10 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                       (e.currentTarget as HTMLElement).style.display = 'none';
                     }}
                   />
+                ) : listing.businessIcon ? (
+                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-200 shadow-sm shrink-0">
+                    <BusinessIcon name={listing.businessIcon} className="w-6 h-6" />
+                  </div>
                 ) : (
                   <div className="w-12 h-12 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-white font-bold text-base shrink-0">
                     {listing.name.slice(0, 2).toUpperCase()}
@@ -1247,12 +1247,12 @@ export const ToolPage: React.FC<ToolPageProps> = ({
                     title={tool.name}
                     className="w-9 h-9 rounded-lg bg-[#181818] border border-zinc-800 hover:border-zinc-600 p-1.5 flex items-center justify-center transition-all hover:scale-105 group"
                   >
-                    {tool.businessIcon ? (
-                      <BusinessIcon name={tool.businessIcon} className="w-4 h-4 text-zinc-300 group-hover:text-white" />
-                    ) : tool.id === 'novu' ? (
+                    {tool.id === 'novu' ? (
                       <NovuLogo className="w-full h-full" />
                     ) : tool.logoUrl ? (
                       <img src={tool.logoUrl} alt={tool.name} className="w-full h-full object-cover rounded" />
+                    ) : tool.businessIcon ? (
+                      <BusinessIcon name={tool.businessIcon} className="w-4 h-4 text-zinc-300 group-hover:text-white" />
                     ) : (
                       <span className="text-[10px] font-bold text-zinc-300 group-hover:text-white">
                         {tool.name.slice(0, 2)}

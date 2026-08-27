@@ -106,11 +106,21 @@ export function validateBusinessListing(listing: BusinessListing): BusinessListi
   return listing;
 }
 
+function getProviderFaviconUrl(website: string): string | undefined {
+  try {
+    const hostname = new URL(website).hostname.replace(/^www\./, '');
+    return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=128`;
+  } catch {
+    return undefined;
+  }
+}
+
 export function businessListingToToolListing(listing: BusinessListing): ToolListing {
   validateBusinessListing(listing);
   const category = getListingPrimaryBusinessCategoryId(listing.id, listing.name);
   const categoriesList = getListingBusinessCategoryNames(listing.id, listing.name);
   const tags = Array.from(new Set([...getBusinessFilterTags(listing), ...listing.tags]));
+  const providerLogoUrl = getProviderFaviconUrl(listing.provider.website) || listing.provider.logo;
 
   return {
     id: listing.id,
@@ -128,7 +138,7 @@ export function businessListingToToolListing(listing: BusinessListing): ToolList
     providerHandles: listing.providerHandles,
     youEarnThrough: listing.youEarnThrough,
     pricingModel: `From ${listing.startCost} (${listing.provider.name} Starter)`,
-    logoUrl: listing.provider.logo,
+    logoUrl: providerLogoUrl,
     featured: listing.featured,
     verified: true,
     status: listing.status,
@@ -140,7 +150,7 @@ export function businessListingToToolListing(listing: BusinessListing): ToolList
     providerName: listing.provider.name,
     providerUrl: listing.provider.website,
     providerProgramUrl: listing.provider.programUrl,
-    providerLogoUrl: listing.provider.logo,
+    providerLogoUrl,
     affiliateUrl: listing.provider.affiliateUrl,
     startCost: listing.startCost,
     revenueModel: listing.revenueModel,
@@ -150,7 +160,7 @@ export function businessListingToToolListing(listing: BusinessListing): ToolList
       providerName: listing.provider.name,
       providerUrl: listing.provider.website,
       providerProgramUrl: listing.provider.programUrl,
-      providerLogoUrl: listing.provider.logo,
+      providerLogoUrl,
       affiliateUrl: listing.provider.affiliateUrl,
       startCost: listing.startCost.replace('/mo', '/month'),
       revenueModel: listing.revenueModel === 'Recurring' ? 'Recurring monthly revenue' : listing.revenueModel,

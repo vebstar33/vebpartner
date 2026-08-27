@@ -91,46 +91,6 @@ function saveData<T>(file: string, data: T) {
   }
 }
 
-const PROVIDER_LOGO_PATHS: Record<string, string> = {
-  apollo: '/providers/apollo.png',
-  birdeye: '/providers/birdeye.png',
-  brightlocal: '/providers/brightlocal.png',
-  cloudways: '/providers/cloudways.png',
-  crisp: '/providers/crisp.png',
-  duda: '/providers/duda.png',
-  elevenlabs: '/providers/elevenlabs.png',
-  freshworks: '/providers/freshworks.png',
-  getresponse: '/providers/getresponse.png',
-  godaddy: '/providers/godaddy.png',
-  heygen: '/providers/heygen.png',
-  highlevel: '/providers/highlevel.webp',
-  hostinger: '/providers/hostinger.png',
-  instantly: '/providers/instantly.png',
-  jotform: '/providers/jotform.png',
-  kit: '/providers/kit.png',
-  make: '/providers/make.png',
-  podia: '/providers/podia.png',
-  printful: '/providers/printful.png',
-  riverside: '/providers/riverside.png',
-  sellfy: '/providers/sellfy.png',
-  simplybookme: '/providers/simplybookme.png',
-  'simplybook.me': '/providers/simplybookme.png',
-  semrush: '/providers/semrush.png',
-  shopify: '/providers/shopify.png',
-  socialbee: '/providers/socialbee.png',
-  softr: '/providers/softr.png',
-  spocket: '/providers/spocket.png',
-  synthesia: '/providers/synthesia.png',
-  'systeme.io': '/providers/systemeio.png',
-  thinkific: '/providers/thinkific.png',
-  tidio: '/providers/tidio.png',
-  webflow: '/providers/webflow.png',
-  writesonic: '/providers/writesonic.png',
-  yesim: '/providers/yesim.webp',
-  beehiiv: '/providers/beehiiv.png',
-  circle: '/providers/circle.png',
-};
-
 const getSiteUrl = () => (process.env.SITE_URL || process.env.VITE_SITE_URL || process.env.APP_URL || 'https://vebpartner.com').replace(/\/+$/, '');
 
 const decodeHtmlEntities = (value = '') =>
@@ -204,6 +164,16 @@ function getListingPath(listing: ToolListing) {
   return `/business/${encodeURIComponent(listing.slug || listing.id)}`;
 }
 
+function getFaviconUrl(value?: string): string | undefined {
+  if (!value) return undefined;
+  try {
+    const hostname = new URL(value).hostname.replace(/^www\./, '');
+    return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=128`;
+  } catch {
+    return undefined;
+  }
+}
+
 function buildSitemapXml() {
   const siteUrl = getSiteUrl();
   type SitemapUrl = { loc: string; priority: string; lastmod?: string };
@@ -242,8 +212,7 @@ function normalizeBusinessListing(listing: ToolListing): ToolListing {
   const tags = Array.from(new Set([...getBusinessFilterTags(listing), ...(listing.tags || [])]));
   const prototypeType = PROTOTYPE_LISTING_TYPES[listing.id];
   const prototypeOpportunityDetails = PROTOTYPE_OPPORTUNITY_DETAILS[listing.id];
-  const providerName = listing.providerName || listing.blueprintDetails?.providerName || '';
-  const mappedProviderLogoUrl = PROVIDER_LOGO_PATHS[providerName.toLowerCase()];
+  const faviconUrl = getFaviconUrl(listing.providerUrl || listing.blueprintDetails?.providerUrl || listing.websiteUrl);
   return {
     ...listing,
     category,
@@ -251,7 +220,14 @@ function normalizeBusinessListing(listing: ToolListing): ToolListing {
     tags,
     listingType: listing.listingType || prototypeType?.listingType,
     partnerModels: listing.partnerModels || prototypeType?.partnerModels,
-    providerLogoUrl: mappedProviderLogoUrl || listing.providerLogoUrl,
+    logoUrl: faviconUrl || listing.logoUrl,
+    providerLogoUrl: faviconUrl || listing.providerLogoUrl,
+    blueprintDetails: listing.blueprintDetails
+      ? {
+          ...listing.blueprintDetails,
+          providerLogoUrl: faviconUrl || listing.blueprintDetails.providerLogoUrl,
+        }
+      : listing.blueprintDetails,
     partnerModel: listing.partnerModel || prototypeOpportunityDetails?.partnerModel,
     youSell: listing.youSell || prototypeOpportunityDetails?.youSell,
     providerHandles: listing.providerHandles || prototypeOpportunityDetails?.providerHandles,
