@@ -52,6 +52,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const listingTypeLabel = getListingTypeLabel(listing.listingType);
   const listingTypeClasses = getListingTypeCardClasses(listing.listingType);
   const listingPath = getListingPath(listing);
+  const showSelfnamedHeaderLogo = listing.id === 'selfnamed-white-label-beauty' && Boolean(listing.logoUrl);
   const openListingLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -226,7 +227,22 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       <div>
         {/* Top Header: Type badge + name + actions */}
         <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
+          <div className="flex min-w-0 items-start gap-3">
+            {showSelfnamedHeaderLogo && (
+              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-vp-surface-subtle border border-vp-strong p-1.5 shadow-sm light:bg-zinc-100 light:border-zinc-200">
+                <span className="flex h-full w-full items-center justify-center rounded-md bg-white ring-1 ring-black/5">
+                  <img
+                    src={listing.logoUrl}
+                    alt={`${listing.providerName || listing.name} logo`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-5 w-5 object-contain"
+                  />
+                </span>
+              </span>
+            )}
+
+            <div className="min-w-0">
               {listingTypeLabel && (
                 <span className={`mb-1 inline-flex px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider border whitespace-nowrap text-center min-w-[7.25rem] ${listingTypeClasses.badge}`}>
                   {listingTypeLabel}
@@ -240,6 +256,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
                 </h3>
                 {listing.verified && <VerifiedBadge className="w-3.5 h-3.5 text-vp-info shrink-0" />}
               </div>
+            </div>
           </div>
 
           <div className="flex items-center gap-1">
