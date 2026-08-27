@@ -141,6 +141,35 @@ export const PageView: React.FC<PageViewProps> = ({
     },
   ];
 
+  const renderInlineMarkdown = (text: string): React.ReactNode => {
+    const normalizedText = text
+      .replace(/\\\*\\\*\s*(\*\*[^*]+?\*\*)\s*\\\*\\\*/g, '$1')
+      .replace(/\\\*/g, '*');
+    const parts: React.ReactNode[] = [];
+    const boldPattern = /\*\*(.+?)\*\*/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = boldPattern.exec(normalizedText)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(normalizedText.slice(lastIndex, match.index));
+      }
+
+      parts.push(
+        <strong key={`${match.index}-${match[1]}`} className="font-bold text-zinc-100">
+          {match[1]}
+        </strong>
+      );
+      lastIndex = boldPattern.lastIndex;
+    }
+
+    if (lastIndex < normalizedText.length) {
+      parts.push(normalizedText.slice(lastIndex));
+    }
+
+    return parts.length ? parts : normalizedText;
+  };
+
   // Helper to render markdown content with styling
   const renderMarkdownContent = (content: string) => {
     const lines = content.split('\n');
@@ -149,7 +178,7 @@ export const PageView: React.FC<PageViewProps> = ({
       if (trimmed.startsWith('# ')) {
         return (
           <h2 key={idx} className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-4 tracking-tight">
-            {trimmed.replace('# ', '')}
+            {renderInlineMarkdown(trimmed.replace('# ', ''))}
           </h2>
         );
       }
@@ -157,30 +186,29 @@ export const PageView: React.FC<PageViewProps> = ({
         return (
           <h3 key={idx} className="text-lg sm:text-xl font-bold text-zinc-100 mt-6 mb-3 flex items-center gap-2">
             <span className="w-1.5 h-4 rounded-full bg-emerald-500" />
-            {trimmed.replace('### ', '')}
+            {renderInlineMarkdown(trimmed.replace('### ', ''))}
           </h3>
         );
       }
       if (trimmed.startsWith('## ')) {
         return (
           <h2 key={idx} className="text-xl sm:text-2xl font-bold text-white mt-8 mb-3 tracking-tight">
-            {trimmed.replace('## ', '')}
+            {renderInlineMarkdown(trimmed.replace('## ', ''))}
           </h2>
         );
       }
       if (trimmed.startsWith('- ')) {
         const itemText = trimmed.replace('- ', '');
-        const isBold = itemText.startsWith('**');
         return (
           <li key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed ml-4 list-disc marker:text-emerald-500 my-1.5">
-            {itemText}
+            {renderInlineMarkdown(itemText)}
           </li>
         );
       }
       if (trimmed.match(/^\d+\.\s/)) {
         return (
           <li key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed ml-4 list-decimal marker:text-emerald-400 font-medium my-2">
-            {trimmed.replace(/^\d+\.\s/, '')}
+            {renderInlineMarkdown(trimmed.replace(/^\d+\.\s/, ''))}
           </li>
         );
       }
@@ -189,7 +217,7 @@ export const PageView: React.FC<PageViewProps> = ({
       }
       return (
         <p key={idx} className="text-zinc-300 text-sm sm:text-base leading-relaxed my-2.5">
-          {trimmed}
+          {renderInlineMarkdown(trimmed)}
         </p>
       );
     });
