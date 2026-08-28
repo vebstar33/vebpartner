@@ -18,6 +18,7 @@ create table if not exists public.listings (
   time_to_launch text,
   requirements text[] not null default '{}',
   highlights text[] not null default '{}',
+  chart_metrics jsonb not null default '[]'::jsonb,
   status text not null default 'draft' check (status in ('draft','pending','published','archived')),
   featured boolean not null default false,
   created_by uuid references auth.users(id) on delete set null,
