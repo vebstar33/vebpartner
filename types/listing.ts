@@ -1,5 +1,10 @@
 export type ListingStatus = 'draft' | 'pending' | 'published' | 'archived';
 
+export type ListingChartMetric = {
+  label: string;
+  value: number;
+};
+
 export type Listing = {
   id: string;
   slug: string;
@@ -18,6 +23,7 @@ export type Listing = {
   timeToLaunch?: string | null;
   requirements?: string[];
   highlights?: string[];
+  chartMetrics?: ListingChartMetric[];
   status: ListingStatus;
   featured: boolean;
   createdAt: string;
